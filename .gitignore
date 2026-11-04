@@ -1,0 +1,29 @@
+# dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+*.tsbuildinfo
+
+# tests
+test-results/
+playwright-report/
+blob-report/
+coverage/
+
+# environment & secrets
+.env
+.env.*
+!.env.example
+
+# dashboard backups (dev only)
+content/.backups/
+
+# local tooling
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
