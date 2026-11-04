@@ -24,6 +24,11 @@ Then open http://localhost:3000.
 | `npm run build` | Production build |
 | `npm run test:unit` | Vitest unit tests |
 | `npm run test:e2e` | Playwright end-to-end tests |
+| `npm run content:validate` | Check `content/portfolio.json` against the schema |
+| `npm run content:reset` | Replace your content with the example template (backs up the old file) |
+
+## Making it yours
+All content (profile, projects, roles, education, references, AI answers, resume layout) lives in [`content/portfolio.json`](content/portfolio.json) and is validated against a schema. To start from a neutral template, run `npm run content:reset`; then edit the file and run `npm run content:validate`. See [`docs/improvements/11-content-model.md`](docs/improvements/11-content-model.md).
 
 ## Documentation
 Design, architecture and behaviour notes live in [`docs/improvements/`](docs/improvements/README.md). The roadmap (mobile layout, dev-only content dashboard, static production build, security audit) is in [`docs/improvements/10-mobile-dashboard-security-plan.md`](docs/improvements/10-mobile-dashboard-security-plan.md).

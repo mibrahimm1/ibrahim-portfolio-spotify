@@ -1,5 +1,5 @@
 import { Playlist, Track } from '@/types/portfolio';
-import { allPlaylists, coverLetterStanzas, technologyAvatars } from '@/data/portfolioData';
+import { allPlaylists, candidateProfile, coverLetterStanzas, featuredPlaylist, technologyAvatars } from '@/data/portfolioData';
 
 export const RECRUITER_MIX_ID = 'recruiter-mix';
 export const TECH_PLAYLIST_PREFIX = 'tech:';
@@ -28,7 +28,7 @@ export function findTrack(trackId: string | null | undefined): Track | undefined
 }
 
 export function findParentPlaylistId(trackId: string): string {
-  return allPlaylists.find((p) => p.tracks.some((t) => t.id === trackId))?.id ?? 'featured-projects';
+  return allPlaylists.find((p) => p.tracks.some((t) => t.id === trackId))?.id ?? featuredPlaylist.id;
 }
 
 function matchesKeyword(track: Track, keyword: string): boolean {
@@ -52,9 +52,12 @@ export function buildTechPlaylist(techId: string): Playlist | undefined {
   return {
     id: `${TECH_PLAYLIST_PREFIX}${tech.id}`,
     title: `This Is ${tech.name}`,
-    description: `Every project, role and credential where Ibrahim ships with ${tech.name}. ${tech.subtitle}.`,
+    description: `Every project, role and credential where ${candidateProfile.firstName} ships with ${tech.name}. ${tech.subtitle}.`,
     subtitle: `Playlist • ${tracks.length} items`,
+    aboutLabel: 'About',
+    artKind: 'note',
     coverColor: tech.color,
+    coverImage: tech.image,
     trackCount: tracks.length,
     tracks,
   };
@@ -77,7 +80,7 @@ export function resolvePlaylist(playlistId: string, recruiterMix: string[]): Pla
     const tech = buildTechPlaylist(playlistId.slice(TECH_PLAYLIST_PREFIX.length));
     if (tech) return tech;
   }
-  return allPlaylists.find((p) => p.id === playlistId) ?? allPlaylists[1];
+  return allPlaylists.find((p) => p.id === playlistId) ?? featuredPlaylist;
 }
 
 /** "8 items, about 4 min" — mirrors Spotify's "N songs, about X hr Y min". */

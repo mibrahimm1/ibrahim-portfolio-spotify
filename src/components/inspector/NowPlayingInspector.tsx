@@ -14,21 +14,12 @@ import { IconButton } from '@/components/common/IconButton';
 import { CoverArt, artKindFor } from '@/components/common/CoverArt';
 import { spotifyButtonClasses } from '@/components/common/SpotifyButton';
 import { usePortfolioStore, computeQueue } from '@/stores/usePortfolioStore';
-import { recommenders } from '@/data/portfolioData';
+import { allPlaylists, recommenders } from '@/data/portfolioData';
 import { findParentPlaylistId } from '@/lib/catalog';
 import { deepTone } from '@/lib/color';
 import { copyToClipboard, openMenuAt, trackMenuItems } from '@/lib/menus';
 import { entryToHash } from '@/lib/routing';
 import { cn } from '@/lib/utils';
-
-const ABOUT_LABEL: Record<string, string> = {
-  'featured-projects': 'About the project',
-  'work-experience': 'About the role',
-  education: 'About the program',
-  'research-publications': 'About the paper',
-  'volunteering-leadership': 'About the role',
-  'certifications-honors': 'About the award',
-};
 
 /** Spotify's Now Playing View: sticky header, big artwork, then stacked cards. */
 export const NowPlayingInspector: React.FC = () => {
@@ -92,7 +83,7 @@ export const NowPlayingInspector: React.FC = () => {
 
       <div className="flex flex-col gap-4 px-4 pb-6">
         <CoverArt
-          color={currentTrack.coverColor}
+          color={currentTrack.coverColor} image={currentTrack.coverImage}
           kind={artKindFor(currentTrack.playlistId)}
           className="aspect-square w-full"
           rounded="md"
@@ -148,14 +139,14 @@ export const NowPlayingInspector: React.FC = () => {
         <section className="overflow-hidden rounded-lg bg-[rgba(255,255,255,0.07)]">
           <div className="relative h-[180px]">
             <CoverArt
-              color={currentTrack.coverColor}
+              color={currentTrack.coverColor} image={currentTrack.coverImage}
               kind={artKindFor(currentTrack.playlistId)}
               rounded="sm"
               className="absolute inset-0 h-full w-full !rounded-none"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-[rgba(0,0,0,0.55)] to-transparent" />
             <p className="absolute left-4 top-4 text-base font-bold">
-              {ABOUT_LABEL[currentTrack.playlistId] ?? 'About'}
+              {allPlaylists.find((p) => p.id === currentTrack.playlistId)?.aboutLabel ?? 'About'}
             </p>
           </div>
           <div className="space-y-3 p-4">
@@ -236,7 +227,7 @@ export const NowPlayingInspector: React.FC = () => {
               className="group -mx-2 flex w-[calc(100%+16px)] items-center gap-3 rounded-md p-2 text-left transition-colors hover:bg-[rgba(255,255,255,0.1)]"
             >
               <span className="relative">
-                <CoverArt color={nextUp.coverColor} kind={artKindFor(nextUp.playlistId)} size={48} />
+                <CoverArt color={nextUp.coverColor} image={nextUp.coverImage} kind={artKindFor(nextUp.playlistId)} size={48} />
                 <span className="absolute inset-0 hidden items-center justify-center rounded bg-[rgba(0,0,0,0.5)] group-hover:flex">
                   <PlayIcon size={16} />
                 </span>

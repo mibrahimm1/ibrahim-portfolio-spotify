@@ -15,7 +15,7 @@ import { SpotifyButton } from '@/components/common/SpotifyButton';
 import { CoverArt, artKindFor } from '@/components/common/CoverArt';
 import { FitTitle } from '@/components/common/FitTitle';
 import { usePortfolioStore } from '@/stores/usePortfolioStore';
-import { candidateProfile } from '@/data/portfolioData';
+import { candidateProfile, featuredPlaylist } from '@/data/portfolioData';
 import { formatPlaylistLength, resolvePlaylist, RECRUITER_MIX_ID, TECH_PLAYLIST_PREFIX } from '@/lib/catalog';
 import { deepTone } from '@/lib/color';
 import { downloadResume, openMenuAt, playlistMenuItems } from '@/lib/menus';
@@ -68,9 +68,7 @@ export const PlaylistTableView: React.FC = () => {
   };
 
   const typeLabel = isRecruiterMix ? 'Playlist' : isTechPlaylist ? 'Made for you' : 'Public Playlist';
-  const description = isRecruiterMix
-    ? 'Everything you save with + lands here, in the order you saved it. Send the mix to book an intro call.'
-    : playlist.description;
+  const description = playlist.description;
 
   return (
     <div className="relative w-full select-none text-white">
@@ -89,7 +87,7 @@ export const PlaylistTableView: React.FC = () => {
         }}
       >
         <CoverArt
-          color={playlist.coverColor}
+          color={playlist.coverColor} image={playlist.coverImage}
           kind={artKindFor(isTechPlaylist ? undefined : playlistId)}
           title={isRecruiterMix ? undefined : playlist.title}
           isRecruiterMix={isRecruiterMix}
@@ -103,7 +101,9 @@ export const PlaylistTableView: React.FC = () => {
           </FitTitle>
           <p className="line-clamp-2 text-sm text-[rgba(255,255,255,0.7)]">{description}</p>
           <div className="flex flex-wrap items-center gap-1 text-sm text-white">
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#535353] text-[11px] font-bold">I</span>
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#535353] text-[11px] font-bold">
+              {candidateProfile.avatarLetter}
+            </span>
             <button
               type="button"
               className="font-bold hover:underline"
@@ -196,7 +196,7 @@ export const PlaylistTableView: React.FC = () => {
             <p className="mb-8 text-base text-white">
               Save projects, roles and credentials by clicking the <span className="font-bold">+</span> icon.
             </p>
-            <SpotifyButton variant="white" size="lg" onClick={() => navigateToPlaylist('featured-projects')}>
+            <SpotifyButton variant="white" size="lg" onClick={() => navigateToPlaylist(featuredPlaylist.id)}>
               Find projects
             </SpotifyButton>
           </div>

@@ -2,6 +2,7 @@ import type { MouseEvent } from 'react';
 import { ContextMenuItem, Track } from '@/types/portfolio';
 import { usePortfolioStore } from '@/stores/usePortfolioStore';
 import { findParentPlaylistId, resolvePlaylist, RECRUITER_MIX_ID } from '@/lib/catalog';
+import { candidateProfile } from '@/data/portfolioData';
 import { entryToHash } from '@/lib/routing';
 
 function siteUrl(hash: string) {
@@ -21,8 +22,8 @@ export async function copyToClipboard(text: string, successMessage: string) {
 
 export function downloadResume() {
   const link = document.createElement('a');
-  link.href = '/resume.pdf';
-  link.download = 'Muhammad_Ibrahim_Shaikh_Resume.pdf';
+  link.href = candidateProfile.resumePdf;
+  link.download = candidateProfile.resumeFileName;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

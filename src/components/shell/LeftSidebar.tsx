@@ -132,7 +132,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({ forceCollapsed = false
                 {candidateProfile.phoneDisplay}
               </button>
               <span className={cn(chipClass, 'cursor-default text-subdued hover:bg-[rgba(255,255,255,0.07)]')}>
-                ISB / KHI · Remote
+                {candidateProfile.locationChip}
               </span>
             </div>
             <div className="pointer-events-none absolute inset-y-2 right-4 w-10 bg-gradient-to-l from-surface to-transparent" />
@@ -222,7 +222,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({ forceCollapsed = false
                   collapsed && 'justify-center'
                 )}
               >
-                <CoverArt color={playlist.coverColor} kind={artKindFor(playlist.id)} isRecruiterMix={isMix} size={48} />
+                <CoverArt color={playlist.coverColor} image={playlist.coverImage} kind={artKindFor(playlist.id)} isRecruiterMix={isMix} size={48} />
 
                 {!collapsed && (
                   <div className="min-w-0 flex-1">

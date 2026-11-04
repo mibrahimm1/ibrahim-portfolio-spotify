@@ -10,7 +10,7 @@ import { Dialog } from './Dialog';
 
 function buildMessage(lines: string[]) {
   const itemsList = lines.length > 0 ? lines.join('\n') : 'All engineering systems & production background';
-  return `Hi Ibrahim,\n\nI reviewed your portfolio and curated my Recruiter Mix with the following priorities:\n\n${itemsList}\n\nI'd like to schedule an introductory call to discuss opportunities on our team.`;
+  return `Hi ${candidateProfile.firstName},\n\nI reviewed your portfolio and curated my Recruiter Mix with the following priorities:\n\n${itemsList}\n\nI'd like to schedule an introductory call to discuss opportunities on our team.`;
 }
 
 /** Floating-label field matching Spotify's "Edit details" inputs. */
@@ -76,7 +76,7 @@ export const SendMixModal: React.FC = () => {
     // 1. Open the booking page synchronously, inside the click, so popup blockers allow it.
     handleOpenGoogleCalendar();
 
-    // 2. Hand the message to the visitor's mail client; this is what actually reaches Ibrahim.
+    // 2. Hand the message to the visitor's mail client; this is what actually reaches the portfolio owner.
     const subject = encodeURIComponent(`[Portfolio Inquiry] ${company ? `${company} - ` : ''}${name || 'Recruiter Mix'}`);
     const body = encodeURIComponent(`${message}\n\n— ${name || 'Recruiter'}${company ? `, ${company}` : ''} (${email})`);
     window.location.href = `mailto:${candidateProfile.email}?subject=${subject}&body=${body}`;
@@ -168,8 +168,8 @@ export const SendMixModal: React.FC = () => {
           </button>
         </div>
         <p className="mt-4 text-[11px] font-bold leading-snug text-white">
-          Sending opens your email app with this message addressed to Ibrahim, and opens the Google Meet booking page
-          in a new tab.
+          Sending opens your email app with this message addressed to {candidateProfile.firstName}, and opens the
+          booking page in a new tab.
         </p>
       </form>
     </Dialog>

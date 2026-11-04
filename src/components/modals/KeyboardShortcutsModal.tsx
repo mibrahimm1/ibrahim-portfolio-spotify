@@ -1,12 +1,13 @@
 import React from 'react';
 import { usePortfolioStore } from '@/stores/usePortfolioStore';
+import { candidateProfile } from '@/data/portfolioData';
 import { Dialog } from './Dialog';
 
 const SECTIONS: { title: string; rows: [string, string[]][] }[] = [
   {
     title: 'Basic',
     rows: [
-      ['Search / ask Ibrahim’s AI', ['Ctrl', 'K']],
+      [`Search / ask ${candidateProfile.firstName}’s AI`, ['Ctrl', 'K']],
       ['Search (alternative)', ['Ctrl', 'L']],
       ['Keyboard shortcuts', ['Ctrl', '/']],
       ['Close menu, dialog or lyrics', ['Esc']],

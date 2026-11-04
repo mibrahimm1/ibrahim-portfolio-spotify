@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { usePortfolioStore } from '@/stores/usePortfolioStore';
-import { candidateProfile } from '@/data/portfolioData';
+import { candidateProfile, footer } from '@/data/portfolioData';
 import { HomeProfileView } from './HomeProfileView';
 import { PlaylistTableView } from './PlaylistTableView';
 import { RecommenderProfileView } from './RecommenderProfileView';
@@ -11,54 +11,33 @@ import { StageContext } from './StageContext';
 const StageFooter: React.FC = () => (
   <footer className="mt-4 border-t border-[rgba(255,255,255,0.1)] px-8 pb-12 pt-8 text-sm text-subdued">
     <div className="flex flex-wrap gap-x-16 gap-y-6">
-      <div>
-        <p className="mb-2 font-bold text-white">Contact</p>
-        <ul className="space-y-2">
-          <li>
-            <a href={`mailto:${candidateProfile.email}`} className="hover:text-white hover:underline">
-              Email
-            </a>
-          </li>
-          <li>
-            <a href={`tel:${candidateProfile.phone.replace(/\s/g, '')}`} className="hover:text-white hover:underline">
-              Phone
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <p className="mb-2 font-bold text-white">Profiles</p>
-        <ul className="space-y-2">
-          <li>
-            <a href={candidateProfile.github} target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline">
-              GitHub
-            </a>
-          </li>
-          <li>
-            <a href={candidateProfile.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline">
-              LinkedIn
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <p className="mb-2 font-bold text-white">Useful links</p>
-        <ul className="space-y-2">
-          <li>
-            <a href="/resume" className="hover:text-white hover:underline">
-              Standard resume
-            </a>
-          </li>
-          <li>
-            <a href="/resume.pdf" download="Muhammad_Ibrahim_Shaikh_Resume.pdf" className="hover:text-white hover:underline">
-              Resume (PDF)
-            </a>
-          </li>
-        </ul>
-      </div>
+      {footer.columns.map((column) => (
+        <div key={column.title}>
+          <p className="mb-2 font-bold text-white">{column.title}</p>
+          <ul className="space-y-2">
+            {column.links.map((link) => {
+              const external = /^https?:/i.test(link.href);
+              return (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    download={link.download ? candidateProfile.resumeFileName : undefined}
+                    target={external ? '_blank' : undefined}
+                    rel={external ? 'noopener noreferrer' : undefined}
+                    className="hover:text-white hover:underline"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
     </div>
+    {/* The non-affiliation notice is fixed in code so forks can't accidentally drop it. */}
     <p className="mt-8 border-t border-[rgba(255,255,255,0.1)] pt-8">
-      © 2026 {candidateProfile.name}. A Spotify-inspired portfolio; not affiliated with Spotify AB.
+      © {new Date().getFullYear()} {candidateProfile.name}. A Spotify-inspired portfolio; not affiliated with Spotify AB.
     </p>
   </footer>
 );

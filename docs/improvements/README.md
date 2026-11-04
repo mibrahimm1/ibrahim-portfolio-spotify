@@ -17,6 +17,8 @@ This folder documents everything that was analysed, found and changed. Read it i
 | 07 | [Interaction spec](07-interaction-spec.md) | Exact behaviour of every control: click vs double-click, context menus, shuffle/repeat, keyboard shortcuts, URLs, persistence |
 | 08 | [Testing](08-testing.md) | What the tests cover, how to run them, and the test changes that were needed |
 | 09 | [Known limitations & next steps](09-limitations-and-next-steps.md) | Open decisions and things that still need you (calendar link, email delivery, font licensing…) |
+| 10 | [Mobile, dashboard & security plan](10-mobile-dashboard-security-plan.md) | The approved 6-phase roadmap |
+| 11 | [Content model](11-content-model.md) | Phase 1: `content/portfolio.json`, the schema and its security rules, the loader, scripts |
 
 ## The short version
 

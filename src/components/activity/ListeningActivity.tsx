@@ -2,7 +2,7 @@ import React from 'react';
 import { AlbumIcon, CloseIcon, ExternalLinkIcon, NoteIcon, UserPlusIcon } from '@/components/common/Icons';
 import { IconButton } from '@/components/common/IconButton';
 import { usePortfolioStore } from '@/stores/usePortfolioStore';
-import { recommenders } from '@/data/portfolioData';
+import { candidateProfile, recommenders } from '@/data/portfolioData';
 import { findParentPlaylistId, findTrack } from '@/lib/catalog';
 
 /**
@@ -95,7 +95,7 @@ export const ListeningActivity: React.FC = () => {
       </ul>
 
       <p className="mx-4 mt-4 border-t border-[rgba(255,255,255,0.1)] pt-4 text-sm text-subdued">
-        Faculty who vouch for Ibrahim. Open a profile to read the full signed letter and endorsed competencies.
+        People who vouch for {candidateProfile.firstName}. Open a profile to read the full signed letter and endorsed competencies.
       </p>
     </div>
   );

@@ -7,7 +7,7 @@ import { CoverArt, artKindFor } from '@/components/common/CoverArt';
 import { FitTitle } from '@/components/common/FitTitle';
 import { DownloadIcon, MoreHorizontalIcon, SettingsIcon, VerifiedIcon } from '@/components/common/Icons';
 import { usePortfolioStore } from '@/stores/usePortfolioStore';
-import { candidateProfile, technologyAvatars, allPlaylists, recommenders, featuredProjectsTracks } from '@/data/portfolioData';
+import { candidateProfile, technologyAvatars, allPlaylists, recommenders, featuredPlaylist, homeConfig } from '@/data/portfolioData';
 import { buildTechPlaylist, RECRUITER_MIX_ID, TECH_PLAYLIST_PREFIX } from '@/lib/catalog';
 import { downloadResume, openMenuAt, playlistMenuItems } from '@/lib/menus';
 import { StickyTopBar } from './StickyTopBar';
@@ -33,15 +33,16 @@ export const HomeProfileView: React.FC = () => {
   const artSize = useHeaderArtSize();
 
   const publicPlaylists = allPlaylists.filter((p) => p.id !== RECRUITER_MIX_ID);
-  const profilePlaying = isPlaying && playContextId === 'featured-projects';
+  const featuredId = featuredPlaylist.id;
+  const profilePlaying = isPlaying && playContextId === featuredId;
 
   // The profile "Play" starts the guided tour through Featured Projects.
   const playProfile = () => {
-    if (playContextId === 'featured-projects') togglePlay();
-    else playTrackInContext(featuredProjectsTracks[0], 'featured-projects');
+    if (playContextId === featuredId) togglePlay();
+    else playTrackInContext(featuredPlaylist.tracks[0], featuredId);
   };
 
-  const playContext = (contextId: string, firstTrack: (typeof featuredProjectsTracks)[number] | undefined) => {
+  const playContext = (contextId: string, firstTrack: (typeof featuredPlaylist.tracks)[number] | undefined) => {
     if (!firstTrack) return;
     if (playContextId === contextId) togglePlay();
     else playTrackInContext(firstTrack, contextId);
@@ -65,17 +66,22 @@ export const HomeProfileView: React.FC = () => {
         }}
       >
         <div
-          className="flex flex-shrink-0 items-center justify-center rounded-full bg-[#282828] shadow-spotify-art"
+          className="relative flex flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#282828] shadow-spotify-art"
           style={{ width: artSize, height: artSize }}
         >
-          <span className="font-black tracking-tighter text-white" style={{ fontSize: artSize * 0.31 }}>
-            MIS
-          </span>
+          {candidateProfile.avatarImage ? (
+            // eslint-disable-next-line @next/next/no-img-element -- static export: no image optimiser
+            <img src={candidateProfile.avatarImage} alt={candidateProfile.name} className="h-full w-full object-cover" />
+          ) : (
+            <span className="font-black tracking-tighter text-white" style={{ fontSize: artSize * 0.31 }}>
+              {candidateProfile.initials}
+            </span>
+          )}
         </div>
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <span className="flex items-center gap-2 text-sm text-white">
             <VerifiedIcon size={24} />
-            Verified Engineer
+            {candidateProfile.verifiedLabel}
           </span>
           <FitTitle className="pb-2">{candidateProfile.name}</FitTitle>
           <p className="text-sm text-white">
@@ -93,7 +99,7 @@ export const HomeProfileView: React.FC = () => {
         }}
       >
         <div className="flex items-center gap-6 px-6 py-6">
-          <PlayButton isPlaying={profilePlaying} label={profilePlaying ? 'Pause' : 'Play Featured Projects'} onClick={playProfile} />
+          <PlayButton isPlaying={profilePlaying} label={profilePlaying ? 'Pause' : `Play ${featuredPlaylist.title}`} onClick={playProfile} />
           <SpotifyButton
             variant="secondary"
             onClick={() => setBookingModalOpen(true)}
@@ -134,13 +140,13 @@ export const HomeProfileView: React.FC = () => {
             <MoreHorizontalIcon size={24} />
           </IconButton>
           {width >= 1000 && (
-            <span className="ml-auto whitespace-nowrap text-sm text-subdued">Open to remote • Full-time roles • 2027 grad</span>
+            <span className="ml-auto whitespace-nowrap text-sm text-subdued">{candidateProfile.availabilityLine}</span>
           )}
         </div>
 
         <Shelf
-          title="Top artists this month"
-          subtitle="The core stack behind every production system"
+          title={homeConfig.topArtistsTitle}
+          subtitle={homeConfig.topArtistsSubtitle}
           itemCount={technologyAvatars.length}
           testId="shelf-top-artists"
         >
@@ -172,18 +178,18 @@ export const HomeProfileView: React.FC = () => {
         <section className="pt-8">
           <div className="mb-2 flex items-end justify-between px-6">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-white">Top tracks this month</h2>
-              <p className="text-sm text-subdued">The projects recruiters open most</p>
+              <h2 className="text-2xl font-bold tracking-tight text-white">{homeConfig.topTracksTitle}</h2>
+              <p className="text-sm text-subdued">{homeConfig.topTracksSubtitle}</p>
             </div>
             <button
               type="button"
-              onClick={() => navigateToPlaylist('featured-projects')}
+              onClick={() => navigateToPlaylist(featuredId)}
               className="pb-1 text-sm font-bold text-subdued hover:underline"
             >
               Show all
             </button>
           </div>
-          <TrackList tracks={featuredProjectsTracks.slice(0, 4)} contextId="featured-projects" showHeader={false} />
+          <TrackList tracks={featuredPlaylist.tracks.slice(0, homeConfig.topTracksCount)} contextId={featuredId} showHeader={false} />
         </section>
 
         <Shelf title="Public Playlists" itemCount={publicPlaylists.length} className="pt-8">
@@ -199,7 +205,7 @@ export const HomeProfileView: React.FC = () => {
               onContextMenu={(e) => openMenuAt(e, playlistMenuItems(playlist.id))}
               art={
                 <CoverArt
-                  color={playlist.coverColor}
+                  color={playlist.coverColor} image={playlist.coverImage}
                   kind={artKindFor(playlist.id)}
                   title={playlist.title}
                   rounded="md"
@@ -210,7 +216,7 @@ export const HomeProfileView: React.FC = () => {
           ))}
         </Shelf>
 
-        <Shelf title="Following" subtitle="Faculty who vouch for Ibrahim" itemCount={recommenders.length} className="pt-8 pb-2">
+        <Shelf title={homeConfig.followingTitle} subtitle={homeConfig.followingSubtitle} itemCount={recommenders.length} className="pt-8 pb-2">
           {recommenders.map((rec) => (
             <MediaCard
               key={rec.id}
@@ -219,9 +225,14 @@ export const HomeProfileView: React.FC = () => {
               subtitle="Profile"
               onOpen={() => navigateToRecommender(rec.id)}
               art={
-                <div className="flex h-full w-full items-center justify-center rounded-full bg-[#333] text-[2.5rem] font-black tracking-tighter text-white">
-                  {rec.avatarInitials}
-                </div>
+                rec.photo ? (
+                  // eslint-disable-next-line @next/next/no-img-element -- static export: no image optimiser
+                  <img src={rec.photo} alt="" loading="lazy" className="h-full w-full rounded-full object-cover" />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center rounded-full bg-[#333] text-[2.5rem] font-black tracking-tighter text-white">
+                    {rec.avatarInitials}
+                  </div>
+                )
               }
             />
           ))}

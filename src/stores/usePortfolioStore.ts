@@ -9,7 +9,7 @@ import {
   RepeatMode,
   TrackListDensity,
 } from '@/types/portfolio';
-import { allPlaylists, featuredProjectsTracks, accentThemes } from '@/data/portfolioData';
+import { accentThemes, defaultAccentThemeId, featuredPlaylist } from '@/data/portfolioData';
 import {
   allTracks,
   findParentPlaylistId,
@@ -143,13 +143,13 @@ export interface PortfolioState {
 
 function applyThemeVariables(themeId: string) {
   if (typeof document === 'undefined') return;
-  const theme = accentThemes[themeId] || accentThemes.green;
+  const theme = accentThemes[themeId] || accentThemes[defaultAccentThemeId];
   const root = document.documentElement.style;
   root.setProperty('--accent-primary', theme.primary);
   root.setProperty('--accent-hover', theme.hover);
   root.setProperty('--accent-pressed', theme.pressed);
   root.setProperty('--banner-gradient', theme.gradient);
-  root.setProperty('--banner-color', theme.gradient.match(/#[0-9a-f]{6}/i)?.[0] ?? '#117735');
+  root.setProperty('--banner-color', theme.banner);
 }
 
 /** The cover letter "plays" long enough to read; regular tracks run the 30s highlight timer. */
@@ -242,9 +242,9 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
   };
 
   return {
-    currentTrack: featuredProjectsTracks[0],
-    currentPlaylist: allPlaylists[1], // Featured Projects
-    playContextId: 'featured-projects',
+    currentTrack: featuredPlaylist.tracks[0],
+    currentPlaylist: featuredPlaylist,
+    playContextId: featuredPlaylist.id,
     isPlaying: false,
     progress: 0,
     currentTimeSeconds: 0,
@@ -255,11 +255,11 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
     volume: 75,
     isMuted: false,
 
-    activeAccentTheme: 'green',
+    activeAccentTheme: defaultAccentThemeId,
     recruiterMix: [],
 
     activeView: 'home',
-    activePlaylistId: 'featured-projects',
+    activePlaylistId: featuredPlaylist.id,
     activeRecommenderId: null,
     history: [{ view: 'home' }],
     historyIndex: 0,
@@ -287,7 +287,7 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
         const savedMix = JSON.parse(localStorage.getItem(STORAGE_KEYS.mix) || '[]');
         const savedTheme = localStorage.getItem(STORAGE_KEYS.theme) as AccentThemeId | null;
         const prefs = JSON.parse(localStorage.getItem(STORAGE_KEYS.prefs) || '{}');
-        const themeId = savedTheme && accentThemes[savedTheme] ? savedTheme : 'green';
+        const themeId = savedTheme && accentThemes[savedTheme] ? savedTheme : defaultAccentThemeId;
 
         set({
           // Drop ids that no longer exist in the dataset (e.g. after content edits).

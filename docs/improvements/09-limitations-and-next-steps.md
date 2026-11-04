@@ -2,7 +2,7 @@
 
 ## Needs your input before going live
 
-1. **Booking link is still a placeholder.** `candidateProfile.calendarBookingUrl` is `https://calendar.google.com/`. Replace it with your Google Calendar *appointment schedule* URL in `src/data/portfolioData.ts`. Every "Book a call" / "Schedule on Meet" button uses it.
+1. **Booking link is still a placeholder.** `candidateProfile.calendarBookingUrl` is `https://calendar.google.com/`. Replace it with your Google Calendar *appointment schedule* URL in `content/portfolio.json` (`profile.calendarBookingUrl`). Every "Book a call" / "Schedule on Meet" button uses it.
 2. **Email delivery goes through the visitor's mail client.** Send Mix now opens `mailto:` with the message, which works without any server secrets. If you want messages delivered even when the visitor has no mail client set up (common on shared or corporate machines), implement sending inside `src/app/api/send-mix/route.ts` (the comment marks the spot) with Resend or Nodemailer and keys from environment variables.
 3. ~~**Font licensing.**~~ **Resolved (Phase 0, 4 Nov 2026).** The proprietary Circular files were deleted before the repository was created, so they never entered git history. The site now self-hosts **Figtree** (SIL OFL 1.1), as two variable `woff2` files (Latin and Latin-Extended, weights 300–900, 30 KB total, down from 338 KB) with the licence in `public/fonts/LICENSE`.
 4. **Trademark distance.** The UI copies Spotify's interaction patterns and colour system, but uses no logo or brand artwork, generates its own covers, and the footer says it isn't affiliated with Spotify AB. The page `<title>`/description still say "Spotify Desktop Portfolio", which is fine for a personal portfolio, but consider "Spotify-inspired" wording if you ever publicise it widely.
@@ -17,7 +17,7 @@
 - **"Show all"** expands shelves inline rather than opening a dedicated page as Spotify does.
 
 ## Suggested next steps (in priority order)
-1. Set the booking URL and decide on fonts (items 1 and 3 above).
+1. Set the booking URL (item 1 above).
 2. ~~`git init` and commit~~ Done in Phase 0.
 3. Add real cover images or screenshots for the eight featured projects.
 4. Server-side email delivery (item 2).

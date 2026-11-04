@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run content:validate && next build",
     "start": "next start",
     "lint": "next lint",
     "test:unit": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "content:validate": "vitest run tests/unit/content.test.ts",
+    "content:reset": "node scripts/content-reset.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

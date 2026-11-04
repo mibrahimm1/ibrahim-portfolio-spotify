@@ -2,27 +2,20 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { deepTone, isLight } from '@/lib/color';
 import { ArtGlyph, ArtKind } from './Icons';
-import { RECRUITER_MIX_GRADIENT, RECRUITER_MIX_ID, TECH_PLAYLIST_PREFIX } from '@/lib/catalog';
+import { RECRUITER_MIX_GRADIENT, TECH_PLAYLIST_PREFIX } from '@/lib/catalog';
+import { allPlaylists } from '@/data/portfolioData';
 
-const PLAYLIST_ART: Record<string, ArtKind> = {
-  [RECRUITER_MIX_ID]: 'heart',
-  'featured-projects': 'code',
-  'work-experience': 'work',
-  education: 'education',
-  'research-publications': 'document',
-  'volunteering-leadership': 'people',
-  'certifications-honors': 'trophy',
-};
-
+/** Glyph for a playlist's generated cover, as chosen in content (`artKind`). */
 export function artKindFor(playlistId: string | undefined): ArtKind {
-  if (!playlistId) return 'note';
-  if (playlistId.startsWith(TECH_PLAYLIST_PREFIX)) return 'note';
-  return PLAYLIST_ART[playlistId] ?? 'note';
+  if (!playlistId || playlistId.startsWith(TECH_PLAYLIST_PREFIX)) return 'note';
+  return allPlaylists.find((p) => p.id === playlistId)?.artKind ?? 'note';
 }
 
 interface CoverArtProps {
   color: string;
   kind: ArtKind;
+  /** Uploaded artwork (/uploads/...). When set it replaces the generated cover. */
+  image?: string;
   /** Rendered bottom-left like Spotify's editorial playlist tiles (only on large covers). */
   title?: string;
   size?: number | string;
@@ -40,6 +33,7 @@ interface CoverArtProps {
 export const CoverArt: React.FC<CoverArtProps> = ({
   color,
   kind,
+  image,
   title,
   size,
   rounded = 'sm',
@@ -67,6 +61,11 @@ export const CoverArt: React.FC<CoverArtProps> = ({
       style={{ background, width: size, height: size }}
       aria-hidden="true"
     >
+      {image ? (
+        // eslint-disable-next-line @next/next/no-img-element -- static export: no image optimiser
+        <img src={image} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+      ) : (
+      <>
       <div
         className={cn('absolute inset-0 flex', showTitle ? 'items-start justify-end p-[9%]' : 'items-center justify-center')}
         style={{ color: glyphColor }}
@@ -83,6 +82,8 @@ export const CoverArt: React.FC<CoverArtProps> = ({
         >
           {title}
         </p>
+      )}
+      </>
       )}
       {children}
     </div>

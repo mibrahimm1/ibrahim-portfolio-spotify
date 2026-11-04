@@ -18,7 +18,9 @@ import { IconButton } from '@/components/common/IconButton';
 import { Tooltip } from '@/components/common/Tooltip';
 import { spotifyButtonClasses } from '@/components/common/SpotifyButton';
 import { usePortfolioStore } from '@/stores/usePortfolioStore';
-import { candidateProfile, workExperienceTracks, featuredProjectsTracks } from '@/data/portfolioData';
+import { candidateProfile, whatsNew } from '@/data/portfolioData';
+import { findTrack } from '@/lib/catalog';
+import { Track } from '@/types/portfolio';
 import { SEARCH_INPUT_ID } from '@/lib/hooks';
 import { downloadResume, openMenuAt } from '@/lib/menus';
 import { cn } from '@/lib/utils';
@@ -77,10 +79,13 @@ export const TopNavBar: React.FC = () => {
       { id: 'pdf', label: 'Download resume (PDF)', onSelect: downloadResume },
     ]);
 
-  const whatsNew = (e: React.MouseEvent) =>
+  const openWhatsNew = (e: React.MouseEvent) =>
     openMenuAt(
       e,
-      [workExperienceTracks[0], workExperienceTracks[1], featuredProjectsTracks[0]].map((track) => ({
+      whatsNew
+        .map((id) => findTrack(id))
+        .filter((t): t is Track => Boolean(t))
+        .map((track) => ({
         id: track.id,
         label: `${track.dateAdded.split(' – ')[0]} · ${track.subtitle.split(' · ')[0]} — ${track.title}`,
         onSelect: () => openTrackDetails(track),
@@ -161,7 +166,7 @@ export const TopNavBar: React.FC = () => {
             autoComplete="off"
             spellCheck={false}
             value={searchQuery}
-            placeholder="What do you want to play? — Ask Ibrahim's AI anything"
+            placeholder={`What do you want to play? — Ask ${candidateProfile.firstName}'s AI anything`}
             onFocus={() => setSearchOpen(true)}
             onChange={(e) => {
               setSearchQuery(e.target.value);
@@ -213,7 +218,7 @@ export const TopNavBar: React.FC = () => {
         >
           Book a call
         </button>
-        <IconButton label="What's New" tooltipSide="bottom" onClick={whatsNew}>
+        <IconButton label="What's New" tooltipSide="bottom" onClick={openWhatsNew}>
           <BellIcon size={16} />
         </IconButton>
         <IconButton
@@ -252,7 +257,9 @@ export const TopNavBar: React.FC = () => {
             aria-label={`${candidateProfile.name} profile menu`}
             className="flex h-12 w-12 items-center justify-center rounded-full bg-elevated transition-transform duration-150 hover:scale-104"
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#535353] text-sm font-bold text-white">I</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#535353] text-sm font-bold text-white">
+              {candidateProfile.avatarLetter}
+            </span>
           </button>
         </Tooltip>
 

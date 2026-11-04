@@ -1,5 +1,7 @@
 # Plan: Mobile (Spotify app) experience · Dev-only content dashboard · Production lockdown & security audit
 
+**Progress:** Phase 0 ✅ · Phase 1 ✅ (see [11-content-model.md](11-content-model.md)) · Phases 2–6 pending.
+
 ## Context
 The portfolio is a Spotify-desktop-style Next.js 15 app (see `docs/improvements/`). Three needs drive this plan:
 

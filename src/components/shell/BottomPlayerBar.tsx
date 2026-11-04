@@ -101,7 +101,7 @@ export const BottomPlayerBar: React.FC = () => {
             aria-label="Inspect track details"
             className="group relative"
           >
-            <CoverArt color={currentTrack.coverColor} kind={artKindFor(currentTrack.playlistId)} size={56} />
+            <CoverArt color={currentTrack.coverColor} image={currentTrack.coverImage} kind={artKindFor(currentTrack.playlistId)} size={56} />
           </button>
         </Tooltip>
 

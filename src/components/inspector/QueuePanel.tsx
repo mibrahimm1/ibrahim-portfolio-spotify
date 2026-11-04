@@ -24,7 +24,7 @@ const QueueRow: React.FC<{ track: Track; contextId: string; current?: boolean; i
       className="group flex w-full items-center gap-3 rounded-md p-2 text-left transition-colors hover:bg-[rgba(255,255,255,0.1)]"
     >
       <span className="relative flex-shrink-0">
-        <CoverArt color={track.coverColor} kind={artKindFor(track.playlistId)} size={48} />
+        <CoverArt color={track.coverColor} image={track.coverImage} kind={artKindFor(track.playlistId)} size={48} />
         <span className="absolute inset-0 hidden items-center justify-center rounded bg-[rgba(0,0,0,0.5)] group-hover:flex">
           <PlayIcon size={16} />
         </span>

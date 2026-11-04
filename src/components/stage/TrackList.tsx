@@ -181,7 +181,7 @@ export const TrackRow: React.FC<TrackRowProps> = ({ track, index, contextId, tem
       {/* Title */}
       <div role="gridcell" className="flex min-w-0 items-center gap-3">
         {!compact && (
-          <CoverArt color={track.coverColor} kind={artKindFor(track.playlistId)} size={40} />
+          <CoverArt color={track.coverColor} image={track.coverImage} kind={artKindFor(track.playlistId)} size={40} />
         )}
         <div className="min-w-0">
           <p className={cn('truncate text-base', isCurrent ? 'text-accent' : 'text-white')} title={track.title}>

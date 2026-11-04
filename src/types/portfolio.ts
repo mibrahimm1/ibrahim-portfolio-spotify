@@ -1,97 +1,41 @@
-export interface CandidateProfile {
-  name: string;
-  shortName: string;
-  role: string;
-  tagline: string;
-  gpa: string;
-  locations: string[];
-  phone: string;
-  phoneDisplay: string;
-  email: string;
-  github: string;
-  linkedin: string;
-  bio: string;
-  calendarBookingUrl: string;
-}
+import type { z } from 'zod';
+import type {
+  AccentThemeSchema,
+  ProfileSchema,
+  RecommenderSchema,
+  StarterPromptSchema,
+  StoredPlaylist,
+  StoredTrack,
+  TechnologySchema,
+} from '@/content/schema';
 
-export interface TechnologyAvatar {
-  id: string;
-  name: string;
-  subtitle: string;
-  color: string;
-  category: string;
-  monogram: string; // Artwork lettering in place of an artist photo
-  keywords: string[]; // Lower-case terms used to build the "This Is <tech>" playlist
-}
+// Content types are derived from the zod schema in src/content/schema.ts, so the
+// editable JSON, the dashboard and the UI can never drift apart.
 
-export interface TrackCredit {
-  item: string;
-  role: string;
-}
+export type CandidateProfile = z.infer<typeof ProfileSchema>;
+export type TechnologyAvatar = z.infer<typeof TechnologySchema>;
+export type Recommender = z.infer<typeof RecommenderSchema>;
+export type StarterPrompt = z.infer<typeof StarterPromptSchema>;
+export type EndorsedCompetency = Recommender['competencies'][number];
+export type TrackCredit = StoredTrack['credits'][number];
 
-export interface Track {
-  id: string;
-  number: number;
-  title: string;
-  subtitle: string;
+/** A stored track plus the fields the loader derives from its position. */
+export type Track = StoredTrack & {
   playlistId: string;
-  album: string;
-  dateAdded: string;
-  duration: string; // Used for domain tag / CGPA / impact
-  hook: string; // Lyrics preview headline metric
-  details: string; // About the Project/Role detailed narrative
-  credits: TrackCredit[];
-  externalUrl?: string; // GitHub, DOI, or Credential URL
-  demoUrl?: string; // Live demo URL
-  coverColor: string;
-  statusBadge?: string;
-  recommenderId?: string;
-}
+  number: number; // 1-based position inside its playlist
+};
 
-export interface Playlist {
-  id: string;
-  title: string;
-  description: string;
-  subtitle: string;
-  coverColor: string;
-  trackCount: number;
+export type Playlist = Omit<StoredPlaylist, 'tracks'> & {
   tracks: Track[];
+  trackCount: number;
   isPinned?: boolean;
-}
+};
 
-export interface EndorsedCompetency {
-  name: string;
-  color: string;
-}
+export type AccentThemeId = string;
 
-export interface Recommender {
-  id: string;
-  name: string;
-  title: string;
-  affiliation: string;
-  email: string;
-  ranking: string;
-  type: 'academic' | 'industry';
-  avatarInitials: string;
-  externalUrl: string;
-  externalLabel: string;
-  linkedTrackId: string;
-  linkedTrackName: string;
-  competencies: EndorsedCompetency[];
-  fullLetter: string[];
-  facultyProfileUrl?: string;
-}
-
-export type AccentThemeId = 'green' | 'purple' | 'orange' | 'crimson' | 'blue';
-
-export interface AccentTheme {
-  id: AccentThemeId;
-  name: string;
-  primary: string;
-  hover: string;
-  pressed: string;
-  gradient: string;
-}
+export type AccentTheme = z.infer<typeof AccentThemeSchema> & {
+  gradient: string; // Derived from `banner`; kept for the --banner-gradient variable
+};
 
 export interface ChatMessage {
   id: string;
@@ -100,14 +44,6 @@ export interface ChatMessage {
   timestamp: string;
   suggestedTrackId?: string;
   suggestedTrackTitle?: string;
-}
-
-export interface StarterPrompt {
-  id: string;
-  question: string;
-  subtitle: string;
-  initialResponse: string;
-  referencedTrackId?: string;
 }
 
 export type ActiveViewType =

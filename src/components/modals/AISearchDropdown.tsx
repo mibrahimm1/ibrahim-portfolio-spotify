@@ -88,7 +88,7 @@ export const AISearchDropdown: React.FC = () => {
       ref={panelRef}
       id="ai-search-popover"
       role="dialog"
-      aria-label="Search and ask Ibrahim's AI"
+      aria-label={`Search and ask ${candidateProfile.firstName}'s AI`}
       data-testid="ai-search-popover"
       className="fixed z-[90] flex max-h-[min(560px,calc(100vh-170px))] flex-col overflow-hidden rounded-lg bg-menu text-white shadow-spotify-elevated animate-fade-in select-none"
       style={
@@ -106,7 +106,7 @@ export const AISearchDropdown: React.FC = () => {
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-base">
-                  Ask Ibrahim&apos;s AI: <span className="font-bold">“{searchQuery.trim()}”</span>
+                  Ask {candidateProfile.firstName}&apos;s AI: <span className="font-bold">“{searchQuery.trim()}”</span>
                 </span>
                 <span className="block text-sm text-subdued">Press Enter to ask</span>
               </span>
@@ -125,7 +125,7 @@ export const AISearchDropdown: React.FC = () => {
                 }}
                 className={rowClass}
               >
-                <CoverArt color={p.coverColor} kind={artKindFor(p.id)} isRecruiterMix={p.id === 'recruiter-mix'} size={48} />
+                <CoverArt color={p.coverColor} image={p.coverImage} kind={artKindFor(p.id)} isRecruiterMix={p.id === 'recruiter-mix'} size={48} />
                 <span className="min-w-0">
                   <span className="block truncate text-base">{p.title}</span>
                   <span className="block truncate text-sm text-subdued">Playlist</span>
@@ -134,7 +134,7 @@ export const AISearchDropdown: React.FC = () => {
             ))}
             {trackResults.map((t) => (
               <button key={t.id} type="button" onClick={() => openTrack(t)} className={rowClass}>
-                <CoverArt color={t.coverColor} kind={artKindFor(t.playlistId)} size={48} />
+                <CoverArt color={t.coverColor} image={t.coverImage} kind={artKindFor(t.playlistId)} size={48} />
                 <span className="min-w-0">
                   <span className="block truncate text-base">{t.title}</span>
                   <span className="block truncate text-sm text-subdued">{t.subtitle}</span>
@@ -171,7 +171,7 @@ export const AISearchDropdown: React.FC = () => {
         {!q && chatMessages.length > 0 && (
           <div className="space-y-3 p-2">
             <div className="flex items-center justify-between">
-              <p className="text-base font-bold">Ask Ibrahim</p>
+              <p className="text-base font-bold">Ask {candidateProfile.firstName}</p>
               <button type="button" onClick={clearChat} className="text-sm font-bold text-subdued hover:text-white hover:underline">
                 Clear chat
               </button>
@@ -188,7 +188,9 @@ export const AISearchDropdown: React.FC = () => {
                   className="max-w-[92%] select-text space-y-3 rounded-lg bg-[rgba(255,255,255,0.07)] p-4 text-sm leading-relaxed"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#535353] text-[11px] font-bold">I</span>
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#535353] text-[11px] font-bold">
+                      {candidateProfile.avatarLetter}
+                    </span>
                     <span className="text-sm font-bold">{candidateProfile.name}</span>
                   </div>
                   <p>{msg.content}</p>
@@ -205,7 +207,7 @@ export const AISearchDropdown: React.FC = () => {
                     >
                       {(() => {
                         const track = findTrack(msg.suggestedTrackId);
-                        return track ? <CoverArt color={track.coverColor} kind={artKindFor(track.playlistId)} size={24} /> : null;
+                        return track ? <CoverArt color={track.coverColor} image={track.coverImage} kind={artKindFor(track.playlistId)} size={24} /> : null;
                       })()}
                       <span className="flex-shrink-0">Inspect Project:</span>
                       <span className="truncate font-normal text-subdued">{msg.suggestedTrackTitle}</span>

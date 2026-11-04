@@ -1,0 +1,303 @@
+{
+  "schemaVersion": 1,
+  "site": {
+    "title": "Alex Rivera — Full-Stack Engineer | Portfolio",
+    "description": "Interactive, music-app-style portfolio of Alex Rivera: projects, experience, education and references.",
+    "keywords": ["Alex Rivera", "Full-Stack Engineer", "Portfolio", "TypeScript", "React"],
+    "author": "Alex Rivera",
+    "themeColor": "#000000"
+  },
+  "profile": {
+    "name": "Alex Rivera",
+    "firstName": "Alex",
+    "shortName": "alexr",
+    "initials": "AR",
+    "avatarLetter": "A",
+    "role": "Full-Stack Engineer",
+    "tagline": "Full-Stack Engineer • 5 shipped products • Open-source maintainer",
+    "verifiedLabel": "Verified Engineer",
+    "availabilityLine": "Open to remote • Full-time roles",
+    "locationChip": "Remote · UTC−5",
+    "gpa": "3.8 / 4.0",
+    "locations": ["Remote"],
+    "phone": "+1 555 010 0000",
+    "phoneDisplay": "(555) 010-0000",
+    "email": "alex@example.com",
+    "github": "https://github.com/octocat",
+    "linkedin": "https://www.linkedin.com/in/example/",
+    "bio": "Full-stack engineer who enjoys turning messy problems into fast, accessible products. Comfortable across TypeScript, React, Node.js and PostgreSQL, with a habit of writing the tests first.",
+    "calendarBookingUrl": "https://calendar.google.com/",
+    "resumePdf": "/resume.pdf",
+    "resumeFileName": "Alex_Rivera_Resume.pdf"
+  },
+  "home": {
+    "featuredPlaylistId": "featured-projects",
+    "topArtistsTitle": "Top artists this month",
+    "topArtistsSubtitle": "The stack behind everything I ship",
+    "topTracksTitle": "Top tracks this month",
+    "topTracksSubtitle": "The projects people open most",
+    "topTracksCount": 3,
+    "followingTitle": "Following",
+    "followingSubtitle": "People who vouch for Alex"
+  },
+  "recruiterMix": {
+    "title": "Your Recruiter Mix",
+    "description": "Everything you save with + lands here, in the order you saved it. Send the mix to book an intro call.",
+    "subtitle": "Playlist • Pinned"
+  },
+  "technologies": [
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "subtitle": "Primary language · Frontend & backend",
+      "category": "Core Language",
+      "monogram": "TS",
+      "color": "#649AED",
+      "keywords": ["typescript", "react", "node"]
+    },
+    {
+      "id": "postgres",
+      "name": "PostgreSQL",
+      "subtitle": "Schemas, indexing and query tuning",
+      "category": "Database",
+      "monogram": "PG",
+      "color": "#A7C2D1",
+      "keywords": ["postgres", "sql"]
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud & DevOps",
+      "subtitle": "Docker, CI/CD, serverless",
+      "category": "Infrastructure",
+      "monogram": "CI",
+      "color": "#57B660",
+      "keywords": ["docker", "ci", "serverless", "aws"]
+    }
+  ],
+  "playlists": [
+    {
+      "id": "featured-projects",
+      "title": "Featured Projects",
+      "description": "Products and tools I designed, built and shipped.",
+      "subtitle": "Playlist • 3 projects",
+      "aboutLabel": "About the project",
+      "coverColor": "#EB5640",
+      "artKind": "code",
+      "tracks": [
+        {
+          "id": "project-taskflow",
+          "title": "Taskflow — Collaborative Task Board",
+          "subtitle": "TypeScript, React, Node.js, PostgreSQL, WebSockets",
+          "album": "LP · Full-Stack App",
+          "dateAdded": "2026",
+          "duration": "Realtime Collab",
+          "hook": "Live multi-user boards • Offline-first sync • 2,000+ weekly users",
+          "details": "A realtime task board with optimistic updates, conflict-free offline sync and role-based sharing. Built the API, the sync engine and the React client.",
+          "credits": [
+            { "item": "React", "role": "Client UI & optimistic state" },
+            { "item": "PostgreSQL", "role": "Row-level permissions" },
+            { "item": "WebSockets", "role": "Realtime presence & updates" }
+          ],
+          "externalUrl": "https://github.com/octocat/Hello-World",
+          "coverColor": "#EB5640",
+          "recommenderId": "jordan-lee"
+        },
+        {
+          "id": "project-shortlink",
+          "title": "Shortlink — URL Shortener",
+          "subtitle": "Node.js, Redis, Docker",
+          "album": "EP · Backend Service",
+          "dateAdded": "2025",
+          "duration": "Backend",
+          "hook": "p99 under 20 ms • 1M redirects/day on a single node",
+          "details": "A small, fast URL shortener with analytics, rate limiting and a one-command Docker deployment.",
+          "credits": [
+            { "item": "Redis", "role": "Hot-path cache & counters" },
+            { "item": "Docker", "role": "Single-command deployment" }
+          ],
+          "coverColor": "#649AED"
+        },
+        {
+          "id": "project-a11y-kit",
+          "title": "A11y Kit — Accessible Components",
+          "subtitle": "TypeScript, React, Testing Library",
+          "album": "Single · Open Source",
+          "dateAdded": "2024",
+          "duration": "Accessibility",
+          "hook": "WCAG 2.2 AA • 40+ components • Used by 3 companies",
+          "details": "An open-source React component library with keyboard support, screen-reader testing and a documented token system.",
+          "credits": [{ "item": "Testing Library", "role": "Behaviour-first component tests" }],
+          "externalUrl": "https://github.com/octocat/Spoon-Knife",
+          "demoUrl": "https://example.com/",
+          "coverColor": "#D5F479"
+        }
+      ]
+    },
+    {
+      "id": "work-experience",
+      "title": "Work Experience",
+      "description": "Roles where I shipped production software.",
+      "subtitle": "Playlist • 2 roles",
+      "aboutLabel": "About the role",
+      "coverColor": "#649AED",
+      "artKind": "work",
+      "tracks": [
+        {
+          "id": "work-acme",
+          "title": "Software Engineer",
+          "subtitle": "Acme Corp · Remote",
+          "album": "Payments Platform",
+          "dateAdded": "Jan 2025 – Present",
+          "duration": "Remote",
+          "hook": "Cut checkout latency 35% • Led migration to typed APIs",
+          "details": "Own the checkout service end to end: API design, performance work and on-call. Led the migration from untyped REST handlers to a typed contract shared with the frontend.",
+          "credits": [
+            { "item": "Node.js", "role": "Checkout service" },
+            { "item": "PostgreSQL", "role": "Ledger & idempotency keys" }
+          ],
+          "coverColor": "#57B660"
+        },
+        {
+          "id": "work-startup",
+          "title": "Frontend Engineer Intern",
+          "subtitle": "Startup Inc · Hybrid",
+          "album": "Design System",
+          "dateAdded": "Jun 2024 – Dec 2024",
+          "duration": "Hybrid",
+          "hook": "Built the design system used across 4 products",
+          "details": "Designed and built a shared component library and documentation site.",
+          "credits": [{ "item": "React", "role": "Component library" }],
+          "coverColor": "#F6C874"
+        }
+      ]
+    },
+    {
+      "id": "education",
+      "title": "Education",
+      "description": "Degrees and coursework.",
+      "subtitle": "Playlist • 1 degree",
+      "aboutLabel": "About the program",
+      "coverColor": "#A7C2D1",
+      "artKind": "education",
+      "tracks": [
+        {
+          "id": "edu-university",
+          "title": "B.Sc. Computer Science",
+          "subtitle": "Example University",
+          "album": "Example University",
+          "dateAdded": "2021 – 2025",
+          "duration": "GPA: 3.8 / 4.0",
+          "hook": "Dean's list • Systems & HCI focus",
+          "details": "Coursework in algorithms, distributed systems, databases and human-computer interaction.",
+          "credits": [
+            { "item": "Distributed Systems", "role": "Grade: A" },
+            { "item": "Databases", "role": "Grade: A" }
+          ],
+          "coverColor": "#A7C2D1"
+        }
+      ]
+    }
+  ],
+  "recommenders": [
+    {
+      "id": "jordan-lee",
+      "name": "Jordan Lee",
+      "title": "Engineering Manager, Acme Corp",
+      "affiliation": "Acme Corp",
+      "email": "jordan@example.com",
+      "ranking": "Top 5% of engineers I have managed",
+      "type": "industry",
+      "avatarInitials": "JL",
+      "externalUrl": "https://www.linkedin.com/in/example/",
+      "externalLabel": "Open LinkedIn profile",
+      "linkedTrackId": "project-taskflow",
+      "competencies": [
+        { "name": "System Design", "color": "#649AED" },
+        { "name": "Ownership", "color": "#EB5640" }
+      ],
+      "fullLetter": [
+        "I have managed Alex for over a year, and Alex is one of the strongest engineers on my team.",
+        "Alex combines careful system design with a real sense of ownership, and I recommend Alex without reservation."
+      ]
+    }
+  ],
+  "starterPrompts": [
+    {
+      "id": "prompt-projects",
+      "question": "What have you built recently?",
+      "subtitle": "Projects · Taskflow & Shortlink",
+      "initialResponse": "Most recently I built Taskflow, a realtime collaborative task board with offline-first sync, and Shortlink, a URL shortener that serves a million redirects a day.",
+      "referencedTrackId": "project-taskflow"
+    },
+    {
+      "id": "prompt-availability",
+      "question": "Are you open to new roles?",
+      "subtitle": "Availability · Remote",
+      "initialResponse": "Yes! I'm open to full-time remote roles. Email me at {email} or book a call through Your Recruiter Mix."
+    }
+  ],
+  "ai": {
+    "intents": [
+      {
+        "id": "taskflow",
+        "keywords": ["taskflow", "realtime", "collaborative"],
+        "answer": "Taskflow is a realtime task board I built with React, Node.js and PostgreSQL. It syncs offline edits without conflicts and has over 2,000 weekly users.",
+        "trackId": "project-taskflow"
+      },
+      {
+        "id": "contact",
+        "keywords": ["contact", "hire", "email", "call", "available"],
+        "answer": "You can reach me at {email} or {phoneDisplay}, or save projects to Your Recruiter Mix and click Send mix & book call."
+      }
+    ],
+    "defaultAnswer": "I'm {name}, a {role}. Ask me about my projects, my experience, or how to get in touch!"
+  },
+  "accentThemes": [
+    { "id": "green", "name": "Green (Default)", "primary": "#1ed760", "hover": "#3be477", "pressed": "#1ab752", "banner": "#117735" },
+    { "id": "purple", "name": "Electric Purple", "primary": "#8B5CF6", "hover": "#A78BFA", "pressed": "#7C3AED", "banner": "#4C1D95" }
+  ],
+  "coverLetterStanzas": [
+    "Hi, I'm Alex — a full-stack engineer who cares about fast, accessible software.",
+    "I like owning a problem end to end: talking to users, designing the system, shipping it and keeping it healthy.",
+    "If your team builds products people rely on every day, I'd love to talk."
+  ],
+  "whatsNew": ["work-acme", "project-taskflow"],
+  "resume": {
+    "locationLine": "Remote (UTC−5)",
+    "skills": [
+      { "label": "Languages", "value": "TypeScript, JavaScript, SQL, Python" },
+      { "label": "Frameworks & Tools", "value": "React, Node.js, PostgreSQL, Redis, Docker" }
+    ],
+    "sections": [
+      { "heading": "Professional Experience", "playlistId": "work-experience", "variant": "experience" },
+      { "heading": "Projects", "playlistId": "featured-projects", "variant": "projects" },
+      { "heading": "Education", "playlistId": "education", "variant": "education" }
+    ],
+    "recommendationsHeading": "References"
+  },
+  "footer": {
+    "columns": [
+      {
+        "title": "Contact",
+        "links": [
+          { "label": "Email", "href": "mailto:alex@example.com" },
+          { "label": "Phone", "href": "tel:+15550100000" }
+        ]
+      },
+      {
+        "title": "Profiles",
+        "links": [
+          { "label": "GitHub", "href": "https://github.com/octocat" },
+          { "label": "LinkedIn", "href": "https://www.linkedin.com/in/example/" }
+        ]
+      },
+      {
+        "title": "Useful links",
+        "links": [
+          { "label": "Standard resume", "href": "/resume" },
+          { "label": "Resume (PDF)", "href": "/resume.pdf", "download": true }
+        ]
+      }
+    ]
+  }
+}

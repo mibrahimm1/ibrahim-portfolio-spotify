@@ -176,7 +176,7 @@ export const RecommenderProfileView: React.FC = () => {
                   onPlay={playLinked}
                   art={
                     <CoverArt
-                      color={linkedTrack.coverColor}
+                      color={linkedTrack.coverColor} image={linkedTrack.coverImage}
                       kind={artKindFor(linkedTrack.playlistId)}
                       title={linkedTrack.title}
                       rounded="md"
