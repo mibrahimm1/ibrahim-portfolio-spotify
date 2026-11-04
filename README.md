@@ -20,7 +20,7 @@ Then open http://localhost:3000.
 
 | Script | What it does |
 |---|---|
-| `npm run dev` | Development server |
+| `npm run dev` | Development server on 127.0.0.1, with the content dashboard at /dashboard |
 | `npm run build` | Production build |
 | `npm run test:unit` | Vitest unit tests |
 | `npm run test:e2e` | Playwright end-to-end tests |
@@ -28,7 +28,13 @@ Then open http://localhost:3000.
 | `npm run content:reset` | Replace your content with the example template (backs up the old file) |
 
 ## Making it yours
-All content (profile, projects, roles, education, references, AI answers, resume layout) lives in [`content/portfolio.json`](content/portfolio.json) and is validated against a schema. To start from a neutral template, run `npm run content:reset`; then edit the file and run `npm run content:validate`. See [`docs/improvements/11-content-model.md`](docs/improvements/11-content-model.md).
+All content (profile, projects, roles, education, references, AI answers, resume layout) lives in [`content/portfolio.json`](content/portfolio.json) and is validated against a schema.
+
+1. Run `npm run dev` and open **http://localhost:3000/dashboard** to edit everything visually: add, remove and reorder items, upload images, restore backups. The dashboard only exists in development; production builds don't include it.
+2. Or start from a neutral template with `npm run content:reset`, then edit in the dashboard or by hand.
+3. Commit `content/` and `public/uploads/`, then deploy.
+
+See [`docs/improvements/12-dashboard-guide.md`](docs/improvements/12-dashboard-guide.md) and [`11-content-model.md`](docs/improvements/11-content-model.md).
 
 ## Documentation
 Design, architecture and behaviour notes live in [`docs/improvements/`](docs/improvements/README.md). The roadmap (mobile layout, dev-only content dashboard, static production build, security audit) is in [`docs/improvements/10-mobile-dashboard-security-plan.md`](docs/improvements/10-mobile-dashboard-security-plan.md).

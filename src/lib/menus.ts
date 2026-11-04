@@ -83,10 +83,20 @@ export function trackMenuItems(track: Track, contextId?: string): ContextMenuIte
       onSelect: () => window.open(track.demoUrl, '_blank', 'noopener,noreferrer'),
     });
   }
+  if (process.env.NODE_ENV === 'development') {
+    items.push({
+      id: 'dev-edit',
+      label: 'Edit in dashboard (dev)',
+      dividerBefore: true,
+      onSelect: () => {
+        window.location.href = `/dashboard#track/${encodeURIComponent(track.id)}`;
+      },
+    });
+  }
   items.push({
     id: 'share',
     label: 'Copy link to playlist',
-    dividerBefore: !track.externalUrl && !track.demoUrl,
+    dividerBefore: !track.externalUrl && !track.demoUrl && process.env.NODE_ENV !== 'development',
     onSelect: () =>
       copyToClipboard(
         siteUrl(entryToHash({ view: 'playlist', playlistId: parentId })),
@@ -138,6 +148,16 @@ export function playlistMenuItems(playlistId: string): ContextMenuItem[] {
         ),
     }
   );
+  if (process.env.NODE_ENV === 'development' && !isMix && !playlistId.startsWith('tech:')) {
+    items.push({
+      id: 'dev-edit',
+      label: 'Edit in dashboard (dev)',
+      dividerBefore: true,
+      onSelect: () => {
+        window.location.href = `/dashboard#playlist/${encodeURIComponent(playlistId)}`;
+      },
+    });
+  }
   return items;
 }
 

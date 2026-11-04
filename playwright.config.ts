@@ -15,6 +15,15 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      testIgnore: /dashboard\.spec\.ts/,
+    },
+    {
+      // Saving content makes the dev server rebuild, so these run only after the site tests
+      // finish. They skip themselves against a production server, where the dashboard is absent.
+      name: 'dashboard',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: /dashboard\.spec\.ts/,
+      dependencies: ['chromium'],
     },
   ],
   webServer: {

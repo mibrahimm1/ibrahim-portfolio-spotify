@@ -10,6 +10,7 @@ if (!('ResizeObserver' in globalThis)) {
   (globalThis as unknown as { ResizeObserver: typeof ResizeObserverStub }).ResizeObserver = ResizeObserverStub;
 }
 
-if (!Element.prototype.scrollIntoView) {
+// Guarded: server-side test files run in the plain Node environment, which has no DOM.
+if (typeof Element !== 'undefined' && !Element.prototype.scrollIntoView) {
   Element.prototype.scrollIntoView = () => {};
 }

@@ -19,6 +19,7 @@ This folder documents everything that was analysed, found and changed. Read it i
 | 09 | [Known limitations & next steps](09-limitations-and-next-steps.md) | Open decisions and things that still need you (calendar link, email delivery, font licensing…) |
 | 10 | [Mobile, dashboard & security plan](10-mobile-dashboard-security-plan.md) | The approved 6-phase roadmap |
 | 11 | [Content model](11-content-model.md) | Phase 1: `content/portfolio.json`, the schema and its security rules, the loader, scripts |
+| 12 | [Content dashboard](12-dashboard-guide.md) | Phase 2: the dev-only editor, how it's kept out of production, and how its API is protected |
 
 ## The short version
 

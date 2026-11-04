@@ -12,6 +12,7 @@ import { ThemeSwitcherModal } from '@/components/modals/ThemeSwitcherModal';
 import { KeyboardShortcutsModal } from '@/components/modals/KeyboardShortcutsModal';
 import { ContextMenu } from '@/components/common/ContextMenu';
 import { Toast } from '@/components/common/Toast';
+import { DevEditButton } from '@/components/common/DevEditButton';
 import { usePortfolioStore } from '@/stores/usePortfolioStore';
 import { useKeyboardShortcuts, usePlaybackTimer, useUrlSync } from '@/lib/hooks';
 
@@ -74,6 +75,7 @@ export default function Home() {
       <KeyboardShortcutsModal />
       <ContextMenu />
       <Toast />
+      {process.env.NODE_ENV === 'development' && <DevEditButton />}
     </div>
   );
 }

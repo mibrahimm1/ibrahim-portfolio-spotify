@@ -31,7 +31,8 @@ export function findParentPlaylistId(trackId: string): string {
   return allPlaylists.find((p) => p.tracks.some((t) => t.id === trackId))?.id ?? featuredPlaylist.id;
 }
 
-function matchesKeyword(track: Track, keyword: string): boolean {
+/** Whether a keyword appears at a word start anywhere in a track (title, subtitle, details, credits). */
+export function matchesKeyword(track: Pick<Track, 'title' | 'subtitle' | 'details' | 'credits'>, keyword: string): boolean {
   const haystack = [
     track.title,
     track.subtitle,
@@ -40,7 +41,7 @@ function matchesKeyword(track: Track, keyword: string): boolean {
   ]
     .join(' ')
     .toLowerCase();
-  const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const escaped = keyword.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return new RegExp(`(^|[^a-z0-9])${escaped}`).test(haystack);
 }
 

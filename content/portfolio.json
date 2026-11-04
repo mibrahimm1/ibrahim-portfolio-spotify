@@ -908,8 +908,8 @@
       "avatarInitials": "SM",
       "externalUrl": "https://scholar.google.com/citations?user=hveYKTcAAAAJ&hl=en",
       "externalLabel": "Open Google Scholar Profile ↗",
-      "linkedTrackId": "edu-nust",
       "facultyProfileUrl": "https://mcs.nust.edu.pk/faculty/saeed-murtaza/",
+      "linkedTrackId": "edu-nust",
       "competencies": [
         {
           "name": "Linear Algebra & ODEs",
