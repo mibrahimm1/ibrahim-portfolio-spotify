@@ -31,13 +31,13 @@ export default defineConfig({
     {
       name: 'mobile-android',
       use: { ...devices['Pixel 7'] },
-      testMatch: /mobile\.spec\.ts/,
+      testMatch: /(mobile|landing)\.spec\.ts/,
     },
     {
       // iPhone viewport, touch and user agent, run in Chromium so WebKit needn't be installed.
       name: 'mobile-ios',
       use: { ...devices['iPhone 14'], defaultBrowserType: 'chromium' },
-      testMatch: /mobile\.spec\.ts/,
+      testMatch: /(mobile|landing)\.spec\.ts/,
     },
     {
       name: 'dashboard',

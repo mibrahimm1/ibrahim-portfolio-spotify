@@ -300,8 +300,42 @@ export const ExtrasSection: React.FC = () => (
 );
 
 export const ResumeSection: React.FC = () => (
-  <Section title="Resume page" description="The plain, printable /resume page for recruiters who prefer a standard layout.">
-    <Card>
+  <Section
+    title="Portfolio page"
+    description="The standard portfolio at /resume, for visitors who prefer a classic layout. Printing it gives a one-page résumé built from the same sections."
+  >
+    <Card title="Hero">
+      <Row>
+        <TextField path={['landing', 'heroPrefix']} label="Headline start" hint="Defaults to “I build”" optional />
+        <TextField path={['landing', 'heroSuffix']} label="Headline end" hint="e.g. “that hold up in production.”" optional />
+      </Row>
+      <TagsField
+        path={['landing', 'rotatingPhrases']}
+        label="Rotating phrases (optional)"
+        hint="Shown one after another in the headline. Leave empty to use your tech-stack categories."
+      />
+      <Row>
+        <TextField path={['landing', 'timeZone']} label="Time zone" hint="IANA name such as Asia/Karachi; shows your local time" optional />
+        <PlaylistSelect path={['landing', 'projectsPlaylistId']} label="Projects playlist" hint="Defaults to the Home page's featured playlist" optional />
+      </Row>
+    </Card>
+    <Card title="Selected work">
+      <ArrayField
+        path={['landing', 'featuredProjectIds']}
+        label="Poster cards (up to 6)"
+        hint="Shown as large cards; the playlist's other items appear in the list below them. Leave empty to use the first four."
+        newValue={() => ''}
+        addLabel="Add project"
+        render={(pPath) => <TrackSelect path={pPath} label="Project" />}
+      />
+    </Card>
+    <Card title="Contact">
+      <Row>
+        <TextField path={['landing', 'contactHeading']} label="Heading" hint="Defaults to “Have something in mind?”" optional />
+        <TextField path={['landing', 'contactLine']} label="Line under it" hint="Defaults to your availability line" optional />
+      </Row>
+    </Card>
+    <Card title="Printed résumé">
       <Row>
         <TextField path={['resume', 'locationLine']} label="Location line" />
         <TextField path={['resume', 'recommendationsHeading']} label="References heading" />

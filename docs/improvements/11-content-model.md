@@ -30,7 +30,8 @@ All portfolio content now lives in **one file, `content/portfolio.json`**. No co
 | `accentThemes[]` | Selectable accent colours; the **first** is the default |
 | `coverLetterStanzas[]` | Lyrics-mode cover letter |
 | `whatsNew[]` | Track ids shown in the bell menu |
-| `resume` | Standard resume page: location line, skills, which playlists appear in which style (`experience` / `projects` / `education` / `publication` / `bullets`, with an optional limit), references heading |
+| `resume` | Which playlists the portfolio page and its printed résumé use, in which style (`experience` / `projects` / `education` / `publication` / `bullets`, with an optional limit); plus the printed résumé's location line, skills and references heading |
+| `landing` *(optional)* | The standard portfolio page at `/resume` (Phase 7). Every field has a default: `heroPrefix` ("I build"), `rotatingPhrases` (1–6; default: your tech-stack categories), `heroSuffix`, `featuredProjectIds` (up to 6 poster cards; default: the first 4), `projectsPlaylistId` (default: the Home featured playlist), `timeZone` (an IANA name such as `Asia/Karachi`, for the live clock), `contactHeading`, `contactLine`. See [17-standard-portfolio.md](17-standard-portfolio.md) |
 | `footer` | Footer link columns. The "not affiliated with Spotify" notice is fixed in code and can't be removed from content. |
 
 Things the loader **derives**, so editors never maintain them: each track's `playlistId` and 1-based `number`, every playlist's `trackCount`, the virtual Recruiter Mix (always first in `allPlaylists`), and each theme's gradient (from `banner`).
@@ -48,7 +49,7 @@ AI answers, starter-prompt answers and the default answer can use `{name}`, `{fi
 | PDFs: `/resume.pdf` or `/uploads/<name>.pdf` | Same containment for the resume |
 | Colours are 6-digit hex | No CSS injection through style props |
 | Ids are lowercase slugs; all ids unique (tracks are unique across all playlists) | Stable URLs and references |
-| Every reference resolves: track → recommender, recommender → track, prompt → track, intent → track, What's New → track, featured playlist, resume section → playlist | No broken links or empty views |
+| Every reference resolves: track → recommender, recommender → track, prompt → track, intent → track, What's New → track, featured playlist, resume section → playlist, landing poster → track, landing projects → playlist. `landing.timeZone` must be a time zone the browser knows | No broken links or empty views |
 | The featured playlist must have at least one track; there must be at least one playlist and one theme | The player always has something to load |
 | Length caps on every string | Keeps the layout and the bundle sane |
 

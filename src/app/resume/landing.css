@@ -1,0 +1,227 @@
+/*
+ * Standard portfolio page (/resume). Scoped to [data-landing] so the Spotify-style app is
+ * untouched. "Paper and ink": warm paper, near-black ink, ink-coloured posters and footer,
+ * and the visitor's accent theme mixed toward ink so it stays readable (WCAG AA) on paper.
+ */
+
+[data-landing] {
+  --l-bg: #f6f5f1;
+  --l-ink: #15171b;
+  --l-muted: #5d636d;
+  --l-line: rgba(21, 23, 27, 0.1);
+  --l-card: #ffffff;
+  --l-surface: #131518;
+  --l-on-surface: #f3f3f1;
+  --l-accent: color-mix(in oklab, var(--accent-primary, #1ed760) 48%, #0b2b1a);
+  --l-accent-soft: color-mix(in oklab, var(--accent-primary, #1ed760) 16%, transparent);
+  --l-dot: rgba(21, 23, 27, 0.075);
+  --l-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  color-scheme: light;
+  background: var(--l-bg);
+  color: var(--l-ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-landing] {
+    --l-bg: #0f1012;
+    --l-ink: #ededeb;
+    --l-muted: #9ba1aa;
+    --l-line: rgba(255, 255, 255, 0.1);
+    --l-card: #17191c;
+    --l-surface: #1c1e22;
+    --l-on-surface: #f3f3f1;
+    --l-accent: var(--accent-primary, #1ed760);
+    --l-accent-soft: color-mix(in oklab, var(--accent-primary, #1ed760) 18%, transparent);
+    --l-dot: rgba(255, 255, 255, 0.06);
+    color-scheme: dark;
+  }
+}
+
+/* The app shell locks the body to the viewport; this page scrolls like a normal document. */
+body:has([data-landing]) {
+  overflow: auto;
+  height: auto;
+  background: var(--l-bg, #f6f5f1);
+  user-select: text;
+  overscroll-behavior: auto;
+}
+@media (prefers-color-scheme: dark) {
+  body:has([data-landing]) {
+    background: #0f1012;
+  }
+}
+html:has([data-landing]) {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html:has([data-landing]) {
+    scroll-behavior: auto;
+  }
+}
+
+[data-landing] ::selection {
+  background: var(--l-accent-soft);
+  color: inherit;
+}
+
+[data-landing] :focus-visible {
+  outline: 2px solid var(--l-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Dot grid behind the hero, fading out downward. */
+.landing-dots {
+  background-image: radial-gradient(var(--l-dot) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+}
+
+/* ---------- Hero entrance (pure CSS, so it completes even without JavaScript) ---------- */
+.landing-rise {
+  display: inline-block;
+  animation: landing-rise 0.9s var(--l-ease) both;
+  animation-delay: var(--d, 0ms);
+}
+.landing-fade {
+  animation: landing-fade 0.9s var(--l-ease) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes landing-rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes landing-fade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Scroll reveals (see motion/reveal.ts) ---------- */
+[data-landing] [data-reveal] {
+  transition:
+    opacity 0.8s var(--l-ease) var(--d, 0ms),
+    transform 0.8s var(--l-ease) var(--d, 0ms);
+}
+[data-landing] [data-reveal][data-state='pending'] {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+/* ---------- Marquee ---------- */
+.landing-marquee {
+  animation: landing-marquee 38s linear infinite;
+}
+@keyframes landing-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.landing-fade-edges {
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* ---------- Small details ---------- */
+.landing-blink {
+  animation: landing-blink 2s steps(1) infinite;
+}
+@keyframes landing-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* Link underline that grows from the left. */
+.landing-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.45s var(--l-ease);
+}
+.landing-link:hover,
+.landing-link:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* Round button whose fill rises from below on hover. */
+.landing-fill {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.landing-fill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--fill, var(--l-accent));
+  transform: translateY(101%);
+  transition: transform 0.55s var(--l-ease);
+}
+.landing-fill:hover::before,
+.landing-fill:focus-visible::before {
+  transform: translateY(0);
+}
+
+/* Cursor-follow preview (motion/pointer.ts writes --fx / --fy). */
+.landing-follow {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  transform: translate3d(calc(var(--fx, 0px) - 50%), calc(var(--fy, 0px) - 50%), 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-rise,
+  .landing-fade,
+  .landing-marquee,
+  .landing-blink {
+    animation: none;
+  }
+  [data-landing] [data-reveal] {
+    transition: opacity 0.3s linear;
+  }
+  [data-landing] [data-reveal][data-state='pending'] {
+    transform: none;
+  }
+}
+
+/* ---------- Print: the same content as a compact one-page résumé ---------- */
+@media print {
+  [data-landing] {
+    --l-bg: #fff;
+    --l-ink: #000;
+    --l-muted: #333;
+    background: #fff;
+    color: #000;
+  }
+  [data-landing] [data-screen-only] {
+    display: none !important;
+  }
+  [data-landing] [data-print-only] {
+    display: block !important;
+  }
+  [data-landing] [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  @page {
+    margin: 14mm 14mm 16mm;
+  }
+}
+[data-landing] [data-print-only] {
+  display: none;
+}

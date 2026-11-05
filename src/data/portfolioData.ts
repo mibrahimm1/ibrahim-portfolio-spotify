@@ -62,6 +62,7 @@ export function buildRuntime(content: PortfolioContent) {
     coverLetterStanzas: content.coverLetterStanzas,
     whatsNew: content.whatsNew,
     resumeConfig: content.resume,
+    landingContent: content.landing ?? {},
     footer: content.footer,
     // Named section arrays kept for existing callers and tests; empty if a fork removes the playlist.
     featuredProjectsTracks: featuredPlaylist.tracks,
@@ -104,6 +105,7 @@ export const {
   coverLetterStanzas,
   whatsNew,
   resumeConfig,
+  landingContent,
   footer,
   featuredProjectsTracks,
   workExperienceTracks,

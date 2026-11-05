@@ -275,6 +275,12 @@
     ],
     "recommendationsHeading": "References"
   },
+  "landing": {
+    "heroPrefix": "I build",
+    "rotatingPhrases": ["web products", "data pipelines", "developer tools"],
+    "heroSuffix": "people enjoy using.",
+    "timeZone": "America/New_York"
+  },
   "footer": {
     "columns": [
       {

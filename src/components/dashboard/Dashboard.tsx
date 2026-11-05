@@ -45,7 +45,7 @@ const SECTIONS: { key: SectionKey; label: string; roots: string[]; preview?: str
   { key: 'recommenders', label: 'Recommenders', roots: ['recommenders'] },
   { key: 'ai', label: 'AI assistant', roots: ['ai', 'starterPrompts'] },
   { key: 'coverLetter', label: 'Cover letter', roots: ['coverLetterStanzas'], preview: '#/lyrics' },
-  { key: 'resume', label: 'Resume page', roots: ['resume'], preview: '/resume' },
+  { key: 'resume', label: 'Portfolio page', roots: ['resume', 'landing'], preview: '/resume' },
   { key: 'themes', label: 'Accent themes', roots: ['accentThemes'], group: 'Settings' },
   { key: 'extras', label: "What's New & footer", roots: ['whatsNew', 'footer'] },
   { key: 'site', label: 'Site & SEO', roots: ['site', 'schemaVersion'] },

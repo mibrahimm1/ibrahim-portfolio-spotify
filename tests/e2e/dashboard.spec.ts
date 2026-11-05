@@ -70,7 +70,8 @@ test.describe('Content dashboard (dev only)', () => {
     await page.getByRole('button', { name: /Featured Projects/ }).first().click();
     await page.getByRole('button', { name: 'Delete item' }).first().click();
     const dialog = page.getByTestId('dashboard-confirm');
-    await expect(dialog).toContainText('It is used in 4 places');
+    await expect(dialog).toContainText('It is used in 5 places');
+    await expect(dialog).toContainText('A poster card on the portfolio page');
     await expect(dialog).toContainText('needs a replacement');
     await dialog.getByRole('button', { name: 'Cancel' }).click();
     await expect(dialog).toHaveCount(0);

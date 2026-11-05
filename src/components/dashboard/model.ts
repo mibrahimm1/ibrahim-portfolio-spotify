@@ -81,12 +81,18 @@ export function findReferences(c: PortfolioContent, kind: RefKind, id: string): 
     c.whatsNew.forEach((w, i) => {
       if (w === id) refs.push({ label: "The What's New menu", path: ['whatsNew', i], required: false });
     });
+    c.landing?.featuredProjectIds?.forEach((w, i) => {
+      if (w === id) refs.push({ label: 'A poster card on the portfolio page', path: ['landing', 'featuredProjectIds', i], required: false });
+    });
   }
   if (kind === 'playlist') {
     if (c.home.featuredPlaylistId === id) refs.push({ label: 'It is the featured playlist on Home', path: ['home', 'featuredPlaylistId'], required: true });
     c.resume.sections.forEach((s, i) => {
       if (s.playlistId === id) refs.push({ label: `Resume section “${s.heading}”`, path: ['resume', 'sections', i], required: false });
     });
+    if (c.landing?.projectsPlaylistId === id) {
+      refs.push({ label: 'The projects on the portfolio page', path: ['landing', 'projectsPlaylistId'], required: false });
+    }
   }
   if (kind === 'recommender') {
     c.playlists.forEach((p, pi) =>
@@ -105,8 +111,12 @@ export function cleanReferences(c: PortfolioContent, kind: RefKind, id: string):
     next.starterPrompts.forEach((p) => p.referencedTrackId === id && delete p.referencedTrackId);
     next.ai.intents.forEach((a) => a.trackId === id && delete a.trackId);
     next.whatsNew = next.whatsNew.filter((w) => w !== id);
+    if (next.landing?.featuredProjectIds) next.landing.featuredProjectIds = next.landing.featuredProjectIds.filter((w) => w !== id);
   }
-  if (kind === 'playlist') next.resume.sections = next.resume.sections.filter((s) => s.playlistId !== id);
+  if (kind === 'playlist') {
+    next.resume.sections = next.resume.sections.filter((s) => s.playlistId !== id);
+    if (next.landing?.projectsPlaylistId === id) delete next.landing.projectsPlaylistId;
+  }
   if (kind === 'recommender') next.playlists.forEach((p) => p.tracks.forEach((t) => t.recommenderId === id && delete t.recommenderId));
   return next;
 }
@@ -120,10 +130,12 @@ export function renameReferences(c: PortfolioContent, kind: RefKind, from: strin
     next.starterPrompts.forEach((p) => p.referencedTrackId === from && (p.referencedTrackId = to));
     next.ai.intents.forEach((a) => a.trackId === from && (a.trackId = to));
     next.whatsNew = next.whatsNew.map((w) => (w === from ? to : w));
+    if (next.landing?.featuredProjectIds) next.landing.featuredProjectIds = next.landing.featuredProjectIds.map((w) => (w === from ? to : w));
   }
   if (kind === 'playlist') {
     if (next.home.featuredPlaylistId === from) next.home.featuredPlaylistId = to;
     next.resume.sections.forEach((s) => s.playlistId === from && (s.playlistId = to));
+    if (next.landing?.projectsPlaylistId === from) next.landing.projectsPlaylistId = to;
   }
   if (kind === 'recommender') next.playlists.forEach((p) => p.tracks.forEach((t) => t.recommenderId === from && (t.recommenderId = to)));
   return next;

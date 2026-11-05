@@ -24,6 +24,7 @@ This folder documents everything that was analysed, found and changed. Read it i
 | 14 | [Production build](14-production-build.md) | Phase 4: the static export, the hashed CSP, build verification, and hosting setups |
 | 15 | [Security audit](15-security-audit.md) | Phase 5: threat model, checks A–K with evidence, findings and fixes, and the account settings only you can change |
 | 16 | [Open-source packaging](16-open-source.md) | Phase 6: forking, the setup script, test content independent of yours, and the release checklist |
+| 17 | [Standard portfolio page](17-standard-portfolio.md) | Phase 7: the `/resume` redesign, what was learned from the two reference sites, the motion system, and its tests |
 
 ## The short version
 

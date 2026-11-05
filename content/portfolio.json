@@ -933,6 +933,7 @@
           "color": "#A7C2D1"
         }
       ],
+      "quote": "Ibrahim ranks unquestionably in the top 5% of all undergraduate engineering students I have mentored in my career.",
       "fullLetter": [
         "I am writing this letter of recommendation with great pleasure for Muhammad Ibrahim Shaikh, whom I have taught across multiple semesters at the Military College of Signals, NUST, in Linear Algebra & ODEs, Probability & Statistics, and Complex Variables & Transforms.",
         "Ibrahim ranks unquestionably in the top 5% of all undergraduate engineering students I have mentored in my career. What sets him distinctly apart is his rigorous first-principles mathematical inquiry: where most students treat formulas as black-box procedures, Ibrahim rigorously derives underlying probabilistic distributions and matrix decompositions before translating them into scalable code.",
@@ -978,6 +979,7 @@
           "color": "#57B660"
         }
       ],
+      "quote": "Ibrahim combines rare intellectual curiosity with an engineer's pragmatism and an exceptional work ethic.",
       "fullLetter": [
         "It is my distinct privilege to recommend Muhammad Ibrahim Shaikh, a standout software engineering student at NUST MCS whom I have had the pleasure of teaching in Object-Oriented Programming, Machine Learning, and Deep Learning, as well as supervising his capstone Final Year Project, 'Konvex'.",
         "In my Machine Learning course, students are challenged to derive backpropagation, cost functions, and regularized gradient descent entirely by hand. Ibrahim not only earned a solid Grade 'A' through flawless mathematical derivations, but he was also among the few who immediately ported those mathematical abstractions into production-ready Python pipelines.",
@@ -1272,6 +1274,26 @@
       }
     ],
     "recommendationsHeading": "Academic Faculty Recommendations"
+  },
+  "landing": {
+    "heroPrefix": "I build",
+    "rotatingPhrases": [
+      "multi-agent AI systems",
+      "computer vision models",
+      "production RAG pipelines",
+      "edge voice assistants",
+      "workflow automation"
+    ],
+    "heroSuffix": "that hold up in production.",
+    "featuredProjectIds": [
+      "project-konvex",
+      "project-medical-report",
+      "project-sonyc-rag",
+      "project-code-connect"
+    ],
+    "timeZone": "Asia/Karachi",
+    "contactHeading": "Have a role or a project in mind?",
+    "contactLine": "Open to remote • Full-time roles • 2027 grad"
   },
   "footer": {
     "columns": [

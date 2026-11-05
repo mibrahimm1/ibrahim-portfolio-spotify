@@ -11,6 +11,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Standard portfolio page palette; values live in src/app/resume/landing.css (light + dark).
+        landing: {
+          bg: "var(--l-bg)",
+          ink: "var(--l-ink)",
+          muted: "var(--l-muted)",
+          line: "var(--l-line)",
+          card: "var(--l-card)",
+          surface: "var(--l-surface)",
+          "on-surface": "var(--l-on-surface)",
+          accent: "var(--l-accent)",
+          "accent-soft": "var(--l-accent-soft)",
+        },
         spotify: {
           green: {
             100: "#d8fae4",
@@ -103,6 +115,8 @@ const config: Config = {
       },
       transitionTimingFunction: {
         spotify: "cubic-bezier(0.3, 0, 0, 1)",
+        // Standard portfolio page (/resume): one calm ease-out for every movement.
+        "out-soft": "cubic-bezier(0.22, 1, 0.36, 1)",
       },
       keyframes: {
         "fade-in": {

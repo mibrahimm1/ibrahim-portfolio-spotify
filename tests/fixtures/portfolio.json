@@ -910,6 +910,7 @@
       "externalLabel": "Open Google Scholar Profile ↗",
       "facultyProfileUrl": "https://mcs.nust.edu.pk/faculty/saeed-murtaza/",
       "facultyProfileLabel": "NUST faculty directory",
+      "quote": "Ibrahim ranks unquestionably in the top 5% of all undergraduate engineering students I have mentored in my career.",
       "linkedTrackId": "edu-nust",
       "competencies": [
         {
@@ -951,6 +952,7 @@
       "avatarInitials": "KM",
       "externalUrl": "https://scholar.google.com/citations?user=wixHCFkAAAAJ&hl=en",
       "externalLabel": "Open Google Scholar Profile ↗",
+      "quote": "Ibrahim combines rare intellectual curiosity with an engineer's pragmatism and an exceptional work ethic.",
       "linkedTrackId": "project-konvex",
       "competencies": [
         {
@@ -1272,6 +1274,26 @@
       }
     ],
     "recommendationsHeading": "Academic Faculty Recommendations"
+  },
+  "landing": {
+    "heroPrefix": "I build",
+    "rotatingPhrases": [
+      "multi-agent AI systems",
+      "computer vision models",
+      "production RAG pipelines",
+      "edge voice assistants",
+      "workflow automation"
+    ],
+    "heroSuffix": "that hold up in production.",
+    "featuredProjectIds": [
+      "project-konvex",
+      "project-medical-report",
+      "project-sonyc-rag",
+      "project-code-connect"
+    ],
+    "timeZone": "Asia/Karachi",
+    "contactHeading": "Have a role or a project in mind?",
+    "contactLine": "Open to remote • Full-time roles • 2027 grad"
   },
   "footer": {
     "columns": [

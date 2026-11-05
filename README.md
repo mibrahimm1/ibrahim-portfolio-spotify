@@ -16,6 +16,7 @@ An interactive portfolio that presents a developer's work the way a music app pr
   - tablets get a compact desktop layout
 - **Ask-the-AI search:** suggested questions and answers you write yourself. It runs locally, with no API keys.
 - **Recruiter Mix:** visitors save items, then send them to you through their mail app, together with a booking link.
+- **Standard portfolio page (`/resume`):** a classic single-page layout for visitors who'd rather skip the app, with generated project posters, a cursor-follow project preview, light and dark themes, and a one-page résumé when printed.
 - **Content dashboard:** edit everything visually, with uploads, validation and backups. It exists only in development.
 - **Locked-down production:**
   - a static export with no server

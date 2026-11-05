@@ -117,6 +117,7 @@ export const RecommenderSchema = z.object({
   externalLabel: text(80),
   facultyProfileUrl: safeUrl.optional(),
   facultyProfileLabel: text(60).optional(), // Button text for facultyProfileUrl; defaults to "Faculty profile"
+  quote: text(240).optional(), // Short pull quote for the portfolio page; defaults to the letter's first sentence
   linkedTrackId: slug,
   competencies: z.array(z.object({ name: text(80), color: hexColor })).max(20),
   fullLetter: z.array(text(3000)).min(1).max(20),
@@ -205,6 +206,28 @@ export const ResumeSchema = z.object({
   recommendationsHeading: text(80),
 });
 
+/** True for an IANA time zone this runtime knows, e.g. "Asia/Karachi". */
+export function isTimeZone(value: string): boolean {
+  try {
+    new Intl.DateTimeFormat('en', { timeZone: value });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** The standard portfolio page at /resume. Every field is optional and has a default. */
+export const LandingSchema = z.object({
+  heroPrefix: text(40).optional(), // "I build"
+  rotatingPhrases: z.array(text(40)).min(1).max(6).optional(), // "multi-agent systems", …
+  heroSuffix: optionalText(60), // e.g. "for real users."
+  featuredProjectIds: z.array(slug).max(6).optional(), // Poster cards; the rest of the playlist becomes the list
+  projectsPlaylistId: slug.optional(), // Defaults to home.featuredPlaylistId
+  timeZone: z.string().trim().max(60).refine(isTimeZone, 'Use an IANA time zone such as Asia/Karachi').optional(),
+  contactHeading: text(80).optional(),
+  contactLine: text(200).optional(),
+});
+
 export const FooterSchema = z.object({
   columns: z
     .array(
@@ -232,6 +255,7 @@ export const PortfolioSchema = z
     coverLetterStanzas: z.array(text(1500)).min(1).max(20),
     whatsNew: z.array(slug).max(10),
     resume: ResumeSchema,
+    landing: LandingSchema.optional(),
     footer: FooterSchema,
   })
   .superRefine((data, ctx) => {
@@ -287,6 +311,12 @@ export const PortfolioSchema = z
     data.resume.sections.forEach((s, i) => {
       if (!playlistIds.has(s.playlistId)) issue(['resume', 'sections', i, 'playlistId'], `No playlist with id "${s.playlistId}"`);
     });
+
+    const landing = data.landing;
+    if (landing?.projectsPlaylistId && !playlistIds.has(landing.projectsPlaylistId)) {
+      issue(['landing', 'projectsPlaylistId'], `No playlist with id "${landing.projectsPlaylistId}"`);
+    }
+    landing?.featuredProjectIds?.forEach((id, i) => needTrack(id, ['landing', 'featuredProjectIds', i]));
   });
 
 export type PortfolioContent = z.infer<typeof PortfolioSchema>;
