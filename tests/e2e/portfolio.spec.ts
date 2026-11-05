@@ -114,3 +114,52 @@ test.describe('Spotify Desktop Portfolio - Core User Flows', () => {
     await expect(page.locator('[data-testid="shortcuts-modal"]')).toHaveCount(0);
   });
 });
+
+test.describe('Production lockdown (static export)', () => {
+  test('E2E-09: the dashboard and every API path are absent, and nothing accepts writes', async ({ request }) => {
+    for (const path of ['/dashboard', '/dashboard/', '/api/dev-dashboard/content', '/api/dev-dashboard/uploads', '/api/dev-dashboard/backups', '/api/send-mix', '/content/portfolio.json']) {
+      const res = await request.get(path, { maxRedirects: 0 });
+      expect(res.status(), path).toBe(404);
+    }
+    for (const method of ['PUT', 'POST', 'DELETE'] as const) {
+      const res = await request.fetch('/api/dev-dashboard/content', {
+        method,
+        headers: { 'content-type': 'application/json', 'x-portfolio-dashboard': '1' },
+        data: '{}',
+      });
+      expect(res.status(), method).toBeGreaterThanOrEqual(400);
+    }
+  });
+
+  test('E2E-10: pages carry the security headers and run with no CSP violations', async ({ page }) => {
+    const violations: string[] = [];
+    page.on('console', (msg) => {
+      if (msg.type() === 'error' && /Content Security Policy/i.test(msg.text())) violations.push(msg.text());
+    });
+    const res = await page.goto('/');
+    const headers = res!.headers();
+    expect(headers['content-security-policy']).toContain("frame-ancestors 'none'");
+    expect(headers['x-content-type-options']).toBe('nosniff');
+    await expect(page.locator('html[data-hydrated="true"]')).toBeAttached();
+    expect(await page.locator('meta[http-equiv="Content-Security-Policy"]').getAttribute('content')).toMatch(/script-src 'self' 'sha256-/);
+
+    // The app itself triggers no violation.
+    expect(violations).toEqual([]);
+
+    // An injected inline script must not run (each of the two policies reports it).
+    const ran = await page.evaluate(async () => {
+      const s = document.createElement('script');
+      s.textContent = 'window.__injected = true';
+      document.head.appendChild(s);
+      await new Promise((r) => setTimeout(r, 50));
+      return Boolean((window as unknown as { __injected?: boolean }).__injected);
+    });
+    expect(ran).toBe(false);
+    expect(violations.length).toBeGreaterThan(0);
+
+    violations.length = 0;
+    await page.goto('/resume/');
+    await expect(page.locator('[data-testid="standard-resume-container"]')).toBeVisible();
+    expect(violations).toEqual([]);
+  });
+});

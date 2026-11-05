@@ -21,6 +21,7 @@ This folder documents everything that was analysed, found and changed. Read it i
 | 11 | [Content model](11-content-model.md) | Phase 1: `content/portfolio.json`, the schema and its security rules, the loader, scripts |
 | 12 | [Content dashboard](12-dashboard-guide.md) | Phase 2: the dev-only editor, how it's kept out of production, and how its API is protected |
 | 13 | [Mobile experience](13-mobile-spec.md) | Phase 3: the phone and tablet layouts, the Back-gesture history model, and their tests |
+| 14 | [Production build](14-production-build.md) | Phase 4: the static export, the hashed CSP, build verification, and hosting setups |
 
 ## The short version
 

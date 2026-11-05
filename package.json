@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev -H 127.0.0.1",
-    "build": "npm run content:validate && next build",
-    "start": "next start",
+    "build": "npm run content:validate && next build && node scripts/secure-export.mjs && node scripts/verify-build.mjs",
+    "preview": "node scripts/serve-out.mjs",
+    "verify:build": "node scripts/verify-build.mjs",
     "lint": "next lint",
     "test:unit": "vitest run",
     "test:watch": "vitest",

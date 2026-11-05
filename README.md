@@ -21,7 +21,8 @@ Then open http://localhost:3000.
 | Script | What it does |
 |---|---|
 | `npm run dev` | Development server on 127.0.0.1, with the content dashboard at /dashboard |
-| `npm run build` | Production build |
+| `npm run build` | Static production build in `out/`, with a hashed CSP, verified to contain no dashboard or dev code |
+| `npm run preview` | Serve `out/` locally at http://127.0.0.1:4173 with the production headers |
 | `npm run test:unit` | Vitest unit tests |
 | `npm run test:e2e` | Playwright end-to-end tests |
 | `npm run content:validate` | Check `content/portfolio.json` against the schema |
@@ -35,6 +36,9 @@ All content (profile, projects, roles, education, references, AI answers, resume
 3. Commit `content/` and `public/uploads/`, then deploy.
 
 See [`docs/improvements/12-dashboard-guide.md`](docs/improvements/12-dashboard-guide.md) and [`11-content-model.md`](docs/improvements/11-content-model.md).
+
+## Deploying
+The production build is a static site, with no server and nothing that can write. Deploy `out/` to Vercel (`vercel.json`), Netlify (`netlify.toml`), Cloudflare Pages or GitHub Pages, at the root of a domain. Security headers come with the build. See [`docs/improvements/14-production-build.md`](docs/improvements/14-production-build.md).
 
 ## Phones and tablets
 On phones the site switches to a Spotify-app-style layout: a tab bar (Home, Search, Your Library, Contact), a mini-player and full-screen player, bottom sheets, and Back-gesture support. Tablets keep the desktop layout with a compact library. See [`docs/improvements/13-mobile-spec.md`](docs/improvements/13-mobile-spec.md).

@@ -1,5 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// The site tests run against the real production output: the static export in out/,
+// served with the headers from out/_headers (so the CSP is enforced during the tests).
+// The dashboard only exists under `next dev`, so its tests use the dev server.
+const SITE = 'http://127.0.0.1:4173';
+const DEV = 'http://127.0.0.1:3000';
+
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
@@ -8,7 +14,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'list',
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: SITE,
     trace: 'on-first-retry',
   },
   projects: [
@@ -29,17 +35,24 @@ export default defineConfig({
       testMatch: /mobile\.spec\.ts/,
     },
     {
-      // Saving content makes the dev server rebuild, so these run only after the site tests
-      // finish. They skip themselves against a production server, where the dashboard is absent.
       name: 'dashboard',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'], baseURL: DEV },
       testMatch: /dashboard\.spec\.ts/,
-      dependencies: ['chromium', 'mobile-android', 'mobile-ios'],
     },
   ],
-  webServer: {
-    command: 'npm run start',
-    port: 3000,
-    reuseExistingServer: !process.env.CI,
-  },
+  webServer: [
+    {
+      // Locally an already-running preview is reused: run `npm run build` first to test fresh code.
+      command: 'npm run build && npm run preview',
+      url: SITE,
+      reuseExistingServer: !process.env.CI,
+      timeout: 300_000,
+    },
+    {
+      command: 'npm run dev',
+      url: DEV,
+      reuseExistingServer: !process.env.CI,
+      timeout: 120_000,
+    },
+  ],
 });

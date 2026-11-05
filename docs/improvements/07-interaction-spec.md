@@ -83,8 +83,9 @@ Send Mix · Accent colour · Keyboard shortcuts.
 **Send Mix submit:**
 1. Opens the booking URL in a new tab.
 2. Opens the visitor's mail client addressed to Ibrahim with subject `[Portfolio Inquiry] <Company> - <Name>` and the edited message plus a sign-off.
-3. Fires a `keepalive` POST to `/api/send-mix` (logging only).
-4. Shows a toast.
+3. Shows a toast.
+
+(Until Phase 4 it also sent a logging-only POST to `/api/send-mix`; the static build has no API, so that was removed.)
 
 The email field is required; the message is pre-filled from the Recruiter Mix each time the dialog opens.
 

@@ -64,30 +64,13 @@ export const SendMixModal: React.FC = () => {
     e.preventDefault();
     if (!email) return;
 
-    const payload = {
-      recruiterName: name || 'Technical Recruiter',
-      recruiterEmail: email,
-      company: company || 'Engineering Team',
-      notes: message,
-      bookmarkedItems: bookmarkedTracks.map((t) => ({ id: t.id, title: t.title, category: t.album })),
-      timestamp: new Date().toISOString(),
-    };
-
     // 1. Open the booking page synchronously, inside the click, so popup blockers allow it.
     handleOpenGoogleCalendar();
 
-    // 2. Hand the message to the visitor's mail client; this is what actually reaches the portfolio owner.
+    // 2. Hand the message to the visitor's mail client; the site is static, so this is the only delivery path.
     const subject = encodeURIComponent(`[Portfolio Inquiry] ${company ? `${company} - ` : ''}${name || 'Recruiter Mix'}`);
     const body = encodeURIComponent(`${message}\n\n— ${name || 'Recruiter'}${company ? `, ${company}` : ''} (${email})`);
     window.location.href = `mailto:${candidateProfile.email}?subject=${subject}&body=${body}`;
-
-    // 3. Log to the API route without blocking the UI (keepalive survives navigation).
-    fetch('/api/send-mix', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      keepalive: true,
-    }).catch(() => {});
 
     showToast('Your mail app and the booking page are open');
     close();

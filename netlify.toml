@@ -1,0 +1,8 @@
+# Netlify: builds the static export. Security headers come from out/_headers, which
+# `npm run build` writes (see scripts/secure-export.mjs).
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
