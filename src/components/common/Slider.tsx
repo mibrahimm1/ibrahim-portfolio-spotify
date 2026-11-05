@@ -9,6 +9,8 @@ interface SliderProps {
   step?: number;
   className?: string;
   testId?: string;
+  /** Touch screens can't hover, so the full player shows the knob all the time (as Spotify's app does). */
+  alwaysShowKnob?: boolean;
 }
 
 /**
@@ -16,7 +18,7 @@ interface SliderProps {
  * turns accent on hover, and a 12px white knob that appears on hover or drag.
  * Pointer capture makes dragging work even when the cursor leaves the bar.
  */
-export const Slider: React.FC<SliderProps> = ({ value, onChange, label, valueText, step = 5, className, testId }) => {
+export const Slider: React.FC<SliderProps> = ({ value, onChange, label, valueText, step = 5, className, testId, alwaysShowKnob = false }) => {
   const trackRef = useRef<HTMLDivElement>(null);
   const [dragValue, setDragValue] = useState<number | null>(null);
   const shown = dragValue ?? value;
@@ -89,7 +91,7 @@ export const Slider: React.FC<SliderProps> = ({ value, onChange, label, valueTex
       <div
         className={cn(
           'pointer-events-none absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.5)] opacity-0 group-hover/slider:opacity-100 group-focus-visible/slider:opacity-100',
-          dragging && 'opacity-100'
+          (dragging || alwaysShowKnob) && 'opacity-100'
         )}
         style={{ left: `${shown}%` }}
       />

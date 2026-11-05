@@ -9,18 +9,20 @@ import { DownloadIcon, MoreHorizontalIcon, SettingsIcon, VerifiedIcon } from '@/
 import { usePortfolioStore } from '@/stores/usePortfolioStore';
 import { candidateProfile, technologyAvatars, allPlaylists, recommenders, featuredPlaylist, homeConfig } from '@/data/portfolioData';
 import { buildTechPlaylist, RECRUITER_MIX_ID, TECH_PLAYLIST_PREFIX } from '@/lib/catalog';
-import { downloadResume, openMenuAt, playlistMenuItems } from '@/lib/menus';
+import { downloadResume, openMenuAt, playlistMenuItems, playlistMenuHeader } from '@/lib/menus';
 import { StickyTopBar } from './StickyTopBar';
 import { Shelf } from './Shelf';
 import { MediaCard } from './MediaCard';
 import { TrackList } from './TrackList';
 import { useHeaderArtSize, useStage } from './StageContext';
+import { MobileHomeTop } from './MobileHomeTop';
+import { cn } from '@/lib/utils';
 
 const HEADER_COLOR = 'var(--banner-color)';
 
 export const HomeProfileView: React.FC = () => {
-  const { playContextId, isPlaying } = usePortfolioStore(
-    useShallow((s) => ({ playContextId: s.playContextId, isPlaying: s.isPlaying }))
+  const { playContextId, isPlaying, homeFilter } = usePortfolioStore(
+    useShallow((s) => ({ playContextId: s.playContextId, isPlaying: s.isPlaying, homeFilter: s.homeFilter }))
   );
   const navigateToPlaylist = usePortfolioStore((s) => s.navigateToPlaylist);
   const navigateToRecommender = usePortfolioStore((s) => s.navigateToRecommender);
@@ -50,16 +52,15 @@ export const HomeProfileView: React.FC = () => {
 
   return (
     <div className="relative w-full select-none" data-testid="home-profile-view">
-      <StickyTopBar
-        color={HEADER_COLOR}
-        title={candidateProfile.name}
-        isPlaying={profilePlaying}
-        onPlay={playProfile}
-      />
+      <div className="max-md:hidden">
+        <StickyTopBar color={HEADER_COLOR} title={candidateProfile.name} isPlaying={profilePlaying} onPlay={playProfile} />
+      </div>
 
-      {/* Profile header */}
+      <MobileHomeTop />
+
+      {/* Profile header (desktop and tablet; phones get the compact card in MobileHomeTop) */}
       <header
-        className="relative flex min-h-[340px] items-end gap-6 px-6 pb-6 pt-20"
+        className="relative flex min-h-[340px] items-end gap-6 px-6 pb-6 pt-20 max-md:hidden"
         style={{
           backgroundColor: HEADER_COLOR,
           backgroundImage: 'linear-gradient(transparent 0, rgba(0,0,0,0.5) 100%)',
@@ -92,13 +93,10 @@ export const HomeProfileView: React.FC = () => {
 
       {/* Body sits on a darkened wash of the header colour, as on every Spotify page */}
       <div
-        className="relative"
-        style={{
-          backgroundColor: HEADER_COLOR,
-          backgroundImage: 'linear-gradient(rgba(0,0,0,0.6) 0, #121212 232px)',
-        }}
+        className={cn('relative md:bg-[var(--banner-color)]', homeFilter !== 'all' && 'max-md:hidden')}
+        style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.6) 0, #121212 232px)' }}
       >
-        <div className="flex items-center gap-6 px-6 py-6">
+        <div className="flex items-center gap-6 px-6 py-6 max-md:hidden">
           <PlayButton isPlaying={profilePlaying} label={profilePlaying ? 'Pause' : `Play ${featuredPlaylist.title}`} onClick={playProfile} />
           <SpotifyButton
             variant="secondary"
@@ -202,7 +200,7 @@ export const HomeProfileView: React.FC = () => {
               isPlaying={isPlaying && playContextId === playlist.id}
               onOpen={() => navigateToPlaylist(playlist.id)}
               onPlay={() => playContext(playlist.id, playlist.tracks[0])}
-              onContextMenu={(e) => openMenuAt(e, playlistMenuItems(playlist.id))}
+              onContextMenu={(e) => openMenuAt(e, playlistMenuItems(playlist.id), playlistMenuHeader(playlist.id))}
               art={
                 <CoverArt
                   color={playlist.coverColor} image={playlist.coverImage}

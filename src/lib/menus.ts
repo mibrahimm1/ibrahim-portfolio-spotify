@@ -1,7 +1,7 @@
 import type { MouseEvent } from 'react';
-import { ContextMenuItem, Track } from '@/types/portfolio';
+import { ContextMenuHeader, ContextMenuItem, Track } from '@/types/portfolio';
 import { usePortfolioStore } from '@/stores/usePortfolioStore';
-import { findParentPlaylistId, resolvePlaylist, RECRUITER_MIX_ID } from '@/lib/catalog';
+import { findParentPlaylistId, resolvePlaylist, RECRUITER_MIX_ID, TECH_PLAYLIST_PREFIX } from '@/lib/catalog';
 import { candidateProfile } from '@/data/portfolioData';
 import { entryToHash } from '@/lib/routing';
 
@@ -161,8 +161,26 @@ export function playlistMenuItems(playlistId: string): ContextMenuItem[] {
   return items;
 }
 
+/** Artwork + title for the top of the phone bottom sheet. */
+export function trackMenuHeader(track: Track): ContextMenuHeader {
+  const kind = resolvePlaylist(track.playlistId, usePortfolioStore.getState().recruiterMix).artKind;
+  return { title: track.title, subtitle: track.subtitle, color: track.coverColor, image: track.coverImage, kind };
+}
+
+export function playlistMenuHeader(playlistId: string): ContextMenuHeader {
+  const playlist = resolvePlaylist(playlistId, usePortfolioStore.getState().recruiterMix);
+  return {
+    title: playlist.title,
+    subtitle: playlist.subtitle,
+    color: playlist.coverColor,
+    image: playlist.coverImage,
+    kind: playlistId.startsWith(TECH_PLAYLIST_PREFIX) ? 'note' : playlist.artKind,
+    isRecruiterMix: playlistId === RECRUITER_MIX_ID,
+  };
+}
+
 /** Opens a menu at the pointer for right-clicks, or under the button for "..." clicks. */
-export function openMenuAt(e: MouseEvent, items: ContextMenuItem[]) {
+export function openMenuAt(e: MouseEvent, items: ContextMenuItem[], header?: ContextMenuHeader) {
   e.preventDefault();
   e.stopPropagation();
   const target = e.currentTarget as HTMLElement;
@@ -172,5 +190,6 @@ export function openMenuAt(e: MouseEvent, items: ContextMenuItem[]) {
     x: fromButton ? rect.left : e.clientX,
     y: fromButton ? rect.bottom + 4 : e.clientY,
     items,
+    header,
   });
 }

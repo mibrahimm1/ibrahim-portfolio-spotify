@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useStage } from './StageContext';
+import { useIsMobile } from '@/lib/hooks';
 
 interface ShelfProps {
   title: string;
@@ -22,9 +23,27 @@ const GAP = 24;
  */
 export const Shelf: React.FC<ShelfProps> = ({ title, subtitle, itemCount, onShowAll, children, className, testId }) => {
   const { width } = useStage();
+  const isMobile = useIsMobile();
   const [expanded, setExpanded] = useState(false);
   const columns = Math.max(2, Math.floor((width - 48 + GAP) / (MIN_CARD_WIDTH + GAP)));
   const overflow = itemCount > columns;
+
+  // Phones: a horizontally swiped row of 150px cards with snap points.
+  if (isMobile) {
+    return (
+      <section className={cn('pt-6', className)} data-testid={testId}>
+        <div className="mb-3 px-4">
+          <h2 className="text-[22px] font-bold leading-tight tracking-tight text-white">{title}</h2>
+          {subtitle && <p className="text-sm text-subdued">{subtitle}</p>}
+        </div>
+        <div className="snap-shelf">
+          {React.Children.map(children, (child) => (
+            <div className="-mx-3 w-[162px]">{child}</div>
+          ))}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={cn('px-6 pt-6', className)} data-testid={testId}>

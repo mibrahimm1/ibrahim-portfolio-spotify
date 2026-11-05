@@ -36,6 +36,9 @@ All content (profile, projects, roles, education, references, AI answers, resume
 
 See [`docs/improvements/12-dashboard-guide.md`](docs/improvements/12-dashboard-guide.md) and [`11-content-model.md`](docs/improvements/11-content-model.md).
 
+## Phones and tablets
+On phones the site switches to a Spotify-app-style layout: a tab bar (Home, Search, Your Library, Contact), a mini-player and full-screen player, bottom sheets, and Back-gesture support. Tablets keep the desktop layout with a compact library. See [`docs/improvements/13-mobile-spec.md`](docs/improvements/13-mobile-spec.md).
+
 ## Documentation
 Design, architecture and behaviour notes live in [`docs/improvements/`](docs/improvements/README.md). The roadmap (mobile layout, dev-only content dashboard, static production build, security audit) is in [`docs/improvements/10-mobile-dashboard-security-plan.md`](docs/improvements/10-mobile-dashboard-security-plan.md).
 

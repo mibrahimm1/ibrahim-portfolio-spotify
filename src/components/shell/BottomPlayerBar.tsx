@@ -23,7 +23,7 @@ import { Slider } from '@/components/common/Slider';
 import { CoverArt, artKindFor } from '@/components/common/CoverArt';
 import { usePortfolioStore } from '@/stores/usePortfolioStore';
 import { findParentPlaylistId } from '@/lib/catalog';
-import { openMenuAt, trackMenuItems } from '@/lib/menus';
+import { openMenuAt, trackMenuItems, trackMenuHeader } from '@/lib/menus';
 import { formatSecondsToTime, cn } from '@/lib/utils';
 
 export const BottomPlayerBar: React.FC = () => {
@@ -97,7 +97,7 @@ export const BottomPlayerBar: React.FC = () => {
           <button
             type="button"
             onClick={() => openPanel('inspector')}
-            onContextMenu={(e) => openMenuAt(e, trackMenuItems(currentTrack, s.playContextId))}
+            onContextMenu={(e) => openMenuAt(e, trackMenuItems(currentTrack, s.playContextId), trackMenuHeader(currentTrack))}
             aria-label="Inspect track details"
             className="group relative"
           >
@@ -109,7 +109,7 @@ export const BottomPlayerBar: React.FC = () => {
           <button
             type="button"
             onClick={() => actions.navigateToPlaylist(findParentPlaylistId(currentTrack.id))}
-            onContextMenu={(e) => openMenuAt(e, trackMenuItems(currentTrack, s.playContextId))}
+            onContextMenu={(e) => openMenuAt(e, trackMenuItems(currentTrack, s.playContextId), trackMenuHeader(currentTrack))}
             className="block max-w-full truncate text-left text-sm text-white hover:underline"
             title={currentTrack.title}
           >

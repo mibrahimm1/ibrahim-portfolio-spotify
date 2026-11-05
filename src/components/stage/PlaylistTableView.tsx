@@ -18,10 +18,11 @@ import { usePortfolioStore } from '@/stores/usePortfolioStore';
 import { candidateProfile, featuredPlaylist } from '@/data/portfolioData';
 import { formatPlaylistLength, resolvePlaylist, RECRUITER_MIX_ID, TECH_PLAYLIST_PREFIX } from '@/lib/catalog';
 import { deepTone } from '@/lib/color';
-import { downloadResume, openMenuAt, playlistMenuItems } from '@/lib/menus';
+import { downloadResume, openMenuAt, playlistMenuItems, playlistMenuHeader } from '@/lib/menus';
 import { StickyTopBar } from './StickyTopBar';
 import { TrackList } from './TrackList';
 import { useHeaderArtSize } from './StageContext';
+import { useIsMobile } from '@/lib/hooks';
 
 // Spotify's Liked Songs header colour.
 const RECRUITER_MIX_HEADER = '#5038a0';
@@ -45,6 +46,7 @@ export const PlaylistTableView: React.FC = () => {
   const setTrackListDensity = usePortfolioStore((s) => s.setTrackListDensity);
   const navigateToPlaylist = usePortfolioStore((s) => s.navigateToPlaylist);
   const artSize = useHeaderArtSize();
+  const isMobile = useIsMobile();
 
   // The view is keyed off activeView so Back/Forward into the mix can never show another playlist.
   const playlistId = activeView === 'recruiter-mix' ? RECRUITER_MIX_ID : activePlaylistId;
@@ -80,7 +82,7 @@ export const PlaylistTableView: React.FC = () => {
       />
 
       <header
-        className="relative flex min-h-[340px] items-end gap-6 px-6 pb-6 pt-20"
+        className="relative flex min-h-[340px] items-end gap-6 px-6 pb-6 pt-20 max-md:min-h-0 max-md:flex-col max-md:items-stretch max-md:gap-4 max-md:px-4 max-md:pb-4 max-md:pt-16"
         style={{
           backgroundColor: headerColor,
           backgroundImage: 'linear-gradient(transparent 0, rgba(0,0,0,0.5) 100%)',
@@ -93,10 +95,11 @@ export const PlaylistTableView: React.FC = () => {
           isRecruiterMix={isRecruiterMix}
           size={artSize}
           shadow
+          className="max-md:self-center"
         />
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <span className="text-sm text-white">{typeLabel}</span>
-          <FitTitle data-testid="playlist-title" className="pb-2">
+          <FitTitle data-testid="playlist-title" className="pb-2" maxSize={isMobile ? 32 : 96}>
             {playlist.title}
           </FitTitle>
           <p className="line-clamp-2 text-sm text-[rgba(255,255,255,0.7)]">{description}</p>
@@ -124,8 +127,9 @@ export const PlaylistTableView: React.FC = () => {
         }}
       >
         {/* Action bar */}
-        <div className="flex items-center gap-6 px-6 py-6">
+        <div className="flex items-center gap-6 px-6 py-6 max-md:gap-3 max-md:px-4 max-md:py-4">
           <PlayButton
+            className="max-md:order-last max-md:ml-auto"
             isPlaying={contextPlaying}
             label={contextPlaying ? `Pause ${playlist.title}` : `Play ${playlist.title}`}
             onClick={handlePlay}
@@ -140,16 +144,16 @@ export const PlaylistTableView: React.FC = () => {
           >
             <ShuffleIcon size={28} />
           </IconButton>
-          <IconButton label="Download resume (PDF)" size={40} onClick={downloadResume}>
+          <IconButton label="Download resume (PDF)" size={40} onClick={downloadResume} className="max-md:hidden">
             <DownloadIcon size={28} />
           </IconButton>
-          <IconButton label="Book a call on Google Meet" size={40} onClick={() => setBookingModalOpen(true)}>
+          <IconButton label="Book a call on Google Meet" size={40} onClick={() => setBookingModalOpen(true)} className="max-md:hidden">
             <UserPlusIcon size={26} />
           </IconButton>
           <IconButton
             label={`More options for ${playlist.title}`}
             size={40}
-            onClick={(e) => openMenuAt(e, playlistMenuItems(playlistId))}
+            onClick={(e) => openMenuAt(e, playlistMenuItems(playlistId), playlistMenuHeader(playlistId))}
           >
             <MoreHorizontalIcon size={28} />
           </IconButton>
@@ -157,8 +161,9 @@ export const PlaylistTableView: React.FC = () => {
             variant="secondary"
             onClick={() => setBookingModalOpen(true)}
             data-testid="send-mix-pill-btn"
+            className="min-w-0 whitespace-nowrap max-md:px-4"
           >
-            Send mix &amp; book call
+            Send mix<span className="max-[399px]:hidden">&nbsp;&amp; book call</span>
           </SpotifyButton>
 
           <button
@@ -180,7 +185,7 @@ export const PlaylistTableView: React.FC = () => {
               ])
             }
             aria-label="Change track list view"
-            className="ml-auto flex items-center gap-2 text-sm text-subdued hover:text-white hover:scale-104 transition-transform"
+            className="ml-auto flex max-md:hidden items-center gap-2 text-sm text-subdued hover:text-white hover:scale-104 transition-transform"
           >
             {density === 'compact' ? 'Compact' : 'List'}
             {density === 'compact' ? <CompactIcon size={16} /> : <ListIcon size={16} />}
@@ -192,7 +197,7 @@ export const PlaylistTableView: React.FC = () => {
             <span className="mb-6 flex h-[72px] w-[72px] items-center justify-center rounded-full bg-[rgba(255,255,255,0.07)] text-white">
               <HeartIcon size={32} />
             </span>
-            <p className="mb-3 text-[2rem] font-black tracking-tight text-white">Projects you save will appear here</p>
+            <p className="mb-3 text-[2rem] font-black tracking-tight text-white max-md:text-2xl">Projects you save will appear here</p>
             <p className="mb-8 text-base text-white">
               Save projects, roles and credentials by clicking the <span className="font-bold">+</span> icon.
             </p>

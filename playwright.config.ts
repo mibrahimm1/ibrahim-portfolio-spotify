@@ -15,7 +15,18 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      testIgnore: /dashboard\.spec\.ts/,
+      testIgnore: /(dashboard|mobile)\.spec\.ts/,
+    },
+    {
+      name: 'mobile-android',
+      use: { ...devices['Pixel 7'] },
+      testMatch: /mobile\.spec\.ts/,
+    },
+    {
+      // iPhone viewport, touch and user agent, run in Chromium so WebKit needn't be installed.
+      name: 'mobile-ios',
+      use: { ...devices['iPhone 14'], defaultBrowserType: 'chromium' },
+      testMatch: /mobile\.spec\.ts/,
     },
     {
       // Saving content makes the dev server rebuild, so these run only after the site tests
@@ -23,7 +34,7 @@ export default defineConfig({
       name: 'dashboard',
       use: { ...devices['Desktop Chrome'] },
       testMatch: /dashboard\.spec\.ts/,
-      dependencies: ['chromium'],
+      dependencies: ['chromium', 'mobile-android', 'mobile-ios'],
     },
   ],
   webServer: {

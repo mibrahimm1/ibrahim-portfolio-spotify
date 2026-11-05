@@ -5,6 +5,7 @@ import { candidateProfile, coverLetterStanzas } from '@/data/portfolioData';
 import { stanzaStartFractions } from '@/lib/catalog';
 import { deepTone } from '@/lib/color';
 import { cn } from '@/lib/utils';
+import { MobileBackButton } from './StickyTopBar';
 
 /**
  * Spotify's synced-lyrics canvas: a saturated tone of the current artwork,
@@ -39,9 +40,10 @@ export const LyricsModeView: React.FC = () => {
   return (
     <div
       data-testid="lyrics-mode-stage"
-      className="min-h-full w-full px-6 pb-24 pt-16 select-none animate-fade-in md:px-16"
+      className="min-h-full w-full px-6 pb-24 pt-16 select-none animate-fade-in md:px-16 max-md:pt-20"
       style={{ backgroundColor: deepTone(coverColor, 0.4) }}
     >
+      <MobileBackButton className="fixed left-4 top-[max(12px,env(safe-area-inset-top))] z-20" />
       <div className="mx-auto max-w-[880px]">
         <p className="mb-10 text-sm font-bold text-[rgba(255,255,255,0.7)]">
           Cover letter · {candidateProfile.name}

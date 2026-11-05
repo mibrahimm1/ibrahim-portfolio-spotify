@@ -21,7 +21,11 @@ export const RightSidebar: React.FC = () => {
   }
 
   return (
-    <div className="relative h-full flex-shrink-0" style={{ width }}>
+    // Tablets: the Now Playing view floats over the page instead of taking a column.
+    <div
+      className="relative h-full flex-shrink-0 max-lg:fixed max-lg:bottom-[80px] max-lg:right-2 max-lg:top-16 max-lg:z-50 max-lg:h-auto max-lg:shadow-spotify-elevated"
+      style={{ width }}
+    >
       <aside
         data-testid="right-sidebar"
         aria-label={rightSidebarMode === 'activity' ? 'Friend Activity' : rightSidebarMode === 'queue' ? 'Queue' : 'Now playing view'}

@@ -6,6 +6,8 @@ import { PlaylistTableView } from './PlaylistTableView';
 import { RecommenderProfileView } from './RecommenderProfileView';
 import { LyricsModeView } from './LyricsModeView';
 import { BrowseView } from './BrowseView';
+import { LibraryView } from './LibraryView';
+import { ContactView } from './ContactView';
 import { StageContext } from './StageContext';
 
 const StageFooter: React.FC = () => (
@@ -69,7 +71,7 @@ export const CenterStage: React.FC = () => {
       <main
         ref={containerRef}
         data-testid="center-stage"
-        className="spotify-scroll relative flex h-full min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden rounded-lg bg-surface"
+        className="spotify-scroll relative flex h-full min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-contain rounded-lg bg-surface max-md:rounded-none"
       >
         <div className="flex-1">
           {activeView === 'home' && <HomeProfileView />}
@@ -77,8 +79,12 @@ export const CenterStage: React.FC = () => {
           {activeView === 'recommender' && <RecommenderProfileView />}
           {activeView === 'lyrics' && <LyricsModeView />}
           {activeView === 'browse' && <BrowseView />}
+          {activeView === 'library' && <LibraryView />}
+          {activeView === 'contact' && <ContactView />}
         </div>
         {activeView !== 'lyrics' && <StageFooter />}
+        {/* Room for the phone mini-player and tab bar, which float over the page. */}
+        <div aria-hidden="true" className="h-[calc(136px+env(safe-area-inset-bottom))] flex-shrink-0 md:hidden" />
       </main>
     </StageContext.Provider>
   );

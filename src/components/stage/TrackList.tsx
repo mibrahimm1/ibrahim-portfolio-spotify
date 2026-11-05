@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { Track } from '@/types/portfolio';
 import { usePortfolioStore } from '@/stores/usePortfolioStore';
@@ -6,8 +6,9 @@ import { AddCircleIcon, CheckCircleIcon, ClockIcon, MoreHorizontalIcon, PlayIcon
 import { CoverArt, artKindFor } from '@/components/common/CoverArt';
 import { Tooltip } from '@/components/common/Tooltip';
 import { useStage, useStageScroll } from './StageContext';
-import { openMenuAt, trackMenuItems } from '@/lib/menus';
+import { openMenuAt, trackMenuItems, trackMenuHeader } from '@/lib/menus';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/lib/hooks';
 
 interface TrackListProps {
   tracks: Track[];
@@ -29,8 +30,20 @@ function gridTemplate(columns: Columns) {
 export const TrackList: React.FC<TrackListProps> = ({ tracks, contextId, showHeader = true, stickyOffset = 64 }) => {
   const { width } = useStage();
   const density = usePortfolioStore((s) => s.trackListDensity);
+  const isMobile = useIsMobile();
   const columns: Columns = width >= 900 ? 5 : width >= 640 ? 4 : 3;
   const template = gridTemplate(columns);
+
+  // Phones: Spotify's app list (no column header, tap to play, long-press for options).
+  if (isMobile) {
+    return (
+      <div role="list" className="px-4">
+        {tracks.map((track) => (
+          <MobileTrackRow key={track.id} track={track} contextId={contextId} />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div role="grid" aria-rowcount={tracks.length} className="px-6">
@@ -138,7 +151,7 @@ export const TrackRow: React.FC<TrackRowProps> = ({ track, index, contextId, tem
       }}
       onContextMenu={(e) => {
         selectTrack(track.id);
-        openMenuAt(e, trackMenuItems(track, contextId));
+        openMenuAt(e, trackMenuItems(track, contextId), trackMenuHeader(track));
       }}
       data-testid={`track-row-${track.id}`}
       className={cn(
@@ -238,12 +251,104 @@ export const TrackRow: React.FC<TrackRowProps> = ({ track, index, contextId, tem
         <button
           type="button"
           aria-label={`More options for ${track.title}`}
-          onClick={(e) => openMenuAt(e, trackMenuItems(track, contextId))}
+          onClick={(e) => openMenuAt(e, trackMenuItems(track, contextId), trackMenuHeader(track))}
           className={cn('flex-shrink-0 invisible text-subdued hover:text-white group-hover:visible group-focus-within:visible', isSelected && 'visible')}
         >
           <MoreHorizontalIcon size={16} />
         </button>
       </div>
+    </div>
+  );
+};
+
+const LONG_PRESS_MS = 500;
+
+/** Phone row: 48px art, title (accent while current), subtitle, and an always-visible "…". */
+export const MobileTrackRow: React.FC<{ track: Track; contextId: string }> = ({ track, contextId }) => {
+  const { isCurrent, isPlaying, saved } = usePortfolioStore(
+    useShallow((s) => ({
+      isCurrent: s.currentTrack.id === track.id,
+      isPlaying: s.isPlaying,
+      saved: s.recruiterMix.includes(track.id),
+    }))
+  );
+  const setCurrentTrack = usePortfolioStore((s) => s.setCurrentTrack);
+  const togglePlay = usePortfolioStore((s) => s.togglePlay);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const longPressed = useRef(false);
+  const startPoint = useRef<{ x: number; y: number } | null>(null);
+
+  const cancel = () => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = null;
+  };
+
+  return (
+    <div
+      role="listitem"
+      data-testid={`track-row-${track.id}`}
+      onPointerDown={(e) => {
+        longPressed.current = false;
+        startPoint.current = { x: e.clientX, y: e.clientY };
+        const target = e.currentTarget;
+        const { clientX, clientY } = e;
+        timer.current = setTimeout(() => {
+          longPressed.current = true;
+          navigator.vibrate?.(10);
+          openMenuAt(
+            { preventDefault() {}, stopPropagation() {}, currentTarget: target, type: 'longpress', clientX, clientY } as unknown as React.MouseEvent,
+            trackMenuItems(track, contextId),
+            trackMenuHeader(track)
+          );
+        }, LONG_PRESS_MS);
+      }}
+      onPointerMove={(e) => {
+        // Scrolling cancels the long press.
+        if (startPoint.current && Math.hypot(e.clientX - startPoint.current.x, e.clientY - startPoint.current.y) > 10) cancel();
+      }}
+      onPointerUp={cancel}
+      onPointerCancel={cancel}
+      onContextMenu={(e) => e.preventDefault()}
+      className="flex h-16 items-center gap-3 active:opacity-70"
+    >
+      <button
+        type="button"
+        onClick={() => {
+          if (longPressed.current) return;
+          if (isCurrent) togglePlay();
+          else setCurrentTrack(track, true, contextId);
+        }}
+        aria-label={isCurrent && isPlaying ? `Pause ${track.title}` : `Play ${track.title}`}
+        className="flex min-w-0 flex-1 items-center gap-3 text-left"
+      >
+        <CoverArt color={track.coverColor} image={track.coverImage} kind={artKindFor(track.playlistId)} size={48} />
+        <span className="min-w-0 flex-1">
+          <span className={cn('flex items-center gap-1.5 truncate text-base', isCurrent ? 'text-accent' : 'text-white')}>
+            {isCurrent && isPlaying && (
+              <span className="equalizer flex-shrink-0" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+                <span />
+              </span>
+            )}
+            <span className="truncate">{track.title}</span>
+          </span>
+          <span className="flex items-center gap-1 truncate text-sm text-subdued">
+            {saved && <CheckCircleIcon size={14} className="flex-shrink-0 text-accent" aria-label="Saved" />}
+            <span className="truncate">{track.subtitle}</span>
+          </span>
+        </span>
+      </button>
+      <button
+        type="button"
+        aria-label={`More options for ${track.title}`}
+        data-testid={`track-more-${track.id}`}
+        onClick={(e) => openMenuAt(e, trackMenuItems(track, contextId), trackMenuHeader(track))}
+        className="flex h-11 w-11 flex-shrink-0 items-center justify-center text-subdued"
+      >
+        <MoreHorizontalIcon size={18} />
+      </button>
     </div>
   );
 };

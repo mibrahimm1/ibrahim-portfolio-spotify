@@ -13,6 +13,8 @@ export default function nextConfig(phase) {
 
   return {
     reactStrictMode: true,
+    // The dev-tools badge sits on top of the phone tab bar's Home tab.
+    devIndicators: false,
     pageExtensions: isDevServer ? ['dev.tsx', 'dev.ts', 'tsx', 'ts'] : ['tsx', 'ts'],
     // No remote images are used; the old `hostname: '**'` pattern let the image optimizer
     // proxy any host on the internet, so it stays removed.

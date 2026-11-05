@@ -5,7 +5,7 @@ import { CloseIcon, PlayIcon } from '@/components/common/Icons';
 import { IconButton } from '@/components/common/IconButton';
 import { CoverArt, artKindFor } from '@/components/common/CoverArt';
 import { usePortfolioStore, computeQueue } from '@/stores/usePortfolioStore';
-import { openMenuAt, trackMenuItems } from '@/lib/menus';
+import { openMenuAt, trackMenuItems, trackMenuHeader } from '@/lib/menus';
 import { cn } from '@/lib/utils';
 
 const QueueRow: React.FC<{ track: Track; contextId: string; current?: boolean; isPlaying?: boolean }> = ({
@@ -20,7 +20,7 @@ const QueueRow: React.FC<{ track: Track; contextId: string; current?: boolean; i
     <button
       type="button"
       onClick={() => (current ? togglePlay() : setCurrentTrack(track, true, contextId))}
-      onContextMenu={(e) => openMenuAt(e, trackMenuItems(track, contextId))}
+      onContextMenu={(e) => openMenuAt(e, trackMenuItems(track, contextId), trackMenuHeader(track))}
       className="group flex w-full items-center gap-3 rounded-md p-2 text-left transition-colors hover:bg-[rgba(255,255,255,0.1)]"
     >
       <span className="relative flex-shrink-0">
@@ -46,7 +46,7 @@ const QueueRow: React.FC<{ track: Track; contextId: string; current?: boolean; i
 };
 
 /** Spotify's Queue panel: "Now playing" followed by "Next from: <context>". */
-export const QueuePanel: React.FC = () => {
+export const QueuePanel: React.FC<{ onClose?: () => void }> = ({ onClose }) => {
   const { currentTrack, contextTitle, contextId, isPlaying } = usePortfolioStore(
     useShallow((s) => ({
       currentTrack: s.currentTrack,
@@ -68,10 +68,13 @@ export const QueuePanel: React.FC = () => {
         <IconButton
           label="Close"
           variant="ghost"
-          onClick={() => {
-            setRightSidebarMode('inspector');
-            setRightSidebarOpen(false);
-          }}
+          onClick={
+            onClose ??
+            (() => {
+              setRightSidebarMode('inspector');
+              setRightSidebarOpen(false);
+            })
+          }
         >
           <CloseIcon size={16} />
         </IconButton>

@@ -51,7 +51,7 @@ export const Dialog: React.FC<DialogProps> = ({ title, onClose, children, width 
       aria-modal="true"
       aria-labelledby={titleId}
       data-testid={testId}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(0,0,0,0.7)] animate-fade-in"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(0,0,0,0.7)] animate-fade-in max-md:items-stretch"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -59,7 +59,12 @@ export const Dialog: React.FC<DialogProps> = ({ title, onClose, children, width 
       <div
         ref={panelRef}
         onKeyDown={onKeyDown}
-        className={cn('relative max-h-[90vh] overflow-y-auto rounded-lg bg-menu p-6 text-white shadow-spotify-elevated animate-scale-up', className)}
+        className={cn(
+          'relative max-h-[90vh] overflow-y-auto rounded-lg bg-menu p-6 text-white shadow-spotify-elevated animate-scale-up',
+          // Phones: a full-screen sheet, like Spotify's "Edit details" on mobile.
+          'max-md:!w-full max-md:max-h-none max-md:rounded-none max-md:pt-[max(1.5rem,env(safe-area-inset-top))] max-md:pb-[max(1.5rem,env(safe-area-inset-bottom))] max-md:animate-sheet-in',
+          className
+        )}
         style={{ width }}
       >
         <div className="mb-6 flex items-center justify-between gap-4">

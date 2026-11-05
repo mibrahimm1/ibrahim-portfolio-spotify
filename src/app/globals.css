@@ -65,8 +65,10 @@
     -moz-osx-font-smoothing: grayscale;
     overflow: hidden;
     height: 100vh;
-    width: 100vw;
-    min-width: 1024px;
+    height: 100dvh; /* tracks the mobile browser's collapsing toolbars */
+    width: 100%;
+    overscroll-behavior: none; /* no pull-to-refresh bounce behind the app shell */
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* Spotify shows a 2px white focus ring only for keyboard users */
@@ -127,6 +129,38 @@
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* Phone safe areas (notch, home indicator); needs viewport-fit=cover */
+@layer utilities {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* Horizontal shelves on phones: swipe with snap points, like the Spotify app */
+.snap-shelf {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 16px;
+  padding-inline: 16px;
+  scrollbar-width: none;
+}
+
+.snap-shelf::-webkit-scrollbar {
+  display: none;
+}
+
+.snap-shelf > * {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
 }
 
 /* Animated "now playing" equalizer that replaces the row index */

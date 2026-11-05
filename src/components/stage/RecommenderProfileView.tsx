@@ -15,6 +15,7 @@ import { StickyTopBar } from './StickyTopBar';
 import { Shelf } from './Shelf';
 import { MediaCard } from './MediaCard';
 import { useHeaderArtSize } from './StageContext';
+import { useIsMobile } from '@/lib/hooks';
 
 const HEADER_COLOR = deepTone('#649AED', 0.36);
 
@@ -30,6 +31,7 @@ export const RecommenderProfileView: React.FC = () => {
   const togglePlay = usePortfolioStore((s) => s.togglePlay);
   const openTrackDetails = usePortfolioStore((s) => s.openTrackDetails);
   const artSize = useHeaderArtSize();
+  const isMobile = useIsMobile();
 
   const recommender = recommenders.find((r) => r.id === activeRecommenderId) || recommenders[0];
   const linkedTrack = findTrack(recommender.linkedTrackId);
@@ -46,11 +48,11 @@ export const RecommenderProfileView: React.FC = () => {
       <StickyTopBar color={HEADER_COLOR} title={recommender.name} isPlaying={linkedPlaying} onPlay={linkedTrack ? playLinked : undefined} />
 
       <header
-        className="relative flex min-h-[340px] items-end gap-6 px-6 pb-6 pt-20"
+        className="relative flex min-h-[340px] items-end gap-6 px-6 pb-6 pt-20 max-md:min-h-0 max-md:flex-col max-md:items-stretch max-md:gap-4 max-md:px-4 max-md:pb-4 max-md:pt-16"
         style={{ backgroundColor: HEADER_COLOR, backgroundImage: 'linear-gradient(transparent 0, rgba(0,0,0,0.5) 100%)' }}
       >
         <div
-          className="flex flex-shrink-0 items-center justify-center rounded-full bg-[#282828] font-black tracking-tighter text-white shadow-spotify-art"
+          className="flex flex-shrink-0 items-center justify-center rounded-full bg-[#282828] font-black tracking-tighter text-white shadow-spotify-art max-md:self-center"
           style={{ width: artSize, height: artSize, fontSize: artSize * 0.31 }}
         >
           {recommender.avatarInitials}
@@ -60,7 +62,7 @@ export const RecommenderProfileView: React.FC = () => {
             <VerifiedIcon size={24} />
             Verified {recommender.type === 'academic' ? 'Academic' : 'Industry'} Endorsement
           </span>
-          <FitTitle className="pb-2" maxSize={72}>
+          <FitTitle className="pb-2" maxSize={isMobile ? 32 : 72}>
             {recommender.name}
           </FitTitle>
           <p className="text-sm text-white">{recommender.title}</p>
@@ -74,7 +76,7 @@ export const RecommenderProfileView: React.FC = () => {
         className="relative"
         style={{ backgroundColor: HEADER_COLOR, backgroundImage: 'linear-gradient(rgba(0,0,0,0.6) 0, #121212 232px)' }}
       >
-        <div className="flex items-center gap-6 px-6 py-6">
+        <div className="flex flex-wrap items-center gap-6 px-6 py-6 max-md:gap-3 max-md:px-4 max-md:py-4">
           {linkedTrack && (
             <PlayButton
               isPlaying={linkedPlaying}

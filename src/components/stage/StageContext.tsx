@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useIsMobile } from '@/lib/hooks';
 
 interface StageContextValue {
   scrollRef: React.RefObject<HTMLElement>;
@@ -38,5 +39,8 @@ export function useStageScroll(): number {
 /** Spotify shrinks header artwork when the centre panel gets narrow. */
 export function useHeaderArtSize(): number {
   const { width } = useStage();
+  const isMobile = useIsMobile();
+  // Phones centre the artwork at roughly 60% of the screen width, as the Spotify app does.
+  if (isMobile) return Math.min(260, Math.round(width * 0.62));
   return width < 560 ? 128 : width < 760 ? 176 : 232;
 }

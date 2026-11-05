@@ -6,6 +6,7 @@ import {
   ActiveViewType,
   ChatMessage,
   ContextMenuState,
+  MobileTab,
   RepeatMode,
   TrackListDensity,
 } from '@/types/portfolio';
@@ -81,6 +82,16 @@ export interface PortfolioState {
   toastMessage: string | null;
   toastId: number;
 
+  // Phone layout
+  isFullPlayerOpen: boolean;
+  isProfileDrawerOpen: boolean;
+  isQueueSheetOpen: boolean;
+  mobileTab: MobileTab;
+  /** Track ids, most recent first (Home shortcut grid). */
+  recentlyPlayed: string[];
+  /** 'all' or a playlist id: the Home filter chips on phones. */
+  homeFilter: string;
+
   // Actions
   setCurrentTrack: (track: Track, autoPlay?: boolean, contextId?: string) => void;
   playTrackInContext: (track: Track, contextId: string) => void;
@@ -105,7 +116,11 @@ export interface PortfolioState {
   toggleLyrics: () => void;
   navigateToRecruiterMix: () => void;
   navigateToBrowse: () => void;
+  navigateToLibrary: () => void;
+  navigateToContact: () => void;
   navigateBack: () => void;
+  /** Jump to an existing history entry (used by browser back/forward). */
+  goToHistoryIndex: (index: number) => void;
   navigateForward: () => void;
   restoreView: (entry: NavigationHistoryEntry) => void;
   selectTrack: (trackId: string | null) => void;
@@ -130,6 +145,10 @@ export interface PortfolioState {
   openContextMenu: (menu: ContextMenuState) => void;
   closeContextMenu: () => void;
   closeTopmostOverlay: () => boolean;
+  setFullPlayerOpen: (isOpen: boolean) => void;
+  setProfileDrawerOpen: (isOpen: boolean) => void;
+  setQueueSheetOpen: (isOpen: boolean) => void;
+  setHomeFilter: (filter: string) => void;
   showToast: (msg: string) => void;
   hideToast: () => void;
 
@@ -202,11 +221,21 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
           rightSidebarWidth: s.rightSidebarWidth,
           isRightSidebarOpen: s.isRightSidebarOpen,
           trackListDensity: s.trackListDensity,
+          recentlyPlayed: s.recentlyPlayed,
         })
       );
     } catch {
       // Storage can be unavailable (private mode, quota); prefs are a convenience only.
     }
+  };
+
+  // Root views own a bottom tab on phones; deeper pages keep the tab they were opened from.
+  const tabFor = (view: ActiveViewType): Partial<PortfolioState> => {
+    if (view === 'home') return { mobileTab: 'home' };
+    if (view === 'browse') return { mobileTab: 'search' };
+    if (view === 'library') return { mobileTab: 'library' };
+    if (view === 'contact') return { mobileTab: 'contact' };
+    return {};
   };
 
   // Spotify doesn't add a history entry when you click the view you're already on.
@@ -218,6 +247,7 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
         activeRecommenderId: entry.recommenderId ?? null,
         selectedTrackId: null,
         ...(entry.view !== state.activeView ? timingFor(entry.view, state.progress) : {}),
+        ...tabFor(entry.view),
         ...extra,
       };
       if (isSameEntry(state.history[state.historyIndex], entry)) return base;
@@ -238,6 +268,7 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
       activeRecommenderId: entry.recommenderId ?? null,
       selectedTrackId: null,
       ...(entry.view !== state.activeView ? timingFor(entry.view, state.progress) : {}),
+      ...tabFor(entry.view),
     }));
   };
 
@@ -280,6 +311,12 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
     contextMenu: null,
     toastMessage: null,
     toastId: 0,
+    isFullPlayerOpen: false,
+    isProfileDrawerOpen: false,
+    isQueueSheetOpen: false,
+    mobileTab: 'home',
+    recentlyPlayed: [],
+    homeFilter: 'all',
 
     hydrateFromStorage: () => {
       if (typeof window === 'undefined') return;
@@ -311,6 +348,9 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
           isRightSidebarOpen:
             typeof prefs.isRightSidebarOpen === 'boolean' ? prefs.isRightSidebarOpen : true,
           trackListDensity: prefs.trackListDensity === 'compact' ? 'compact' : 'list',
+          recentlyPlayed: Array.isArray(prefs.recentlyPlayed)
+            ? prefs.recentlyPlayed.filter((id: unknown): id is string => typeof id === 'string' && !!findTrack(id)).slice(0, 8)
+            : [],
         });
         if (get().shuffle) {
           set({ shuffleOrder: shuffleIds(contextOrder({ ...get(), shuffle: false }), get().currentTrack.id) });
@@ -342,6 +382,7 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
         progress: 0,
         isPlaying: autoPlay ? true : state.isPlaying,
         rightSidebarMode: 'inspector',
+        recentlyPlayed: [track.id, ...state.recentlyPlayed.filter((id) => id !== track.id)].slice(0, 8),
         shuffleOrder:
           state.shuffle && (contextChanged || state.shuffleOrder.length === 0)
             ? shuffleIds(nextContext.tracks.map((t) => t.id), track.id)
@@ -475,6 +516,16 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
 
     navigateToBrowse: () => pushEntry({ view: 'browse' }),
 
+    navigateToLibrary: () => pushEntry({ view: 'library' }),
+
+    navigateToContact: () => pushEntry({ view: 'contact' }),
+
+    goToHistoryIndex: (index) => {
+      const { history, historyIndex } = get();
+      if (index === historyIndex || index < 0 || index >= history.length) return;
+      applyEntry(history[index], index);
+    },
+
     navigateBack: () => {
       const { history, historyIndex } = get();
       if (historyIndex > 0) applyEntry(history[historyIndex - 1], historyIndex - 1);
@@ -607,11 +658,22 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
       else if (s.isShortcutsModalOpen) set({ isShortcutsModalOpen: false });
       else if (s.isThemeModalOpen) set({ isThemeModalOpen: false });
       else if (s.isBookingModalOpen) set({ isBookingModalOpen: false });
+      else if (s.isQueueSheetOpen) set({ isQueueSheetOpen: false });
+      else if (s.isProfileDrawerOpen) set({ isProfileDrawerOpen: false });
+      else if (s.isFullPlayerOpen) set({ isFullPlayerOpen: false });
       else if (s.isSearchOpen) set({ isSearchOpen: false });
       else if (s.activeView === 'lyrics') s.toggleLyrics();
       else return false;
       return true;
     },
+
+    setFullPlayerOpen: (isOpen) => set({ isFullPlayerOpen: isOpen }),
+
+    setProfileDrawerOpen: (isOpen) => set({ isProfileDrawerOpen: isOpen }),
+
+    setQueueSheetOpen: (isOpen) => set({ isQueueSheetOpen: isOpen }),
+
+    setHomeFilter: (filter) => set({ homeFilter: filter }),
 
     showToast: (msg) => {
       const id = ++toastCounter;

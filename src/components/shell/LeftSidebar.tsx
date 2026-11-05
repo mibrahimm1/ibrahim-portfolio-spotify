@@ -16,7 +16,7 @@ import { CoverArt, artKindFor } from '@/components/common/CoverArt';
 import { usePortfolioStore, LEFT_SIDEBAR } from '@/stores/usePortfolioStore';
 import { candidateProfile, allPlaylists } from '@/data/portfolioData';
 import { RECRUITER_MIX_ID } from '@/lib/catalog';
-import { copyToClipboard, openMenuAt, playlistMenuItems } from '@/lib/menus';
+import { copyToClipboard, openMenuAt, playlistMenuItems, playlistMenuHeader } from '@/lib/menus';
 import { cn } from '@/lib/utils';
 import { ResizeHandle } from './ResizeHandle';
 
@@ -212,7 +212,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({ forceCollapsed = false
               <button
                 type="button"
                 onClick={onOpen}
-                onContextMenu={(e) => openMenuAt(e, playlistMenuItems(playlist.id))}
+                onContextMenu={(e) => openMenuAt(e, playlistMenuItems(playlist.id), playlistMenuHeader(playlist.id))}
                 data-testid={`sidebar-playlist-${playlist.id}`}
                 aria-current={isActive ? 'page' : undefined}
                 aria-label={collapsed ? playlist.title : undefined}

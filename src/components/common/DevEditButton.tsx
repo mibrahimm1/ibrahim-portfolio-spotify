@@ -27,7 +27,7 @@ export const DevEditButton: React.FC = () => {
       href={dashboardLinkFor(view, playlistId, recommenderId)}
       data-testid="dev-edit-button"
       title="Open this page in the content dashboard (only shown under npm run dev)"
-      className="fixed bottom-[84px] left-3 z-[110] rounded-full bg-[#ffa42b] px-3 py-1.5 text-xs font-bold text-black shadow-spotify-elevated hover:scale-104"
+      className="fixed bottom-[84px] left-3 max-md:bottom-[calc(140px+env(safe-area-inset-bottom))] z-[110] rounded-full bg-[#ffa42b] px-3 py-1.5 text-xs font-bold text-black shadow-spotify-elevated hover:scale-104"
     >
       Edit content
     </a>

@@ -1,5 +1,7 @@
 # 08 · Testing
 
+> **Update (Phase 3):** the suite is now **124 unit tests** across 12 files and **32 Playwright tests** in four projects: `chromium` (desktop, 8), `mobile-android` (Pixel 7, 10), `mobile-ios` (iPhone 14 in Chromium, 10) and `dashboard` (4). The phone tests are described in [13-mobile-spec.md](13-mobile-spec.md#tests). The tables below are the original hand-off.
+
 ## Results at hand-off
 
 | Check | Command | Result |

@@ -1,6 +1,8 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  // `hover:` only applies on devices that can hover, so taps never leave sticky hover states.
+  future: { hoverOnlyWhenSupported: true },
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -119,6 +121,14 @@ const config: Config = {
           "0%, 100%": { transform: "scaleY(0.3)" },
           "50%": { transform: "scaleY(1)" },
         },
+        "sheet-in": {
+          from: { transform: "translateY(100%)" },
+          to: { transform: "translateY(0)" },
+        },
+        "drawer-in": {
+          from: { transform: "translateX(-100%)" },
+          to: { transform: "translateX(0)" },
+        },
         "typing-dot": {
           "0%, 80%, 100%": { opacity: "0.3" },
           "40%": { opacity: "1" },
@@ -129,6 +139,8 @@ const config: Config = {
         "scale-up": "scale-up 150ms cubic-bezier(0.3, 0, 0, 1)",
         "toast-in": "toast-in 200ms cubic-bezier(0.3, 0, 0, 1)",
         equalizer: "equalizer 0.9s ease-in-out infinite",
+        "sheet-in": "sheet-in 280ms cubic-bezier(0.3, 0, 0, 1)",
+        "drawer-in": "drawer-in 260ms cubic-bezier(0.3, 0, 0, 1)",
       },
       scale: {
         "104": "1.04",

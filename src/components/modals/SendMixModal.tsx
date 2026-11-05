@@ -96,9 +96,9 @@ export const SendMixModal: React.FC = () => {
   return (
     <Dialog title="Send your Recruiter Mix" onClose={close} testId="send-mix-modal">
       <form onSubmit={handleSubmitAndBook}>
-        <div className="flex gap-4">
-          <div className="flex w-[180px] flex-shrink-0 flex-col gap-3">
-            <CoverArt color="#450af5" kind="heart" isRecruiterMix size={180} shadow />
+        <div className="flex flex-col gap-4 sm:flex-row">
+          <div className="flex w-full flex-shrink-0 flex-row items-end gap-3 sm:w-[180px] sm:flex-col sm:items-stretch">
+            <CoverArt color="#450af5" kind="heart" isRecruiterMix size={180} shadow className="max-sm:!h-24 max-sm:!w-24" />
             <button
               type="button"
               onClick={handleOpenGoogleCalendar}

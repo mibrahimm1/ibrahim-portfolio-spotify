@@ -52,7 +52,12 @@ export type ActiveViewType =
   | 'recommender'
   | 'lyrics'
   | 'recruiter-mix'
-  | 'browse';
+  | 'browse'
+  | 'library'
+  | 'contact';
+
+/** Bottom tab on phones (Spotify's Home / Search / Your Library / Premium slot). */
+export type MobileTab = 'home' | 'search' | 'library' | 'contact';
 
 export type RepeatMode = 'off' | 'context' | 'track';
 
@@ -67,8 +72,19 @@ export interface ContextMenuItem {
   dividerBefore?: boolean;
 }
 
+export interface ContextMenuHeader {
+  title: string;
+  subtitle?: string;
+  color?: string;
+  image?: string;
+  kind?: import('@/content/schema').ArtKind;
+  isRecruiterMix?: boolean;
+}
+
 export interface ContextMenuState {
   x: number;
   y: number;
   items: ContextMenuItem[];
+  /** Shown at the top of the phone bottom sheet (artwork, title, subtitle). */
+  header?: ContextMenuHeader;
 }

@@ -21,6 +21,10 @@ export function entryToHash(entry: ViewEntry): string {
       return '#/lyrics';
     case 'browse':
       return '#/search';
+    case 'library':
+      return '#/library';
+    case 'contact':
+      return '#/contact';
     default:
       return '';
   }
@@ -34,6 +38,8 @@ export function hashToEntry(hash: string): ViewEntry | null {
   if (kind === 'user' && id) return { view: 'recommender', recommenderId: id };
   if (kind === 'lyrics') return { view: 'lyrics' };
   if (kind === 'search') return { view: 'browse' };
+  if (kind === 'library') return { view: 'library' };
+  if (kind === 'contact') return { view: 'contact' };
   return null;
 }
 
