@@ -1,10 +1,15 @@
 import { defineConfig, devices } from '@playwright/test';
 
-// The site tests run against the real production output: the static export in out/,
-// served with the headers from out/_headers (so the CSP is enforced during the tests).
-// The dashboard only exists under `next dev`, so its tests use the dev server.
-const SITE = 'http://127.0.0.1:4173';
-const DEV = 'http://127.0.0.1:3000';
+// Everything runs on the fixed test content (tests/fixtures/portfolio.json), so the suite
+// passes whatever your own content/portfolio.json says.
+//
+// - Site tests: a real production build of that content (exported to out-e2e/, never your
+//   deployable out/), served with its _headers, so the CSP is enforced during the tests.
+// - Dashboard tests: a dev server on its own port; their edits go to the fixture file and
+//   are undone afterwards.
+const SITE = 'http://127.0.0.1:4174';
+const DEV = 'http://127.0.0.1:3100';
+const TEST_CONTENT = { PORTFOLIO_CONTENT: 'tests/fixtures/portfolio.json' };
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -42,15 +47,16 @@ export default defineConfig({
   ],
   webServer: [
     {
-      // CI builds in its own step first. Locally an already-running preview is reused, so
-      // run `npm run build` first to test fresh code.
-      command: process.env.CI ? 'npm run preview' : 'npm run build && npm run preview',
+      command: 'npm run build && npm run preview',
+      env: { ...TEST_CONTENT, PORT: '4174' },
       url: SITE,
+      // Locally a test preview that's still running is reused (stop it to rebuild).
       reuseExistingServer: !process.env.CI,
       timeout: 300_000,
     },
     {
-      command: 'npm run dev',
+      command: 'npx next dev -H 127.0.0.1 -p 3100',
+      env: TEST_CONTENT,
       url: DEV,
       reuseExistingServer: !process.env.CI,
       timeout: 120_000,

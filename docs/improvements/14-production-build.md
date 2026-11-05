@@ -73,6 +73,7 @@ The build fails if `out/` contains:
 - **Dev-only code:** `dev-dashboard`, `x-portfolio-dashboard`, `writeFile`, `.backups`, `/dashboard#` (the in-site Edit links), `dev-edit-button` or `sourceMappingURL` in any text file. This proves the `NODE_ENV === 'development'` branches were really removed.
 - **A page with a weak or missing CSP:** a page with no CSP `<meta>`, the `<meta>` placed after a script, an inline script whose hash isn't listed, `unsafe-inline` or `unsafe-eval` in `script-src`, inline `on…=` handlers, or `javascript:` links.
 - **Missing required files:** `index.html`, `resume/index.html`, `404.html` or `_headers`.
+- **The wrong content:** the home page `<title>` must match `site.title` of the content file the build was meant to use. This catches a stale build cache shipping other content (added in Phase 6).
 
 ## Hosting
 
@@ -92,6 +93,6 @@ The site must be served from the root of its domain: a custom domain, `username.
 | `tests/unit/buildLockdown.test.ts` (19) | Script hashing; `<meta>` placement; running the script twice; `verify()` rejecting each kind of leak or missing file and passing a clean export; `vercel.json` matching the shared headers |
 | E2E-09 (desktop project) | Against the real export: `/dashboard`, all `/api/dev-dashboard/*`, `/api/send-mix` and `/content/portfolio.json` return 404; PUT, POST and DELETE are refused |
 | E2E-10 (desktop project) | The response carries the header CSP and `nosniff`; Home and `/resume/` run with **zero CSP violations**; an injected inline script does not run |
-| Playwright config | The desktop and both phone projects now run against `npm run build && npm run preview` (port 4173), so every flow is tested under the production CSP. The dashboard project uses `npm run dev` (port 3000). Locally a running preview is reused, so rebuild first to test fresh code |
+| Playwright config | The desktop and both phone projects run against a real production build of the test content (`out-e2e/`, port 4174), so every flow is tested under the production CSP. The dashboard project uses a dev server on port 3100. Both use `tests/fixtures/portfolio.json` (see [16-open-source.md](16-open-source.md)) |
 
 **Totals:** 144 unit tests and 34 Playwright tests, all passing.

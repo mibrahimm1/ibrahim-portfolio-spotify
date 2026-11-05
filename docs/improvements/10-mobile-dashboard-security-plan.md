@@ -1,6 +1,6 @@
 # Plan: Mobile (Spotify app) experience · Dev-only content dashboard · Production lockdown & security audit
 
-**Progress:** Phase 0 ✅ · Phase 1 ✅ ([11-content-model.md](11-content-model.md)) · Phase 2 ✅ ([12-dashboard-guide.md](12-dashboard-guide.md)) · Phase 3 ✅ ([13-mobile-spec.md](13-mobile-spec.md)) · Phase 4 ✅ ([14-production-build.md](14-production-build.md)) · Phase 5 ✅ ([15-security-audit.md](15-security-audit.md)) · Phase 6 pending.
+**Progress:** Phase 0 ✅ · Phase 1 ✅ ([11-content-model.md](11-content-model.md)) · Phase 2 ✅ ([12-dashboard-guide.md](12-dashboard-guide.md)) · Phase 3 ✅ ([13-mobile-spec.md](13-mobile-spec.md)) · Phase 4 ✅ ([14-production-build.md](14-production-build.md)) · Phase 5 ✅ ([15-security-audit.md](15-security-audit.md)) · Phase 6 ✅ ([16-open-source.md](16-open-source.md)). All phases complete.
 
 **Deviation in Phase 2:** the API lives at `/api/dev-dashboard/*`, not `/api/__dashboard/*`, because Next.js treats folders starting with `_` as private and never routes them.
 

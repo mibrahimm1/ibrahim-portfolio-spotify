@@ -99,7 +99,7 @@ export const SearchBody: React.FC<{ onClose: () => void; className?: string }> =
               key={prompt.id}
               type="button"
               onClick={() => askAI(prompt.question)}
-              data-testid={`starter-prompt-${prompt.id === 'prompt-2' ? 'bizbuddy' : prompt.id}`}
+              data-testid={`starter-prompt-${prompt.id}`}
               className={rowClass}
             >
               <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded bg-[#333] text-subdued group-hover:text-white">

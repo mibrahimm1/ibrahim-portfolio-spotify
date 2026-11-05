@@ -21,7 +21,7 @@ describe('LeftSidebar Component', () => {
     expect(screen.getByText(/GitHub/i)).toBeInTheDocument();
     expect(screen.getByText(/LinkedIn/i)).toBeInTheDocument();
     expect(screen.getByText(/^Email$/)).toBeInTheDocument();
-    expect(screen.getByText('0313-2228891')).toBeInTheDocument();
+    expect(screen.getByText('555-010-0100')).toBeInTheDocument();
   });
 
   it('renders live recruiter mix badge with 2 bookmarked items', () => {

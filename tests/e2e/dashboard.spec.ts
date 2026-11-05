@@ -2,7 +2,8 @@ import { test, expect, APIRequestContext } from '@playwright/test';
 
 // The dashboard only exists under `npm run dev`. Against a production server these tests
 // skip themselves, and a separate check asserts the routes really are missing there.
-// They edit content/portfolio.json, so the original is saved first and restored after.
+// They edit the test content (tests/fixtures/portfolio.json), so the original is saved
+// first and restored after.
 
 const API = '/api/dev-dashboard';
 const HEADERS = { 'x-portfolio-dashboard': '1' };

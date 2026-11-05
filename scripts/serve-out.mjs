@@ -12,7 +12,7 @@ import { createReadStream, existsSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, normalize, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const root = join(fileURLToPath(new URL('.', import.meta.url)), '..', 'out');
+const root = join(fileURLToPath(new URL('.', import.meta.url)), '..', process.env.PORTFOLIO_CONTENT ? 'out-e2e' : 'out');
 const port = Number(process.env.PORT) || 4173;
 const host = process.env.HOST || '127.0.0.1';
 

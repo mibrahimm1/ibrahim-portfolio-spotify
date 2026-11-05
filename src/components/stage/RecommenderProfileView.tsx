@@ -95,7 +95,7 @@ export const RecommenderProfileView: React.FC = () => {
               rel="noopener noreferrer"
               className={spotifyButtonClasses('secondary')}
             >
-              NUST faculty directory
+              {recommender.facultyProfileLabel ?? 'Faculty profile'}
               <ExternalLinkIcon size={14} />
             </a>
           )}

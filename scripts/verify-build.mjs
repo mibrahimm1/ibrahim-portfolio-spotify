@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { inlineScriptHashes } from './secure-export.mjs';
 
 const root = join(fileURLToPath(new URL('.', import.meta.url)), '..');
-const outDir = join(root, 'out');
+const outDir = join(root, process.env.PORTFOLIO_CONTENT ? 'out-e2e' : 'out');
 
 /** File or folder names that must not exist anywhere in the export. */
 const FORBIDDEN_PATHS = [/(^|\/)dashboard(\/|\.|$)/i, /(^|\/)api(\/|$)/, /\.map$/, /(^|\/)\.backups(\/|$)/, /\.dev\.(t|j)sx?$/, /(^|\/)content\//];
@@ -23,6 +23,13 @@ const FORBIDDEN_TEXT = ['dev-dashboard', 'x-portfolio-dashboard', 'writeFile', '
 const TEXT_EXT = /\.(html|js|txt|json|css|svg|xml|webmanifest)$/i;
 const REQUIRED = ['index.html', 'resume/index.html', '404.html', '_headers'];
 
+/** The content file this build was meant to use (same rule as next.config.mjs). */
+export function expectedContentFile(projectRoot = root) {
+  return join(projectRoot, process.env.PORTFOLIO_CONTENT || 'content/portfolio.json');
+}
+
+const htmlEscape = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+
 /** @param {string} dir @returns {string[]} */
 function walk(dir) {
   return readdirSync(dir).flatMap((name) => {
@@ -31,10 +38,22 @@ function walk(dir) {
   });
 }
 
-/** @param {string} dir */
-export function verify(dir) {
+/**
+ * @param {string} dir
+ * @param {string} [contentFile] when given, the home page title must match its `site.title`
+ */
+export function verify(dir, contentFile) {
   const problems = [];
   if (!existsSync(dir)) return ['out/ not found. Run `next build` first.'];
+
+  // Guards against a stale build cache shipping some other content (e.g. the test fixture).
+  if (contentFile && existsSync(join(dir, 'index.html'))) {
+    const title = JSON.parse(readFileSync(contentFile, 'utf8')).site?.title ?? '';
+    const html = readFileSync(join(dir, 'index.html'), 'utf8');
+    if (!html.includes(`<title>${htmlEscape(title)}</title>`)) {
+      problems.push(`index.html was not built from ${relative(root, contentFile).split(sep).join('/')} (its site.title is missing): delete .next/ and rebuild`);
+    }
+  }
 
   for (const file of REQUIRED) if (!existsSync(join(dir, file))) problems.push(`missing ${file}`);
 
@@ -65,7 +84,7 @@ export function verify(dir) {
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
-  const problems = verify(outDir);
+  const problems = verify(outDir, expectedContentFile());
   if (problems.length) {
     console.error(`verify-build: ${problems.length} problem(s):\n  - ${problems.join('\n  - ')}`);
     process.exit(1);

@@ -1,6 +1,7 @@
 {
-  "name": "ibrahim-spotify-portfolio",
+  "name": "spotify-style-portfolio",
   "version": "1.0.0",
+  "description": "A Spotify-inspired developer portfolio: static, fast, mobile-ready, with a dev-only content dashboard.",
   "private": true,
   "scripts": {
     "dev": "next dev -H 127.0.0.1",
@@ -12,7 +13,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "content:validate": "vitest run tests/unit/content.test.ts",
-    "content:reset": "node scripts/content-reset.mjs"
+    "content:reset": "node scripts/content-reset.mjs",
+    "setup": "node scripts/setup-fork.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

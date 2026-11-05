@@ -56,8 +56,8 @@ describe('Embedded First-Person AI Semantic Response Engine', () => {
 
   it('should return contact details and booking information on hire/contact query', () => {
     const res = processAIQuery('How can I contact or hire you for remote roles?');
-    expect(res.answer).toContain('m.ibrahimshaikh357@gmail.com');
-    expect(res.answer).toContain('0313-2228891');
+    expect(res.answer).toContain('owner@example.com');
+    expect(res.answer).toContain('555-010-0100');
     expect(res.answer).toContain('Recruiter Mix');
   });
 });

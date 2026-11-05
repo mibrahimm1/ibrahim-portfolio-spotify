@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import portfolio from '../../content/portfolio.json';
+import portfolio from '../fixtures/portfolio.json';
 import { PortfolioSchema, PortfolioContent } from '@/content/schema';
 import {
   cleanReferences,

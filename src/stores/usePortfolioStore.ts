@@ -28,9 +28,9 @@ type NavigationHistoryEntry = ViewEntry;
 export type RightSidebarMode = 'inspector' | 'activity' | 'queue';
 
 const STORAGE_KEYS = {
-  mix: 'ibrahim_recruiter_mix',
-  theme: 'ibrahim_accent_theme',
-  prefs: 'ibrahim_player_prefs',
+  mix: 'portfolio_recruiter_mix',
+  theme: 'portfolio_accent_theme', // also read by the boot script in src/app/layout.tsx
+  prefs: 'portfolio_player_prefs',
 } as const;
 
 export const LEFT_SIDEBAR = { collapsed: 72, min: 280, max: 420, default: 340 } as const;

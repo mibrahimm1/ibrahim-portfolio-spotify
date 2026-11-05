@@ -1,0 +1,25 @@
+name: Bug report
+description: Something in the site, the dashboard or the build doesn't work
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. npm run dev\n2. Open /dashboard\n3. …"
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Browser / device and Node version
+      placeholder: Chrome 140 on Android, Node 22.14
+  - type: markdown
+    attributes:
+      value: "Security problem? Please report it privately instead: see SECURITY.md."

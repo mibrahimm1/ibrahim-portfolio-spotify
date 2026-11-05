@@ -24,7 +24,7 @@ describe('AISearchDropdown Component', () => {
 
   it('responds with first-person answer and project chip when starter question is clicked', () => {
     render(<AISearchDropdown />);
-    const promptBtn = screen.getByTestId('starter-prompt-bizbuddy');
+    const promptBtn = screen.getByTestId('starter-prompt-prompt-2');
     fireEvent.click(promptBtn);
 
     expect(screen.getByTestId('chat-message-ai')).toBeInTheDocument();

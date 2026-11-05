@@ -23,6 +23,7 @@ This folder documents everything that was analysed, found and changed. Read it i
 | 13 | [Mobile experience](13-mobile-spec.md) | Phase 3: the phone and tablet layouts, the Back-gesture history model, and their tests |
 | 14 | [Production build](14-production-build.md) | Phase 4: the static export, the hashed CSP, build verification, and hosting setups |
 | 15 | [Security audit](15-security-audit.md) | Phase 5: threat model, checks A–K with evidence, findings and fixes, and the account settings only you can change |
+| 16 | [Open-source packaging](16-open-source.md) | Phase 6: forking, the setup script, test content independent of yours, and the release checklist |
 
 ## The short version
 

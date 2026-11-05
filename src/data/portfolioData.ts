@@ -1,4 +1,6 @@
-import rawContent from '../../content/portfolio.json';
+// `@portfolio-content` is content/portfolio.json, or the file in PORTFOLIO_CONTENT (the tests
+// point it at tests/fixtures/portfolio.json, so they pass whatever your own content says).
+import rawContent from '@portfolio-content';
 import type { PortfolioContent } from '@/content/schema';
 import { AccentTheme, Playlist, Track } from '@/types/portfolio';
 

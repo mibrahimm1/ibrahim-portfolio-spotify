@@ -44,7 +44,7 @@ test.describe('Spotify Desktop Portfolio - Core User Flows', () => {
     await expect(page.locator('[data-testid="ai-search-popover"]')).toBeVisible();
 
     // Click starter prompt
-    await page.locator('[data-testid="starter-prompt-bizbuddy"]').click();
+    await page.locator('[data-testid="starter-prompt-prompt-2"]').click();
 
     // Verify AI response
     const aiMessage = page.locator('[data-testid="chat-message-ai"]');

@@ -91,6 +91,15 @@ describe('verify-build', () => {
     expect(problems).toContain('javascript: link');
   });
 
+  it('rejects a build whose home page came from other content (stale build cache)', () => {
+    const content = join(dir, 'content.json');
+    writeFileSync(content, JSON.stringify({ site: { title: 'Alex Rivera — Engineer & "Builder"' } }));
+    put('index.html', withCspMeta(page().replace('<head>', '<head><title>Someone Else</title>')));
+    expect(verify(dir, content).join('\n')).toContain('was not built from');
+    put('index.html', withCspMeta(page().replace('<head>', '<head><title>Alex Rivera — Engineer &amp; &quot;Builder&quot;</title>')));
+    expect(verify(dir, content)).toEqual([]);
+  });
+
   it('requires the main pages and the headers file', () => {
     rmSync(join(dir, '_headers'));
     rmSync(join(dir, 'resume'), { recursive: true });

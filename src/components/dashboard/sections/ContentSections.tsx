@@ -272,6 +272,9 @@ export const RecommendersSection: React.FC = () => {
             </Row>
             <Row>
               <UrlField path={[...path, 'facultyProfileUrl']} label="Second profile link" optional />
+              <TextField path={[...path, 'facultyProfileLabel']} label="Second link label" hint="Defaults to “Faculty profile”" optional />
+            </Row>
+            <Row>
               <TrackSelect path={[...path, 'linkedTrackId']} label="Linked item" hint="Shown as “Featuring” on their profile" />
             </Row>
             <UploadField path={[...path, 'photo']} label="Photo" />

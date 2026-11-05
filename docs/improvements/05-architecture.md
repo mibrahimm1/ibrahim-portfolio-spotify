@@ -36,7 +36,7 @@ graph LR
   Catalog --> Store[stores/usePortfolioStore.ts]
   Store -->|narrow selectors / useShallow| UI[Components]
   UI -->|actions| Store
-  Store <-->|ibrahim_* keys| LS[(localStorage)]
+  Store <-->|portfolio_* keys| LS[(localStorage)]
   Store <-->|replaceState / hashchange| URL[(location.hash)]
   Menus[lib/menus.ts] -->|openContextMenu| Store
 ```
@@ -80,8 +80,8 @@ The in-app history stack (`history[]`, `historyIndex`) stays the source of truth
 
 | Key | Contents |
 |---|---|
-| `ibrahim_recruiter_mix` | `string[]` of saved track ids, validated on load |
-| `ibrahim_accent_theme` | `AccentThemeId` |
-| `ibrahim_player_prefs` | `{ shuffle, repeat, volume, isMuted, isLibraryCollapsed, leftSidebarWidth, rightSidebarWidth, isRightSidebarOpen, trackListDensity }`, type-checked and clamped |
+| `portfolio_recruiter_mix` | `string[]` of saved track ids, validated on load |
+| `portfolio_accent_theme` | `AccentThemeId` |
+| `portfolio_player_prefs` | `{ shuffle, repeat, volume, isMuted, isLibraryCollapsed, leftSidebarWidth, rightSidebarWidth, isRightSidebarOpen, trackListDensity }`, type-checked and clamped |
 
 All access is wrapped in `try/catch` (private mode, quota).

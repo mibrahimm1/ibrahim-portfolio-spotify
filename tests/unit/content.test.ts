@@ -1,17 +1,20 @@
 import { describe, it, expect } from 'vitest';
 import portfolio from '../../content/portfolio.json';
 import example from '../../content/portfolio.example.json';
+// Rule tests mutate the fixed test content, so they hold whatever your own content says.
+import fixture from '../fixtures/portfolio.json';
 import { PortfolioSchema, safeUrl, formatContentErrors } from '@/content/schema';
 import { buildRuntime, allPlaylists, featuredPlaylist, defaultAccentThemeId } from '@/data/portfolioData';
 import { parseContent } from '@/data/validateContent';
 import { fillTemplate, processAIQuery } from '@/lib/aiEngine';
 
-// This file doubles as `npm run content:validate`: it fails if either JSON file is invalid.
+// This file doubles as `npm run content:validate`: it fails if your content, the fork
+// template or the test fixture is invalid.
 
 const clone = <T,>(v: T): T => JSON.parse(JSON.stringify(v));
 
-function errorsFor(mutate: (c: typeof portfolio) => void) {
-  const draft = clone(portfolio);
+function errorsFor(mutate: (c: typeof fixture) => void) {
+  const draft = clone(fixture);
   mutate(draft);
   const result = PortfolioSchema.safeParse(draft);
   return result.success ? '' : formatContentErrors(result.error);
@@ -23,6 +26,11 @@ describe('content files', () => {
     expect(result.success ? '' : formatContentErrors(result.error)).toBe('');
   });
 
+  it('tests/fixtures/portfolio.json (the test content) is valid', () => {
+    const result = PortfolioSchema.safeParse(fixture);
+    expect(result.success ? '' : formatContentErrors(result.error)).toBe('');
+  });
+
   it('content/portfolio.example.json (the fork template) is valid', () => {
     const result = PortfolioSchema.safeParse(example);
     expect(result.success ? '' : formatContentErrors(result.error)).toBe('');
@@ -30,7 +38,10 @@ describe('content files', () => {
 
   it('the example template contains no real personal data from the main file', () => {
     const exampleText = JSON.stringify(example).toLowerCase();
-    for (const value of [portfolio.profile.email, portfolio.profile.phone, portfolio.profile.name]) {
+    for (const key of ['email', 'phone', 'name'] as const) {
+      const value = portfolio.profile[key];
+      // Right after `npm run setup` your content *is* the template, which is fine.
+      if (value === example.profile[key]) continue;
       expect(exampleText).not.toContain(value.toLowerCase());
     }
   });
@@ -113,12 +124,12 @@ describe('loader', () => {
   });
 
   it('uses content for the featured playlist and default theme', () => {
-    expect(featuredPlaylist.id).toBe(portfolio.home.featuredPlaylistId);
-    expect(defaultAccentThemeId).toBe(portfolio.accentThemes[0].id);
+    expect(featuredPlaylist.id).toBe(fixture.home.featuredPlaylistId);
+    expect(defaultAccentThemeId).toBe(fixture.accentThemes[0].id);
   });
 
   it('throws a readable error for invalid content', () => {
-    const bad = clone(portfolio);
+    const bad = clone(fixture);
     bad.profile.email = 'not-an-email';
     expect(() => parseContent(bad)).toThrow(/profile\.email/);
   });

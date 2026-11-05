@@ -1,5 +1,5 @@
 import { promises as fs } from 'node:fs';
-import { join, resolve, sep } from 'node:path';
+import { dirname, join, resolve, sep } from 'node:path';
 import { randomBytes } from 'node:crypto';
 import { PortfolioSchema, formatContentErrors } from '@/content/schema';
 
@@ -8,13 +8,21 @@ import { PortfolioSchema, formatContentErrors } from '@/content/schema';
 export const MAX_BACKUPS = 20;
 const BACKUP_NAME = /^portfolio-[0-9TZ-]+\.json$/;
 
-export function contentPaths(root = process.cwd()) {
-  const contentDir = join(root, 'content');
+/**
+ * Where the content lives. Under the E2E tests, PORTFOLIO_CONTENT points the site and the
+ * dashboard at the test fixture instead; its backups then sit next to it. An explicit
+ * `root` (unit tests) always uses `<root>/content/`.
+ */
+export function contentPaths(root?: string) {
+  const base = root ?? process.cwd();
+  const contentDir = join(base, 'content');
+  const override = root === undefined ? process.env.PORTFOLIO_CONTENT : undefined;
+  const file = override ? resolve(base, override) : join(contentDir, 'portfolio.json');
   return {
     contentDir,
-    file: join(contentDir, 'portfolio.json'),
+    file,
     example: join(contentDir, 'portfolio.example.json'),
-    backups: join(contentDir, '.backups'),
+    backups: join(dirname(file), '.backups'),
   };
 }
 

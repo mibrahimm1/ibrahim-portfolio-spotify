@@ -116,6 +116,7 @@ export const RecommenderSchema = z.object({
   externalUrl: safeUrl,
   externalLabel: text(80),
   facultyProfileUrl: safeUrl.optional(),
+  facultyProfileLabel: text(60).optional(), // Button text for facultyProfileUrl; defaults to "Faculty profile"
   linkedTrackId: slug,
   competencies: z.array(z.object({ name: text(80), color: hexColor })).max(20),
   fullLetter: z.array(text(3000)).min(1).max(20),

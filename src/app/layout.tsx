@@ -23,7 +23,7 @@ const bootThemes = Object.fromEntries(
   accentThemeList.map((t) => [t.id, [t.primary, t.hover, t.pressed, t.banner, t.gradient]])
 );
 const bootJson = JSON.stringify({ themes: bootThemes, fallback: defaultAccentThemeId }).replace(/</g, '\\u003c');
-const themeBootScript = `try{var c=${bootJson},s=null;try{s=localStorage.getItem('ibrahim_accent_theme')}catch(e){}var h=Object.prototype.hasOwnProperty,m=s&&h.call(c.themes,s)?c.themes[s]:c.themes[c.fallback];if(m){var r=document.documentElement.style;r.setProperty('--accent-primary',m[0]);r.setProperty('--accent-hover',m[1]);r.setProperty('--accent-pressed',m[2]);r.setProperty('--banner-color',m[3]);r.setProperty('--banner-gradient',m[4]);}}catch(e){}`;
+const themeBootScript = `try{var c=${bootJson},s=null;try{s=localStorage.getItem('portfolio_accent_theme')}catch(e){}var h=Object.prototype.hasOwnProperty,m=s&&h.call(c.themes,s)?c.themes[s]:c.themes[c.fallback];if(m){var r=document.documentElement.style;r.setProperty('--accent-primary',m[0]);r.setProperty('--accent-hover',m[1]);r.setProperty('--accent-pressed',m[2]);r.setProperty('--banner-color',m[3]);r.setProperty('--banner-gradient',m[4]);}}catch(e){}`;
 
 export default function RootLayout({
   children,

@@ -108,10 +108,10 @@ describe('Zustand Global Portfolio Store', () => {
 describe('saved preferences', () => {
   it('ignores a saved theme id that is an object prototype key', () => {
     for (const key of ['__proto__', 'constructor', 'toString']) {
-      localStorage.setItem('ibrahim_accent_theme', key);
+      localStorage.setItem('portfolio_accent_theme', key);
       usePortfolioStore.getState().hydrateFromStorage();
       expect(usePortfolioStore.getState().activeAccentTheme).not.toBe(key);
     }
-    localStorage.removeItem('ibrahim_accent_theme');
+    localStorage.removeItem('portfolio_accent_theme');
   });
 });

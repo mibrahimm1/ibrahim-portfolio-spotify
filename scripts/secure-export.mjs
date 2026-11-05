@@ -16,7 +16,8 @@ import { fileURLToPath } from 'node:url';
 import { CSP_DIRECTIVES, HEADER_ONLY_CSP, IMMUTABLE_CACHE, SECURITY_HEADERS, serializeCsp } from './security-headers.mjs';
 
 const root = join(fileURLToPath(new URL('.', import.meta.url)), '..');
-const outDir = join(root, 'out');
+// `out/`, or `out-e2e/` for a test build (see next.config.mjs).
+const outDir = join(root, process.env.PORTFOLIO_CONTENT ? 'out-e2e' : 'out');
 
 const INLINE_SCRIPT = /<script\b(?![^>]*\bsrc\s*=)[^>]*>([\s\S]*?)<\/script>/gi;
 const CSP_META = /<meta http-equiv="Content-Security-Policy"[^>]*>/i;
