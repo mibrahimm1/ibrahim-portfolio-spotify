@@ -82,3 +82,43 @@ export function checkDashboardRequest(req: Request, options: GuardOptions = {}):
 
   return null;
 }
+
+/**
+ * Reads the request body, stopping as soon as it passes `maxBytes`. The Content-Length
+ * check above is only a fast path: a chunked request has no Content-Length, so without
+ * this a body of any size would be buffered into memory.
+ */
+export async function readBodyLimited(req: Request, maxBytes: number): Promise<Uint8Array<ArrayBuffer> | null> {
+  if (!req.body) return new Uint8Array(0);
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > maxBytes) {
+      await reader.cancel().catch(() => {});
+      return null;
+    }
+    chunks.push(value);
+  }
+  const body = new Uint8Array(new ArrayBuffer(total));
+  let offset = 0;
+  for (const chunk of chunks) {
+    body.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return body;
+}
+
+/** Bounded JSON body: the parsed value, or the error response to send. */
+export async function readJsonLimited(req: Request, maxBytes: number): Promise<{ value: unknown } | { response: Response }> {
+  const bytes = await readBodyLimited(req, maxBytes);
+  if (!bytes) return { response: jsonResponse({ error: 'Request body is too large' }, 413) };
+  try {
+    return { value: JSON.parse(new TextDecoder().decode(bytes)) as unknown };
+  } catch {
+    return { response: jsonResponse({ error: 'Body must be JSON' }, 400) };
+  }
+}

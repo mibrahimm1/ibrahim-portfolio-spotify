@@ -40,6 +40,9 @@ See [`docs/improvements/12-dashboard-guide.md`](docs/improvements/12-dashboard-g
 ## Deploying
 The production build is a static site, with no server and nothing that can write. Deploy `out/` to Vercel (`vercel.json`), Netlify (`netlify.toml`), Cloudflare Pages or GitHub Pages, at the root of a domain. Security headers come with the build. See [`docs/improvements/14-production-build.md`](docs/improvements/14-production-build.md).
 
+## Security
+The live site is static and can only change through a new build from this repository. The dashboard is development-only, and every page runs under a strict Content-Security-Policy. See [`SECURITY.md`](SECURITY.md) and the audit in [`docs/improvements/15-security-audit.md`](docs/improvements/15-security-audit.md).
+
 ## Phones and tablets
 On phones the site switches to a Spotify-app-style layout: a tab bar (Home, Search, Your Library, Contact), a mini-player and full-screen player, bottom sheets, and Back-gesture support. Tablets keep the desktop layout with a compact library. See [`docs/improvements/13-mobile-spec.md`](docs/improvements/13-mobile-spec.md).
 

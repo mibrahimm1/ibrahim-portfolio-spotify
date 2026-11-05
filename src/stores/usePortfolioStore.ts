@@ -324,7 +324,7 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
         const savedMix = JSON.parse(localStorage.getItem(STORAGE_KEYS.mix) || '[]');
         const savedTheme = localStorage.getItem(STORAGE_KEYS.theme) as AccentThemeId | null;
         const prefs = JSON.parse(localStorage.getItem(STORAGE_KEYS.prefs) || '{}');
-        const themeId = savedTheme && accentThemes[savedTheme] ? savedTheme : defaultAccentThemeId;
+        const themeId = savedTheme && Object.hasOwn(accentThemes, savedTheme) ? savedTheme : defaultAccentThemeId;
 
         set({
           // Drop ids that no longer exist in the dataset (e.g. after content edits).

@@ -1,5 +1,5 @@
 // DEV ONLY: `.dev.ts` files are routes only under `next dev` (see next.config.mjs).
-import { checkDashboardRequest, jsonResponse } from '@/lib/dashboard/guard';
+import { checkDashboardRequest, jsonResponse, readJsonLimited } from '@/lib/dashboard/guard';
 import { readContent, readExample, writeContent } from '@/lib/dashboard/contentStore';
 
 export const dynamic = 'force-dynamic';
@@ -19,12 +19,9 @@ export async function PUT(req: Request) {
   const blocked = checkDashboardRequest(req, { contentType: 'application/json', maxBytes: MAX_BODY });
   if (blocked) return blocked;
 
-  let body: { content?: unknown; baseMtime?: unknown; force?: unknown };
-  try {
-    body = await req.json();
-  } catch {
-    return jsonResponse({ error: 'Body must be JSON' }, 400);
-  }
+  const read = await readJsonLimited(req, MAX_BODY);
+  if ('response' in read) return read.response;
+  const body = (read.value ?? {}) as { content?: unknown; baseMtime?: unknown; force?: unknown };
 
   const result = await writeContent(body.content, {
     baseMtime: typeof body.baseMtime === 'number' ? body.baseMtime : undefined,

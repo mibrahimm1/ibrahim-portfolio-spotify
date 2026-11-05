@@ -1,8 +1,11 @@
 // DEV ONLY: `.dev.ts` files are routes only under `next dev` (see next.config.mjs).
-import { checkDashboardRequest, jsonResponse } from '@/lib/dashboard/guard';
+import { checkDashboardRequest, jsonResponse, readBodyLimited } from '@/lib/dashboard/guard';
 import { deleteUpload, listUploads, MAX_PDF_BYTES, saveUpload } from '@/lib/dashboard/uploads';
 
 export const dynamic = 'force-dynamic';
+
+// The largest file allowed plus room for the multipart framing.
+const MAX_BODY = MAX_PDF_BYTES + 64 * 1024;
 
 export async function GET(req: Request) {
   const blocked = checkDashboardRequest(req);
@@ -12,12 +15,15 @@ export async function GET(req: Request) {
 
 /** POST multipart { file, kind: "image" | "pdf" } → saved under public/uploads with a random name. */
 export async function POST(req: Request) {
-  const blocked = checkDashboardRequest(req, { contentType: 'multipart/form-data', maxBytes: MAX_PDF_BYTES + 64 * 1024 });
+  const blocked = checkDashboardRequest(req, { contentType: 'multipart/form-data', maxBytes: MAX_BODY });
   if (blocked) return blocked;
 
+  const bytes = await readBodyLimited(req, MAX_BODY);
+  if (!bytes) return jsonResponse({ error: 'Request body is too large' }, 413);
   let form: FormData;
   try {
-    form = await req.formData();
+    // Re-parse the bounded copy (multipart needs the original boundary from Content-Type).
+    form = await new Response(bytes, { headers: { 'content-type': req.headers.get('content-type') ?? '' } }).formData();
   } catch {
     return jsonResponse({ error: 'Expected a multipart form' }, 400);
   }

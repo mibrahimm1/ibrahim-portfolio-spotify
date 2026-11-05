@@ -42,8 +42,9 @@ export default defineConfig({
   ],
   webServer: [
     {
-      // Locally an already-running preview is reused: run `npm run build` first to test fresh code.
-      command: 'npm run build && npm run preview',
+      // CI builds in its own step first. Locally an already-running preview is reused, so
+      // run `npm run build` first to test fresh code.
+      command: process.env.CI ? 'npm run preview' : 'npm run build && npm run preview',
       url: SITE,
       reuseExistingServer: !process.env.CI,
       timeout: 300_000,

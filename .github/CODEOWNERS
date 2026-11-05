@@ -1,0 +1,14 @@
+# Every change needs the owner's review once branch protection requires code-owner approval.
+# Forks: replace the handle below with your own GitHub username.
+*                     @mibrahimm1
+
+# What the live site shows, and what controls how it is built and served.
+/content/             @mibrahimm1
+/public/              @mibrahimm1
+/next.config.mjs      @mibrahimm1
+/vercel.json          @mibrahimm1
+/netlify.toml         @mibrahimm1
+/scripts/             @mibrahimm1
+/.github/             @mibrahimm1
+/package.json         @mibrahimm1
+/package-lock.json    @mibrahimm1

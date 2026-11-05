@@ -3,7 +3,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { promises as fs } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { checkDashboardRequest, isLocalHost } from '@/lib/dashboard/guard';
+import { checkDashboardRequest, isLocalHost, readBodyLimited, readJsonLimited } from '@/lib/dashboard/guard';
 import { containedPath, listBackups, MAX_BACKUPS, readContent, restoreBackup, writeContent } from '@/lib/dashboard/contentStore';
 import { deleteUpload, listUploads, MAX_IMAGE_BYTES, safeBaseName, saveUpload, sniffType } from '@/lib/dashboard/uploads';
 
@@ -210,5 +210,45 @@ describe('uploads', () => {
     expect(await deleteUpload('a.svg', root)).toBe(false);
     if (saved.ok) expect(await deleteUpload(saved.name, root)).toBe(true);
     expect(await listUploads(root)).toEqual([]);
+  });
+});
+
+describe('bounded request bodies', () => {
+  /** A chunked request: no Content-Length, so the header check can't see its size. */
+  function chunked(chunks: string[]) {
+    const stream = new ReadableStream<Uint8Array>({
+      start(controller) {
+        for (const c of chunks) controller.enqueue(new TextEncoder().encode(c));
+        controller.close();
+      },
+    });
+    return new Request('http://127.0.0.1:3000/api/dev-dashboard/content', {
+      method: 'PUT',
+      body: stream,
+      headers: { 'content-type': 'application/json' },
+      // @ts-expect-error -- Node's fetch needs this for streamed bodies
+      duplex: 'half',
+    });
+  }
+
+  it('stops reading a chunked body once it passes the limit', async () => {
+    const request = chunked(['{"content":"', 'a'.repeat(600), 'a'.repeat(600), '"}']);
+    expect(request.headers.get('content-length')).toBeNull();
+    expect(checkDashboardRequest(request, { env: 'development', maxBytes: 1000 })).not.toBeNull(); // no header → 403 anyway
+    expect(await readBodyLimited(request, 1000)).toBeNull();
+  });
+
+  it('returns the whole body when it fits', async () => {
+    const bytes = await readBodyLimited(chunked(['{"a":', '1}']), 1000);
+    expect(new TextDecoder().decode(bytes!)).toBe('{"a":1}');
+  });
+
+  it('answers 413 for oversized JSON and 400 for invalid JSON', async () => {
+    const big = await readJsonLimited(chunked(['"', 'x'.repeat(2000), '"']), 1000);
+    expect('response' in big && big.response.status).toBe(413);
+    const bad = await readJsonLimited(chunked(['{not json']), 1000);
+    expect('response' in bad && bad.response.status).toBe(400);
+    const ok = await readJsonLimited(chunked(['{"name":"x"}']), 1000);
+    expect(ok).toEqual({ value: { name: 'x' } });
   });
 });
