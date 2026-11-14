@@ -21,10 +21,11 @@
     "name": "Muhammad Ibrahim Shaikh",
     "firstName": "Ibrahim",
     "shortName": "ibrahimm",
-    "initials": "MIS",
+    "initials": "IS",
     "avatarLetter": "I",
+    "avatarImage": "/uploads/new-project-0eb5994b.png",
     "role": "AI & Product Engineer",
-    "tagline": "AI & Product Engineer • 8+ Production Systems • NUST '27 (3.59 CGPA) • 1x Hackathon Winner",
+    "tagline": "AI & Product Engineer • Building Agentic LLM Systems & Scaling B2B Products • NUST '27 (3.59 CGPA) • 1x Hackathon Winner",
     "verifiedLabel": "Verified Engineer",
     "availabilityLine": "Open to remote • Full-time roles • 2027 grad",
     "locationChip": "ISB / KHI · Remote",
@@ -34,24 +35,24 @@
       "Karachi, Pakistan",
       "Open to Remote"
     ],
-    "phone": "+92 313 2228891",
-    "phoneDisplay": "0313-2228891",
+    "phone": "+92 318 2228891",
+    "phoneDisplay": "0318-2228891",
     "email": "m.ibrahimshaikh357@gmail.com",
     "github": "https://github.com/mibrahimm1",
     "linkedin": "https://www.linkedin.com/in/ibrahimshaikhh/",
     "bio": "Software Engineering student at NUST with production experience in designing agentic AI systems and automation infrastructure. Proven ability to build end-to-end pipelines in NLP, computer vision, multimodal AI, and full-stack integration. Skilled in Python, PyTorch, LangChain, LLM, RAG pipelines, Agentic workflows, n8n, and production LLM operations. Winner of the AI hackathon at NUST. Seeking roles in AI and Product Engineering to work on multimodal agentic architectures, automated software tools, intelligent systems, and applied AI.",
-    "calendarBookingUrl": "https://calendar.google.com/",
+    "calendarBookingUrl": "https://calendar.app.google/PCPWdsfLosf2QBAz8",
     "resumePdf": "/resume.pdf",
     "resumeFileName": "Muhammad_Ibrahim_Shaikh_Resume.pdf"
   },
   "home": {
     "featuredPlaylistId": "featured-projects",
-    "topArtistsTitle": "Top artists this month",
+    "topArtistsTitle": "Top technologies this month",
     "topArtistsSubtitle": "The core stack behind every production system",
-    "topTracksTitle": "Top tracks this month",
+    "topTracksTitle": "Top projects",
     "topTracksSubtitle": "The projects recruiters open most",
     "topTracksCount": 4,
-    "followingTitle": "Following",
+    "followingTitle": "Recommendations",
     "followingSubtitle": "Faculty who vouch for Ibrahim"
   },
   "recruiterMix": {
@@ -901,7 +902,7 @@
       "id": "saeed-murtaza",
       "name": "Dr. Saeed Murtaza",
       "title": "Associate Professor, Dept. of Computer Software Engineering",
-      "affiliation": "Military College of Signals (MCS), NUST · Ph.D. Physics & Space Research, Univ. of Birmingham, UK",
+      "affiliation": "National University of Sciences and Technology (NUST), MCS · Ph.D. Physics & Space Research, Univ. of Birmingham, UK",
       "email": "smurtaza@mcs.edu.pk",
       "ranking": "Ranks Ibrahim in Top 5% of Undergraduates",
       "type": "academic",
@@ -910,6 +911,7 @@
       "externalLabel": "Open Google Scholar Profile ↗",
       "facultyProfileUrl": "https://mcs.nust.edu.pk/faculty/saeed-murtaza/",
       "facultyProfileLabel": "NUST faculty directory",
+      "quote": "Ibrahim ranks unquestionably in the top 5% of all undergraduate engineering students I have mentored in my career.",
       "linkedTrackId": "edu-nust",
       "competencies": [
         {
@@ -933,7 +935,6 @@
           "color": "#A7C2D1"
         }
       ],
-      "quote": "Ibrahim ranks unquestionably in the top 5% of all undergraduate engineering students I have mentored in my career.",
       "fullLetter": [
         "I am writing this letter of recommendation with great pleasure for Muhammad Ibrahim Shaikh, whom I have taught across multiple semesters at the Military College of Signals, NUST, in Linear Algebra & ODEs, Probability & Statistics, and Complex Variables & Transforms.",
         "Ibrahim ranks unquestionably in the top 5% of all undergraduate engineering students I have mentored in my career. What sets him distinctly apart is his rigorous first-principles mathematical inquiry: where most students treat formulas as black-box procedures, Ibrahim rigorously derives underlying probabilistic distributions and matrix decompositions before translating them into scalable code.",
@@ -945,13 +946,14 @@
       "id": "khawir-mahmood",
       "name": "Asst. Prof. Khawir Mahmood",
       "title": "Assistant Professor & FYP Supervisor, Dept. of Computer Software Engineering",
-      "affiliation": "Military College of Signals (MCS), NUST",
+      "affiliation": "National University of Sciences and Technology (NUST), MCS",
       "email": "khawir@mcs.edu.pk",
       "ranking": "Ranks Ibrahim in Top 5% • Grade \"A\" in Machine Learning",
       "type": "academic",
       "avatarInitials": "KM",
       "externalUrl": "https://scholar.google.com/citations?user=wixHCFkAAAAJ&hl=en",
       "externalLabel": "Open Google Scholar Profile ↗",
+      "quote": "Ibrahim combines rare intellectual curiosity with an engineer's pragmatism and an exceptional work ethic.",
       "linkedTrackId": "project-konvex",
       "competencies": [
         {
@@ -979,7 +981,6 @@
           "color": "#57B660"
         }
       ],
-      "quote": "Ibrahim combines rare intellectual curiosity with an engineer's pragmatism and an exceptional work ethic.",
       "fullLetter": [
         "It is my distinct privilege to recommend Muhammad Ibrahim Shaikh, a standout software engineering student at NUST MCS whom I have had the pleasure of teaching in Object-Oriented Programming, Machine Learning, and Deep Learning, as well as supervising his capstone Final Year Project, 'Konvex'.",
         "In my Machine Learning course, students are challenged to derive backpropagation, cost functions, and regularized gradient descent entirely by hand. Ibrahim not only earned a solid Grade 'A' through flawless mathematical derivations, but he was also among the few who immediately ported those mathematical abstractions into production-ready Python pipelines.",
