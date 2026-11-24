@@ -85,6 +85,19 @@ describe('schema security rules', () => {
     expect(errorsFor((c) => (c.playlists[0].coverColor = 'red; background:url(x)'))).toMatch(/coverColor/);
     expect(errorsFor((c) => (c.playlists[0].id = 'Has Spaces'))).toMatch(/playlists\.0\.id/);
   });
+
+  it('allows optional email for recommenders but rejects invalid emails', () => {
+    expect(
+      errorsFor((c) => {
+        delete (c.recommenders[0] as { email?: string }).email;
+      })
+    ).toBe('');
+    expect(
+      errorsFor((c) => {
+        c.recommenders[0].email = 'not-an-email';
+      })
+    ).toMatch(/recommenders\.0\.email/);
+  });
 });
 
 describe('schema referential integrity', () => {

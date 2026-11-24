@@ -23,7 +23,7 @@ All global headers, sidebar filter pills, contact modals, and AI knowledge bases
 | **Headline Role** | AI & Product Engineer | Profile Subtitle & Default Hero Tagline |
 | **Header Stats Tagline** | `AI & Product Engineer • 8+ Production Systems • NUST '27 • 1x Hackathon Winner` | Profile Banner Metadata Line |
 | **Locations** | Islamabad, Pakistan & Karachi, Pakistan (`Open to Remote`) | Profile Metadata & Left Sidebar Location Pill |
-| **Phone Number** | `+92 313 2228891` (`03132228891`) | Left Sidebar Filter Pill (`tel:+923132228891`) |
+| **Phone Number** | `+92 318 2228891` (`0318-2228891`) | Left Sidebar Filter Pill (`tel:+923182228891`) |
 | **Email Address** | [m.ibrahimshaikh357@gmail.com](mailto:m.ibrahimshaikh357@gmail.com) | Left Sidebar Filter Pill & Booking Modal Target |
 | **GitHub Profile** | [github.com/mibrahimm1](https://github.com/mibrahimm1) | Left Sidebar Filter Pill & Track Repository Links |
 | **LinkedIn Profile** | [linkedin.com/in/ibrahimshaikhh](https://www.linkedin.com/in/ibrahimshaikhh/) | Left Sidebar Filter Pill & Header Social Link |
@@ -40,7 +40,7 @@ Every native surface of the Spotify Desktop interface maps deterministically to 
 | **Top-Right Bell Icon (`🔔`)** | Static Decorative Icon | Non-interactive icon preserved for 1:1 visual fidelity with the Spotify header |
 | **Top-Right Friends Icon (`👥`)** | Toggle `Listening activity` (Endorsements & Testimonials) | Opens/closes the right-hand `Listening activity` feed featuring faculty and industry recommenders |
 | **Top-Right Minimize Button (`-`)** | Recruiter Escape Hatch | Displays a clear tooltip (`Switch to Standard Resume View`) and loads a separate traditional portfolio UI |
-| **Left Sidebar Filter Pills** | Direct Contact & Social Links | One-click action pills for **GitHub**, **LinkedIn**, **Email**, **Phone (`03132228891`)**, and **Location (`ISB / KHI · Remote`)** |
+| **Left Sidebar Filter Pills** | Direct Contact & Social Links | One-click action pills for **GitHub**, **LinkedIn**, **Email**, **Phone (`0318-2228891`)**, and **Location (`ISB / KHI · Remote`)** |
 | **Left Sidebar Pinned `Liked Songs`** | **"Your Recruiter Mix"** Custom Playlist | Displays a live badge counter of all tracks/projects bookmarked via the `+` / Heart button across the app |
 | **Left Sidebar Library List** | Portfolio Category Playlists | Houses the 6 core category playlists: *Featured Projects*, *Work Experience*, *Education*, *Research & Publications*, *Volunteering & Leadership*, and *Courses, Certifications & Honors* |
 | **Center Profile "Top artists this month"** | Top 8 Core Technologies (Circular Avatars) | Non-clickable visual showcase badges highlighting primary engineering stack |

@@ -83,6 +83,16 @@ test.describe('Spotify Desktop Portfolio - Core User Flows', () => {
     await expect(page.locator('[data-testid="standard-resume-container"]')).toBeVisible();
   });
 
+  test('E2E-05b: Top Bar Switch to Standard Portfolio Button Navigates to Standard Resume Route', async ({ page }) => {
+    const switchBtn = page.locator('[data-testid="switch-to-standard-portfolio-button"]');
+    await expect(switchBtn).toBeVisible();
+    await expect(switchBtn).toHaveAttribute('href', /\/resume\/?/);
+    await expect(switchBtn).toHaveAttribute('aria-label', 'Switch to Standard Portfolio');
+    await switchBtn.click();
+    await expect(page).toHaveURL(/\/resume/);
+    await expect(page.locator('[data-testid="standard-resume-container"]')).toBeVisible();
+  });
+
   test('E2E-06: Lyrics Mode Personal Cover Letter View', async ({ page }) => {
     await page.locator('[data-testid="lyrics-mic-btn"]').click();
     await expect(page.locator('[data-testid="lyrics-mode-stage"]')).toBeVisible();

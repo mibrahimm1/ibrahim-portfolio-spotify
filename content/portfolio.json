@@ -172,6 +172,41 @@
         "supabase",
         "rls"
       ]
+    },
+    {
+      "id": "other-languages",
+      "name": "Java, C++",
+      "subtitle": "Other Languages",
+      "category": "Programming Languages",
+      "monogram": "JC",
+      "color": "#649AED",
+      "keywords": [
+        "java",
+        "c++",
+        "programming"
+      ]
+    },
+    {
+      "id": "web-technology",
+      "name": "HTML, CSS, Javascript",
+      "subtitle": "Web Technologies",
+      "category": "Languages",
+      "monogram": "WB",
+      "color": "#649AED",
+      "keywords": [
+        "web"
+      ]
+    },
+    {
+      "id": "new-technology",
+      "name": "React.js & Next.js",
+      "subtitle": "Web Technologies and Frameworks",
+      "category": "Web Technolgies",
+      "monogram": "NT",
+      "color": "#649AED",
+      "keywords": [
+        "web"
+      ]
     }
   ],
   "playlists": [
@@ -179,20 +214,20 @@
       "id": "featured-projects",
       "title": "Featured Projects",
       "description": "Production AI architectures, multi-agent frameworks, computer vision pipelines, and full-stack systems built by Ibrahim.",
-      "subtitle": "Playlist • 8 systems (LPs, EPs & FYP)",
+      "subtitle": "Playlist • 8 systems",
       "aboutLabel": "About the project",
       "coverColor": "#EB5640",
       "artKind": "code",
       "tracks": [
         {
           "id": "project-konvex",
-          "title": "Konvex — AI-Native Multi-Platform E-Commerce Assistant",
+          "title": "Konvex : AI-Native Multi-Platform E-Commerce Assistant",
           "subtitle": "Multi-Agent State Graph, Supabase, Shopify & WooCommerce APIs, Meta Suite, Pydantic",
-          "album": "LP · Final Year Project (In Dev)",
+          "album": "Final Year Project (In Dev)",
           "dateAdded": "May 2026 – Present",
           "duration": "Agentic Commerce",
           "hook": "0% Pricing Hallucination Target • Unified Meta/Shopify/WooCommerce Inbox (In Development)",
-          "details": "Co-founded and leading a 4-person MCS NUST capstone team supervised by Asst. Prof. Khawir Mahmood. Unifies WhatsApp, Instagram, Shopify, and WooCommerce into a single live inbox. Features specialized worker agents for catalog retrieval, product recommendation, order modification, and checkout execution, backed by Supabase hybrid semantic + keyword search, deterministic Pydantic validation, real-time database locks, and an automated conversation quality audit module resolving 40–60% of support queries.",
+          "details": "Co-founded and leading a 4-person capstone team. Unifies WhatsApp, Instagram, Shopify, and WooCommerce into a single live inbox. Features specialized worker agents for catalog retrieval, product recommendation, order modification, and checkout execution, backed by Supabase hybrid semantic + keyword search, deterministic Pydantic validation, real-time database locks, and an automated conversation quality audit module resolving 40–60% of support queries.",
           "credits": [
             {
               "item": "LangGraph",
@@ -223,7 +258,7 @@
           "id": "project-medical-report",
           "title": "Multimodal Medical Report Analyzer",
           "subtitle": "YOLOv8, FastAPI, LangChain, Google Gemini, Next.js, Docker",
-          "album": "LP · Full-Stack AI",
+          "album": "Full-Stack AI",
           "dateAdded": "2025",
           "duration": "MedTech Vision",
           "hook": "14,000+ Chest X-Rays • 0.99 Healthy / 0.88 Cardiomegaly mAP@50 • Real-Time Grounding",
@@ -254,7 +289,7 @@
           "id": "project-sonyc-rag",
           "title": "Sonyc — Production Multimodal RAG System",
           "subtitle": "Python, FastAPI, LangChain, FAISS, ChromaDB, BGE/Gemini Embeddings, AWS EC2",
-          "album": "LP · Production RAG",
+          "album": "Production RAG",
           "dateAdded": "2025",
           "duration": "Multimodal RAG",
           "hook": "40% Latency Reduction on AWS EC2 • Dual FAISS/ChromaDB Vector Indexing",
@@ -284,7 +319,7 @@
           "id": "project-gmail-agent",
           "title": "Autonomous Gmail Monitoring Agent",
           "subtitle": "Python, LangGraph (StateGraph), Gmail API, Google Sheets API v4, Pydantic, Tenacity",
-          "album": "EP · Agentic Workflow",
+          "album": "Agentic Workflow",
           "dateAdded": "2026",
           "duration": "Autonomous Agent",
           "hook": "6-Node Deterministic LangGraph StateGraph • Fault-Tolerant Inbox Automation",
@@ -314,7 +349,7 @@
           "id": "project-voice-assistant",
           "title": "Edge IoT Voice Assistant",
           "subtitle": "Raspberry Pi, PyAudio, WebRTC VAD, FastAPI, Groq Whisper, Llama 3.3",
-          "album": "EP · Edge AI Hardware",
+          "album": "Edge AI Hardware",
           "dateAdded": "2025",
           "duration": "Edge IoT & Voice",
           "hook": "Sub-Second Groq Whisper STT + Llama 3.3 Reasoning on Raspberry Pi Hardware",
@@ -344,7 +379,7 @@
           "id": "project-code-connect",
           "title": "AI-Powered Video Calling Application",
           "subtitle": "WebRTC, Socket.IO, Google Gemini 2.5 Flash, Google Cloud Translation API, Vercel",
-          "album": "LP · 1st Place Hackathon",
+          "album": "1st Place Hackathon",
           "dateAdded": "2025",
           "duration": "Real-Time WebRTC",
           "hook": "1st Place Among 20+ National Teams at Code Connect 2025 AI Hackathon",
@@ -370,7 +405,7 @@
           "id": "project-brain-tumor",
           "title": "Brain Tumor Detection and Segmentation",
           "subtitle": "PyTorch, YOLOv11n, SAM 2, OpenCV, CUDA, Jupyter",
-          "album": "EP · Medical Vision",
+          "album": "Medical Vision",
           "dateAdded": "2025",
           "duration": "Zero-Shot CV",
           "hook": "1,765 MRI Scans • 0.95 Meningioma & 0.974 Healthy mAP@50 • YOLOv11 + SAM 2",
@@ -396,7 +431,7 @@
           "id": "project-whatsapp-analyzer",
           "title": "WhatsApp Chat Analytics and RAG Assistant",
           "subtitle": "Python, LangChain, Streamlit, Vector Embeddings, Pandas",
-          "album": "Single · Data & RAG",
+          "album": "Data & RAG",
           "dateAdded": "2025",
           "duration": "Conversational Analytics",
           "hook": "Interactive Behavioral Telemetry + Embedded ChatGuru LangChain RAG",
@@ -452,17 +487,18 @@
               "role": "23-Endpoint Production API Gateway"
             }
           ],
-          "coverColor": "#649AED"
+          "coverColor": "#649AED",
+          "coverImage": "/uploads/horquva-logo-5220fd0c.jpg"
         },
         {
           "id": "work-bizbuddy",
-          "title": "AI Automation Engineer & Product Growth",
-          "subtitle": "BizBuddy (B&B Technologies) · Onsite (Karachi)",
-          "album": "Nexus Gen-4 WhatsApp Ordering Engine",
+          "title": "AI Automation Engineer & Product Growth Intern",
+          "subtitle": "BizBuddy  · Onsite (Karachi)",
+          "album": "WhatsApp Ordering Engine",
           "dateAdded": "Jun 2026 – Aug 2026",
           "duration": "Onsite · Karachi",
-          "hook": "89% LLM Cost Reduction • 157,000+ Messages • 25+ Restaurant Clients",
-          "details": "Architected the multi-tenant \"Nexus\" Gen-4 conversational agent across 25+ restaurants (28,800+ catalog items, 16,300+ delivery areas, 3M+ peak daily tokens), cutting client onboarding from 24–40 hours to 8–12 hours. Built a multimodal WhatsApp Cloud API pipeline (OpenAI Whisper Roman Urdu STT + Gemini 2.5 Flash Vision), a 9-to-12 custom tool-calling engine against PostgreSQL, a 5-layer error-handling framework with a two-phase \"Prepare-Confirm\" transactional commit pattern, and dynamic prompt compilation (shrinking prompts from ~46.5K to ~9K tokens). Migrated production agents from Gemini 2.5 Flash to Qwen 3.6 Flash (80% fewer input tokens, 7x faster TTFT, 89% cost reduction), built zero-migration Blink POS & Technosys/Syrve POS integrations, established a 65-test QA suite (~98% accuracy), closed key B2B accounts, and interviewed 20+ intern candidates.",
+          "hook": "89% LLM Cost Reduction • 25+ Restaurant",
+          "details": "Architected the multi-tenant conversational agent across 25+ restaurants (28,800+ catalog items, 16,300+ delivery areas, 3M+ peak daily tokens), cutting client onboarding from 24–40 hours to 8–12 hours. Built a multimodal WhatsApp Cloud API pipeline (OpenAI Whisper Roman Urdu STT + Gemini 2.5 Flash Vision), a 12 custom tool-calling engine against PostgreSQL, a 5-layer error-handling framework with a two-phase transactional commit pattern, and dynamic prompt compilation (shrinking prompts from ~46.5K to ~9K tokens). Migrated production agents from Gemini 2.5 Flash to Qwen 3.6 Flash (80% fewer input tokens, 7x faster TTFT, 89% cost reduction), built zero-migration Blink POS & Technosys/Syrve POS integrations, established a 65-test QA suite (~98% accuracy), closed key B2B accounts, and interviewed 20+ intern candidates.",
           "credits": [
             {
               "item": "Qwen 3.6 Flash",
@@ -481,7 +517,8 @@
               "role": "9-to-12 Deterministic Safe SQL Tools"
             }
           ],
-          "coverColor": "#57B660"
+          "coverColor": "#57B660",
+          "coverImage": "/uploads/bizbuddy-co-logo-f9fae0e3.jpg"
         },
         {
           "id": "work-entropik",
@@ -506,7 +543,8 @@
               "role": "Production Agent with Real-Time Tools"
             }
           ],
-          "coverColor": "#EB5640"
+          "coverColor": "#EB5640",
+          "coverImage": "/uploads/entropik-labs-logo-fc47d1e0.jpg"
         },
         {
           "id": "work-arch",
@@ -515,7 +553,7 @@
           "album": "Supervised ML & Feature Engineering",
           "dateAdded": "Apr 2025 – Jun 2025",
           "duration": "Remote · Islamabad",
-          "hook": "~15% Production Model Accuracy Improvement Over Baseline",
+          "hook": "~15% Model Accuracy Improvement Over Baseline",
           "details": "Built and optimized supervised machine learning pipelines in Python with end-to-end feature engineering, hyperparameter tuning, and portfolio model deployments across medical imaging, predictive modeling, and conversational analytics.",
           "credits": [
             {
@@ -555,39 +593,12 @@
           "details": "Pursuing Bachelor of Software Engineering at MCS NUST. Recipient of 100% fully funded Need-cum-Merit scholarship (NTF) and semester GPA Merit Scholarship. Ranked in the top 5% of cohort by faculty.",
           "credits": [
             {
-              "item": "Machine Learning",
-              "role": "Grade: A (First-Principles Backpropagation)"
-            },
-            {
-              "item": "Deep Learning",
-              "role": "Diagnostic Modeling & Neural Architecture"
-            },
-            {
-              "item": "Object-Oriented Programming",
-              "role": "Solid Principles & Design Patterns"
-            },
-            {
-              "item": "Data Structures & Algorithms",
-              "role": "Graph Algorithms & Complexity"
-            },
-            {
-              "item": "Software Design & Architecture",
-              "role": "C4 Models & Enterprise Patterns"
-            },
-            {
-              "item": "Linear Algebra & ODEs",
-              "role": "Vector Spaces & Matrix Decompositions"
-            },
-            {
-              "item": "Probability & Statistics",
-              "role": "Bayesian Inference & Random Variables"
-            },
-            {
-              "item": "Complex Variables & Transforms",
-              "role": "Fourier & Laplace Transform Theory"
+              "item": "CGPA",
+              "role": "3.59"
             }
           ],
           "coverColor": "#A7C2D1",
+          "coverImage": "/uploads/nustofficial-logo-f5f93db8.jpg",
           "recommenderId": "saeed-murtaza"
         },
         {
@@ -613,7 +624,8 @@
               "role": "Advanced Physical Principles (Grade: A)"
             }
           ],
-          "coverColor": "#D5F479"
+          "coverColor": "#D5F479",
+          "coverImage": "/uploads/10895268-1387756518194605-179017546-a-79346ca0.jpg"
         },
         {
           "id": "edu-beaconhouse",
@@ -628,13 +640,10 @@
             {
               "item": "STEM Subjects",
               "role": "7 A*s in Math, Physics, Chemistry, Computer Science, etc."
-            },
-            {
-              "item": "Core Disciplines",
-              "role": "3 As in English and Humanities"
             }
           ],
-          "coverColor": "#E57BA1"
+          "coverColor": "#E57BA1",
+          "coverImage": "/uploads/beaconhouse-school-logo-89e19b69.jpg"
         }
       ]
     },
@@ -703,7 +712,8 @@
               "role": "Editorial Art Direction & Layout"
             }
           ],
-          "coverColor": "#F7CFD4"
+          "coverColor": "#F7CFD4",
+          "coverImage": "/uploads/software-society-military-college-of-sig-736a3a7a.jpg"
         },
         {
           "id": "vol-devcon",
@@ -724,7 +734,8 @@
               "role": "Print & Digital Asset Architecture"
             }
           ],
-          "coverColor": "#EB5640"
+          "coverColor": "#EB5640",
+          "coverImage": "/uploads/devcon-rzyoptxn-fe3998d5.png"
         },
         {
           "id": "vol-bryt",
@@ -745,7 +756,8 @@
               "role": "Technical Conceptual QA"
             }
           ],
-          "coverColor": "#649AED"
+          "coverColor": "#649AED",
+          "coverImage": "/uploads/1633075928049-b25d138d.jpg"
         },
         {
           "id": "vol-wwf",
@@ -762,7 +774,8 @@
               "role": "Ecological Field Research & Community Workshops"
             }
           ],
-          "coverColor": "#57B660"
+          "coverColor": "#57B660",
+          "coverImage": "/uploads/wwf-international-logo-53c97e3b.jpg"
         }
       ]
     },
@@ -903,7 +916,6 @@
       "name": "Dr. Saeed Murtaza",
       "title": "Associate Professor, Dept. of Computer Software Engineering",
       "affiliation": "National University of Sciences and Technology (NUST), MCS · Ph.D. Physics & Space Research, Univ. of Birmingham, UK",
-      "email": "smurtaza@mcs.edu.pk",
       "ranking": "Ranks Ibrahim in Top 5% of Undergraduates",
       "type": "academic",
       "avatarInitials": "SM",
@@ -927,28 +939,22 @@
           "color": "#F6C874"
         },
         {
-          "name": "First-Principles Math-to-Code",
-          "color": "#EB5640"
-        },
-        {
           "name": "Research & Team Leadership",
           "color": "#A7C2D1"
         }
       ],
       "fullLetter": [
         "I am writing this letter of recommendation with great pleasure for Muhammad Ibrahim Shaikh, whom I have taught across multiple semesters at the Military College of Signals, NUST, in Linear Algebra & ODEs, Probability & Statistics, and Complex Variables & Transforms.",
-        "Ibrahim ranks unquestionably in the top 5% of all undergraduate engineering students I have mentored in my career. What sets him distinctly apart is his rigorous first-principles mathematical inquiry: where most students treat formulas as black-box procedures, Ibrahim rigorously derives underlying probabilistic distributions and matrix decompositions before translating them into scalable code.",
         "His grasp of multivariable calculus and linear transformations has directly fed into his advanced machine learning architectures, enabling him to build and debug complex neural systems with genuine theoretical confidence. Beyond academic prowess, he possesses natural leadership and collaborative spirit, frequently organizing peer study cohorts and driving group research initiatives.",
         "I give Muhammad Ibrahim Shaikh my highest, unreserved recommendation for any demanding software engineering, AI engineering, or graduate research position."
       ]
     },
     {
       "id": "khawir-mahmood",
-      "name": "Asst. Prof. Khawir Mahmood",
-      "title": "Assistant Professor & FYP Supervisor, Dept. of Computer Software Engineering",
+      "name": "Khawir Mahmood",
+      "title": "Professor, Dept. of Computer Software Engineering",
       "affiliation": "National University of Sciences and Technology (NUST), MCS",
-      "email": "khawir@mcs.edu.pk",
-      "ranking": "Ranks Ibrahim in Top 5% • Grade \"A\" in Machine Learning",
+      "ranking": "Ranks Ibrahim in Top 5%",
       "type": "academic",
       "avatarInitials": "KM",
       "externalUrl": "https://scholar.google.com/citations?user=wixHCFkAAAAJ&hl=en",
@@ -957,11 +963,11 @@
       "linkedTrackId": "project-konvex",
       "competencies": [
         {
-          "name": "Machine Learning (Grade: A)",
+          "name": "Machine Learning",
           "color": "#D5F479"
         },
         {
-          "name": "Deep Learning Diagnostics",
+          "name": "Deep Learning",
           "color": "#EB5640"
         },
         {
@@ -973,11 +979,11 @@
           "color": "#F6C874"
         },
         {
-          "name": "FYP Research Autonomy",
+          "name": "Research Autonomy",
           "color": "#E57BA1"
         },
         {
-          "name": "Empirical Code Hygiene",
+          "name": "Programming Skills",
           "color": "#57B660"
         }
       ],
@@ -1214,12 +1220,13 @@
     }
   ],
   "coverLetterStanzas": [
-    "Hello, I am Muhammad Ibrahim Shaikh — an AI and Product Engineer driven by a simple conviction: the greatest AI breakthroughs are only as powerful as the production infrastructure that grounds them in deterministic truth.",
-    "Over the past three years at NUST and in fast-paced startup teams, I have focused on solving the hard engineering bottlenecks of agentic AI: slashing LLM operational costs by 89%, eliminating pricing hallucinations across live e-commerce databases, and building zero-latency edge voice pipelines on hardware.",
-    "At BizBuddy, I watched conversational agents choke on bloated prompt contexts and unpredictable token costs. Rather than accepting high cloud bills, I restructured our dynamic prompt compilation, migrated architectures to Qwen 3.6 Flash, and engineered a transactional two-phase commit protocol that handled 157,000+ customer orders with 98% accuracy.",
-    "At Horquva LLC, I stepped into the enterprise problem space, modeling company organizational vulnerabilities as topological dependency graphs. Across 58 tables with strict Row-Level Security, I designed simulation engines that forecast systemic blast radiuses when critical personnel leave or third-party APIs fail.",
-    "My academic foundation at MCS NUST, where I maintain a 3.59 CGPA under full scholarship, grounds every system I build in first-principles mathematics. Whether deriving gradient descent by hand under Dr. Saeed Murtaza and Prof. Khawir Mahmood or training custom YOLOv11 medical vision models, I build with mathematical rigor and clean design.",
-    "If your team is building real, autonomous, and high-impact AI systems that must scale without compromising reliability, I would love to build with you. Let us connect, review your Recruiter Mix, and start the conversation."
+    "I am Ibrahim Shaikh, a Software Engineering student at NUST, graduating in May 2027, and the engineer you hire when the work is new, and the answer is not written down yet.",
+    "Twice, I started a role without knowing the work. At a generative AI company, my first task was to understand a text-to-speech model end to end, then build a custom pipeline for synthetic data extraction. I read the research papers, worked through tokenization, chunking, transformation, and detokenization, and shipped the pipeline. At an AI ordering platform I joined early, I knew little about API integrations or how agents are built. I learned both, then rebuilt the agent.",
+    "That rebuild shows how I work. The agent parsed model output with regex and tags, so I replaced it with a tool-calling architecture of nine custom tools that query the database in real time. When accuracy stalled, I stopped tuning the code and tested the model, and found it could not use tools reliably on long context. I benchmarked alternatives and moved to a cheaper model, which cut input tokens per message by 80% and total cost by 89%, with the same design scaling to restaurants. The system had handled 157,000+ messages and 2,900+ orders. These improvements were mine to start. I was given room to experiment, so I tried ideas, measured them, and pitched the ones that worked.",
+    "I also take on the work around the code. I built the POS integrations, the webhook router, and the payment handlers from scratch, wrote the architecture documentation, and cut client onboarding from 24 to 40 hours down to 8 to 12. I pitched, demoed, and supported 25 clients across the full lifecycle, from first demo to signed agreement to live, with dedicated calls for each stage. I ran technical interviews from screening to final call, and I onboarded and mentored an intern.",
+    "I lead, too. I lead a four-person final year project that is becoming a startup, directed the media team at DevCon '25, served as Secretary Media at the Software Society, and co-founded an AI automation agency. I won first place at the NUST Code Connect 2025 AI Hackathon among 20+ teams.",
+    "If your team is building real, autonomous, and high-impact AI systems that must scale without compromising reliability, I would love to build with you.",
+    "I am open to Software, AI, Product, Growth, and Automation Engineering roles. If you have a goal that needs an engineer who learns fast, takes initiative, and delivers. Let us connect, review your Recruiter Mix, and start the conversation."
   ],
   "whatsNew": [
     "work-horquva",
@@ -1307,7 +1314,7 @@
           },
           {
             "label": "Phone",
-            "href": "tel:+923132228891"
+            "href": "tel:+923182228891"
           }
         ]
       },

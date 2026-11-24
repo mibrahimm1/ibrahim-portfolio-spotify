@@ -52,4 +52,32 @@ describe('TopNavBar Component', () => {
       'Switch to Standard Resume View'
     );
   });
+
+  it('renders "Switch to Standard Portfolio" button beside "Book a call"', () => {
+    render(<TopNavBar />);
+    const bookCallBtn = screen.getByRole('button', { name: /Book a call/i });
+    const switchLink = screen.getByRole('link', { name: /Switch to Standard Portfolio/i });
+
+    expect(bookCallBtn).toBeInTheDocument();
+    expect(switchLink).toBeInTheDocument();
+    expect(switchLink).toHaveAttribute('href', '/resume');
+    expect(switchLink).toHaveAttribute('aria-label', 'Switch to Standard Portfolio');
+    expect(switchLink).toHaveAttribute('title', 'Switch to Standard Portfolio');
+    expect(switchLink).toHaveTextContent('Switch to Standard Portfolio');
+
+    // Verify it is positioned right beside "Book a call"
+    expect(bookCallBtn.nextElementSibling).toBe(switchLink);
+
+    // Verify Encore secondary button pill styling and responsive classes
+    expect(switchLink).toHaveClass('hidden', 'lg:inline-flex', 'rounded-full', 'font-bold');
+    expect(bookCallBtn).toHaveClass('hidden', 'lg:inline-flex');
+  });
+
+  it('maintains "Switch to Standard Portfolio" button across different active views', () => {
+    usePortfolioStore.setState({ activeView: 'browse' });
+    render(<TopNavBar />);
+    const switchLink = screen.getByTestId('switch-to-standard-portfolio-button');
+    expect(switchLink).toBeInTheDocument();
+    expect(switchLink).toHaveAttribute('href', '/resume');
+  });
 });

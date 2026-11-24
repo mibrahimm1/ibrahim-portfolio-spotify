@@ -103,11 +103,15 @@ export const RecommenderProfileView: React.FC = () => {
             label={`More options for ${recommender.name}`}
             onClick={(e) =>
               openMenuAt(e, [
-                {
-                  id: 'email',
-                  label: 'Copy email address',
-                  onSelect: () => copyToClipboard(recommender.email, 'Email address copied'),
-                },
+                ...(recommender.email
+                  ? [
+                      {
+                        id: 'email',
+                        label: 'Copy email address',
+                        onSelect: () => copyToClipboard(recommender.email!, 'Email address copied'),
+                      },
+                    ]
+                  : []),
                 {
                   id: 'scholar',
                   label: 'Open Google Scholar',
@@ -159,9 +163,11 @@ export const RecommenderProfileView: React.FC = () => {
                 <p className="font-bold text-white">{recommender.name}</p>
                 <p>{recommender.title}</p>
                 <p>{recommender.affiliation}</p>
-                <a href={`mailto:${recommender.email}`} className="mt-1 inline-block text-white hover:underline">
-                  {recommender.email}
-                </a>
+                {recommender.email && (
+                  <a href={`mailto:${recommender.email}`} className="mt-1 inline-block text-white hover:underline">
+                    {recommender.email}
+                  </a>
+                )}
               </footer>
             </article>
           </div>

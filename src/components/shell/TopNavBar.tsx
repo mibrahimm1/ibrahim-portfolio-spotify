@@ -123,7 +123,7 @@ export const TopNavBar: React.FC = () => {
       </div>
 
       {/* Centre: Home + search, centred on the window like the real client */}
-      <div className="flex w-[min(540px,46vw)] flex-shrink-0 items-center gap-2">
+      <div className="flex w-[min(540px,46vw)] min-w-0 flex-shrink items-center gap-2">
         <Tooltip label="Home" side="bottom">
           <button
             type="button"
@@ -218,6 +218,16 @@ export const TopNavBar: React.FC = () => {
         >
           Book a call
         </button>
+        <Link
+          href="/resume"
+          id="switch-standard-portfolio-btn"
+          data-testid="switch-to-standard-portfolio-button"
+          aria-label="Switch to Standard Portfolio"
+          title="Switch to Standard Portfolio"
+          className={cn(spotifyButtonClasses('secondary', 'sm'), 'hidden lg:inline-flex px-3 xl:px-4')}
+        >
+          <span className="hidden xl:inline">Switch to&nbsp;</span>Standard Portfolio
+        </Link>
         <IconButton label="What's New" tooltipSide="bottom" onClick={openWhatsNew}>
           <BellIcon size={16} />
         </IconButton>

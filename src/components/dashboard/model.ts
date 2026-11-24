@@ -192,7 +192,6 @@ export const newItem = {
     name: '',
     title: '',
     affiliation: '',
-    email: '',
     ranking: '',
     type: 'academic' as const,
     avatarInitials: '',

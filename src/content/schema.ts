@@ -108,7 +108,7 @@ export const RecommenderSchema = z.object({
   name: text(100),
   title: text(200),
   affiliation: text(300),
-  email: z.email(),
+  email: z.email().optional(),
   ranking: text(160),
   type: z.enum(['academic', 'industry']),
   avatarInitials: text(3),

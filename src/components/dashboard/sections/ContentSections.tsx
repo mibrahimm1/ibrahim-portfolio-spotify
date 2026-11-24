@@ -254,7 +254,7 @@ export const RecommendersSection: React.FC = () => {
               <TextField path={[...path, 'affiliation']} label="Affiliation" />
             </Row>
             <Row cols={3}>
-              <TextField path={[...path, 'email']} label="Email" type="email" />
+              <TextField path={[...path, 'email']} label="Email" type="email" optional />
               <SelectField
                 path={[...path, 'type']}
                 label="Type"
