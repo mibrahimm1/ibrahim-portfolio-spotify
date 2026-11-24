@@ -1,112 +1,159 @@
-# Spotify-inspired Developer Portfolio
+# Muhammad Ibrahim Shaikh — Spotify-Style Developer Portfolio 🎵💻
 
-An interactive portfolio that presents a developer's work the way a music app presents a library. Projects, roles and credentials are "tracks", portfolio sections are "playlists", the tech stack shows up as "top artists", and recruiters can save items to a **Recruiter Mix** and send it with a call request. Fork it, fill in your own content in a visual editor, and deploy it as a static site.
+[![Next.js](https://img.shields.io/badge/Next.js-15.5-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-18.3-61DAFB?style=flat&logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=flat&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
+[![Tests](https://img.shields.io/badge/Tests-172%20Unit%20%7C%2065%20E2E%20Passed-brightgreen?style=flat)](tests/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-> **Not affiliated with Spotify.** This is an independent project inspired by the Spotify desktop and mobile apps. It contains no Spotify logos, artwork, fonts or other brand assets. "Spotify" is a trademark of Spotify AB.
+> An authentic, 1:1 Spotify Desktop & Mobile-inspired developer portfolio designed to showcase production AI architectures, multi-agent LLM systems, computer vision pipelines, and full-stack engineering. Built with static export lockdown, zero runtime server overhead, strict CSP, and a visual dev CMS.
 
-## Features
+---
 
-- **Desktop layout:**
-  - resizable library and Now Playing panels
-  - context menus, a queue, and keyboard shortcuts
-  - shareable URLs for every page
-- **Phone layout:**
-  - tab bar, mini-player and full-screen player
-  - bottom sheets, and support for the Back gesture
-  - tablets get a compact desktop layout
-- **Ask-the-AI search:** suggested questions and answers you write yourself. It runs locally, with no API keys.
-- **Recruiter Mix:** visitors save items, then send them to you through their mail app, together with a booking link.
-- **Standard portfolio page (`/resume`):** a classic single-page layout for visitors who'd rather skip the app, with generated project posters, a cursor-follow project preview, light and dark themes, and a one-page résumé when printed.
-- **Content dashboard:** edit everything visually, with uploads, validation and backups. It exists only in development.
-- **Locked-down production:**
-  - a static export with no server
-  - a strict, hashed Content-Security-Policy
-  - a build that fails if dev code leaks into the output
-- **Tested:** unit tests (Vitest) and end-to-end tests (Playwright) on desktop, Android and iPhone viewports, run in CI on every push.
+## 👨‍💻 About Me
 
-Built with Next.js 15 (App Router), React 18, Zustand, Tailwind CSS, zod and TypeScript. Requires Node 22.12 or newer.
+I am **Muhammad Ibrahim Shaikh**, an **AI & Product Engineer** studying Software Engineering at **NUST** (Class of '27, 3.59 CGPA, 100% Scholarship). I build autonomous agentic workflows, computer vision models, and production RAG pipelines that hold up in production environments.
 
-## Make it yours in 5 minutes
+* 📍 **Locations:** Islamabad & Karachi, Pakistan · *Open to Remote Roles Worldwide*
+* 💼 **LinkedIn:** [linkedin.com/in/ibrahimshaikhh](https://www.linkedin.com/in/ibrahimshaikhh/)
+* 🐙 **GitHub:** [github.com/mibrahimm1](https://github.com/mibrahimm1)
+* ✉️ **Email:** [m.ibrahimshaikh357@gmail.com](mailto:m.ibrahimshaikh357@gmail.com)
+* 📱 **Phone:** `+92 318 2228891` (`0318-2228891`)
+* 📅 **Book a Call:** [Schedule a Meeting on Google Meet](https://calendar.app.google/PCPWdsfLosf2QBAz8)
+* 📄 **Standard Portfolio / Résumé:** Available directly at `/resume` with a 1-page ATS-formatted print view.
 
-1. **Fork** this repository on GitHub and clone your fork.
-2. Install the dependencies:
-   ```bash
-   npm ci
-   ```
-3. Remove the original owner's content and files (it starts you from a neutral example and puts your username in `CODEOWNERS`):
-   ```bash
-   npm run setup -- --github your-github-username
-   ```
-4. Start the dev server:
-   ```bash
-   npm run dev
-   ```
-5. Open **http://localhost:3000/dashboard** and edit: profile, projects, experience, education, references, AI answers, colours. Upload your photo and resume PDF. Every save validates the content and keeps a backup, and the site preview updates live.
-6. Check the production build:
-   ```bash
-   npm run build
-   ```
-7. Commit `content/` and `public/`, push, and [deploy](#deploy).
+---
 
-You can also edit [`content/portfolio.json`](content/portfolio.json) by hand; `npm run content:validate` checks it. The dashboard guide is in [`12-dashboard-guide.md`](docs/improvements/12-dashboard-guide.md), and every field is described in [`11-content-model.md`](docs/improvements/11-content-model.md).
+## 🚀 Key Highlights & Engineering Track Record
 
-## Scripts
+* **Konvex (AI-Native E-Commerce Assistant):** Leading a 4-person capstone team building a multi-agent state graph that unifies WhatsApp, Instagram, Shopify, and WooCommerce into a live inbox with hybrid semantic search and 0% pricing hallucination.
+* **BizBuddy (89% LLM Cost Reduction):** Replaced regex model parsing with a 9-tool calling architecture, restructured dynamic prompt compilation, and benchmarked models to cut cost by 89% across 157,000+ messages and 2,900+ orders.
+* **Horquva LLC (Enterprise Blast Radius Simulations):** Modeled organizational security vulnerabilities as topological dependency graphs across 58 tables with strict Row-Level Security (RLS).
+* **Multimodal Medical Diagnostic AI:** Trained YOLOv8 models on 14,000+ chest X-rays (0.99 mAP@50 healthy detection) combined with Google Gemini multi-turn clinical grounding.
+* **Code Connect 2025 AI Hackathon:** **1st Place** among 20+ national teams for building a WebRTC video application with real-time bidirectional multilingual speech translation.
 
-| Script | What it does |
+---
+
+## 🎧 The Portfolio Metaphor: Why Spotify?
+
+This portfolio translates a developer's career into an authentic music client interface:
+
+| Spotify Metaphor | Portfolio Reality |
 |---|---|
-| `npm run dev` | Dev server on 127.0.0.1:3000, with the content dashboard at `/dashboard` |
-| `npm run build` | Validates the content, builds the static site in `out/`, adds the CSP, and verifies the output |
-| `npm run preview` | Serves `out/` at http://127.0.0.1:4173 with the production headers |
-| `npm run test:unit` | Unit tests |
-| `npm run test:e2e` | End-to-end tests (builds a test copy of the site; installs nothing globally) |
-| `npm run content:validate` | Checks `content/portfolio.json` against the schema |
-| `npm run content:reset` | Replaces your content with the example template (backs up the old file) |
-| `npm run setup -- --github <you>` | One-time fork setup (above) |
+| **Tracks** | Production AI systems, work experiences, publications, education, and credentials |
+| **Playlists** | Curated categories (*Featured Projects*, *Work Experience*, *Education*, *Research*, *Volunteering*, *Certifications*) |
+| **Top Artists** | Core engineering stack (*Python, LangChain, PyTorch, n8n, FastAPI, RAG, LLMs, Postgres*) acting as dynamic filtered playlists |
+| **Now Playing Inspector** | Right-sidebar technical deep dives with cover artwork, architecture hooks, narrative overviews, and live GitHub/demo links |
+| **Recruiter Mix** | Visitors bookmark projects with the `+` icon, automatically compiling a custom mix to email or attach to a Google Meet booking call |
+| **Lyrics Mode** | Synchronized personal cover letter that scrolls in time with a visual audio scrubber |
+| **Standard Portfolio (`/resume`)** | Traditional paper-and-ink single-page portfolio with rotating headline, local timezone clock, and printable 1-page ATS résumé |
 
-The first `npm run test:e2e` needs a browser:
+---
 
+## 🛠️ Tech Stack & Architecture
+
+* **Framework:** Next.js 15 (App Router, static export `output: 'export'`)
+* **Core:** React 18, TypeScript, Zustand 5 (atomic selectors, zero 1Hz re-render overhead)
+* **Styling & Tokens:** Tailwind CSS 3.4 with authentic Spotify Encore color scales and responsive typography (`FitTitle`)
+* **Validation:** Zod schema enforcement for all content, SafeUrl protocols, and image path confinements
+* **Security:** Strict Content-Security-Policy with sha256 script hashing, zero-trust headers, and full static build isolation
+* **Testing:** 172 Vitest unit tests + 65 Playwright end-to-end tests across desktop, Android (Pixel 7), and iOS (iPhone 14) viewports
+
+> **Disclaimer:** Not affiliated with Spotify. This is an independent portfolio project inspired by the Spotify desktop and mobile applications. It contains no proprietary Spotify logos, fonts, or assets.
+
+---
+
+## 🌟 Make It Yours in 5 Minutes (Open-Source Template)
+
+Want to use this design for your own developer portfolio? This repository is built as an open-source template. You can fork it, fill in your details via a visual CMS, and deploy it to Vercel, Netlify, Cloudflare Pages, or GitHub Pages.
+
+### Step 1: Fork and Clone
+Fork this repository to your GitHub account, then clone it locally:
 ```bash
-npx playwright install chromium
+git clone https://github.com/<your-username>/ibrahim-portfolio-spotify.git
+cd ibrahim-portfolio-spotify
+npm ci
 ```
 
-## Deploy
+### Step 2: Run the 1-Step Setup Script
+Run the automated cleanup script to replace the personal content with a neutral template and set your username:
+```bash
+npm run setup -- --github <your-github-username>
+```
+*What this does automatically:*
+- Backs up existing content to `content/.backups/`.
+- Resets `content/portfolio.json` to the neutral example template (`portfolio.example.json`).
+- Resets `public/resume.pdf` to a clean placeholder.
+- Cleans out personal images from `public/uploads/`.
+- Sets your GitHub handle in `.github/CODEOWNERS`.
 
-The production build is plain files in `out/`. There is no server, and nothing in production can change your content.
+### Step 3: Edit Your Content Visually
+Start the local development server:
+```bash
+npm run dev
+```
+Open **[http://localhost:3000/dashboard](http://localhost:3000/dashboard)** in your browser:
+* Visually edit your profile, projects, experiences, education, and contact links.
+* Upload your avatar, project covers, and custom resume PDF.
+* Customize your accent color palettes and AI assistant answers with instant live preview.
+* Every save validates against the schema and creates an atomic rolling backup.
+*(The dashboard is strictly dev-only and is completely omitted from production builds).*
 
-| Host | How |
+### Step 4: Validate and Build
+Verify that your content passes all schema checks and builds a clean static export:
+```bash
+npm run build
+```
+Preview the exact static production bundle locally:
+```bash
+npm run preview
+# Serves out/ at http://127.0.0.1:4173 with full production security headers
+```
+
+### Step 5: Deploy
+
+| Host | Deployment Steps |
 |---|---|
-| **Vercel** | Import the repository. `vercel.json` already sets the build command, output folder and security headers |
-| **Netlify** | Import the repository. `netlify.toml` does the rest; headers come from the generated `out/_headers` |
-| **Cloudflare Pages** | Build command `npm run build`, output directory `out` |
-| **GitHub Pages** | Settings → Pages → Source: GitHub Actions, then set the repository variable `DEPLOY_TO_PAGES` to `true`. The included workflow deploys on every push to `main` |
+| **Vercel** | Import your repository. The included [`vercel.json`](vercel.json) automatically sets `output: "out"` and injects security headers. |
+| **Netlify** | Import your repository. The included [`netlify.toml`](netlify.toml) runs `npm run build` and publishes `out/`. |
+| **Cloudflare Pages** | Set build command `npm run build` and output directory `out`. It automatically reads [`out/_headers`](scripts/security-headers.mjs). |
+| **GitHub Pages** | In repo **Settings → Pages**, choose **"GitHub Actions"**. Set repository variable `DEPLOY_TO_PAGES=true`. The included workflow ([`.github/workflows/pages.yml`](.github/workflows/pages.yml)) deploys on every push to `main`. |
 
-Serve the site from the root of a domain: a custom domain, `username.github.io`, or any of the hosts above. GitHub Pages can't send HTTP headers, so the other hosts get the stronger header set. Details are in [`14-production-build.md`](docs/improvements/14-production-build.md).
+---
 
-After the first deploy, follow the account checklist in the [security audit](docs/improvements/15-security-audit.md#h--repository-and-deployment-governance-your-action): branch protection, two-factor authentication, and a domain lock. It's what keeps anyone else from changing your live site.
+## 🧪 Tests That Never Break on Forking
 
-## How it's built
+Unlike typical personal portfolios where tests hardcode the author's name and break the moment you edit content:
+* All unit and Playwright E2E tests run against an **isolated test fixture** ([`tests/fixtures/portfolio.json`](tests/fixtures/portfolio.json)) using the `@portfolio-content` path alias.
+* You can completely rewrite `content/portfolio.json`, and **your GitHub Actions CI and CodeQL security pipelines will still pass 100% cleanly**.
 
-| Path | What's there |
+---
+
+## 📜 Available Scripts
+
+| Script | Command / Description |
 |---|---|
-| `content/portfolio.json` | All your content: the only file you normally edit |
-| `src/content/schema.ts` | The content schema, including the security rules for links and image paths |
-| `src/data/portfolioData.ts` | Loads the content into the shapes the UI uses |
-| `src/stores/usePortfolioStore.ts` | App state: player, queue, history, overlays and preferences |
-| `src/components/` | `shell/` (desktop frame), `mobile/` (phone frame), `stage/` (pages), `dashboard/` (dev-only editor) |
-| `src/app/dashboard/`, `src/app/api/dev-dashboard/` | Dashboard routes, named `*.dev.tsx` / `*.dev.ts` so they exist only under `npm run dev` |
-| `scripts/` | Post-build CSP and verification, preview server, fork setup |
-| `tests/` | Unit and E2E tests. They run on `tests/fixtures/portfolio.json`, so they pass whatever your own content says |
+| `npm run dev` | Starts local dev server at `127.0.0.1:3000` with visual dashboard at `/dashboard` |
+| `npm run build` | Validates schema, compiles static export to `out/`, hashes CSP inline scripts, and verifies build |
+| `npm run preview` | Serves static production export at `http://127.0.0.1:4173` |
+| `npm run test:unit` | Executes 172 Vitest unit tests |
+| `npm run test:e2e` | Runs 65 Playwright E2E tests across Chromium, Android, and iOS viewports |
+| `npm run content:validate` | Validates `content/portfolio.json` against the strict Zod schema |
+| `npm run setup` | One-time setup script for open-source forkers (`--github <username>`) |
 
-Architecture, design tokens, interaction details and the mobile spec are in [`docs/improvements/`](docs/improvements/README.md).
+---
 
-## Security
+## 🔒 Security & Verification
 
-The live site is static and can only change through a new build from your repository. The dashboard is development-only and accepts requests from localhost only; every page runs under a strict Content-Security-Policy. See [`SECURITY.md`](SECURITY.md) and the full [audit](docs/improvements/15-security-audit.md).
+* **Static Immutability:** There is zero server runtime in production. No database, no API routes, and no routes accept write requests.
+* **Hashed CSP:** Every static page has an inline SHA-256 Content-Security-Policy `<meta>` tag preventing script injection.
+* **Leak Detection:** `scripts/verify-build.mjs` halts the build if any dev dashboard code, source maps, or unhashed scripts leak into `out/`.
 
-## Contributing
+---
 
-Bug reports and pull requests are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
+## 📄 License
 
-## Licence
-
-The source code is [MIT](LICENSE). The Figtree font is [SIL OFL 1.1](public/fonts/LICENSE). The content in `content/portfolio.json` and `public/resume.pdf` describes the original author and isn't licensed for reuse; `npm run setup` replaces it in your fork.
+* Source code is licensed under the [MIT License](LICENSE).
+* Typography: Figtree font is licensed under the [SIL Open Font License 1.1](public/fonts/LICENSE).
+* Personal project narratives and media belong to Muhammad Ibrahim Shaikh. Open-source forkers should run `npm run setup` to populate their own content.
